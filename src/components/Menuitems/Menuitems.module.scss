@@ -1,0 +1,70 @@
+.menuitems {
+  margin-top: 16px;
+  padding: 0 16px;
+  position: relative;
+  &__title {
+    color: #000;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 44px;
+    letter-spacing: -1.6px;
+    padding-bottom: 2.2vw;
+    padding-left: 4.4vw;
+}
+  &__change {
+    position: absolute;
+    right: 8.4vw;
+    display: flex;
+    column-gap: 8px;
+    align-items: center;
+    line-height: 44px;
+    p {
+      font-size: 4vw;
+      font-weight: 600;
+    }
+  }
+  &__boxChange {
+    width: 6.6vw;
+    height: 6.6vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  &__changebtn {
+    width: 5vw;
+    height: 1.11vw;
+    background: #585858;
+    position: relative;
+  }
+  &__changebtn::after,
+  &__changebtn::before {
+    content: '';
+    position: absolute;
+    width:  5vw;
+    height: 1.11vw;
+    background: #585858;
+  }
+  &__changebtn::after {
+    top: 1.4vw;
+  }
+  &__changebtn::before {
+    bottom: 1.4vw;
+  }
+ 
+}
+.menuitems .menuitems__min {
+  .menuitems__changebtn {
+    width: 5vw;
+    height: 2.22vw;
+    background: #585858;
+    position: relative;
+    border-radius: 0.6vw;
+  }
+  .menuitems__changebtn::after {
+    top: 2.7vw;
+  }
+  .menuitems__changebtn::before {
+    bottom: 2.7vw;
+  }
+}

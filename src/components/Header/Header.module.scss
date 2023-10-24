@@ -1,0 +1,80 @@
+.header {
+  padding: 20px 4vw;
+  border-bottom: 1px solid #DDD;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+
+  &__wrapper {
+    align-items: center;
+    display: flex;
+    column-gap: 16px;
+  }
+  &__burgerBox {
+    display: flex;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+  }
+  &__burger {
+    display: inline-block;
+    position: relative;
+    width: 18px;
+    height: 2px;
+    background: #000;
+    transition: background .5s;
+  }
+  &__burgerActive{
+    background: transparent;
+  }
+  &__burgerActive.header__burger::before {
+    transform: rotate(45deg);
+    top: 0;
+  }
+  &__burgerActive.header__burger::after {
+    transform: rotate(-45deg);
+    bottom: 0;
+  }
+  &__burger::after,
+  &__burger::before {
+    content: '';
+    position: absolute;
+    transition: all .8s;
+    transform: rotate(0deg);
+    width: 18px;
+    height: 2px;
+    background: #000;
+  }
+  &__burger::after {
+    bottom: -5px;
+  }
+  &__burger::before {
+    top: -5px;
+  }
+  &__search,
+  &__menu {
+    transition: transform .8s;
+    position: absolute;
+    width: 100%;
+    background: #fff;
+    left: 0;
+    z-index: 5;
+  }
+  
+  &__search {
+    height: 100vh;
+    top: 0;
+    transform: translateX(100%);
+  }
+  
+  &__menu {
+    height: calc(100vh - 65px);
+    top: calc(100% + 1px);
+    transform: translateX(-100%);
+  }
+
+  &__searchOpen,
+  &__menuhOpen {
+    transform: translateX(0);
+  }
+}

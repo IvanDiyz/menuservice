@@ -1,0 +1,298 @@
+.menuitem {
+    padding-bottom: 2.3vw;
+
+    &__wrapper {
+        border-radius: 24px;
+        border: 1px solid #DDD;
+        background: #FFF;
+        box-shadow: 0px 4px 0px 0px #DDD;
+        position: relative;
+    }
+
+    &__photo,
+    &__popupPhoto {
+        width: 100%;
+        height: 57.7vw;
+        background: url("/images/menuitem/pizza.png");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        border-radius: 24px 24px 0 0;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    &__serves {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 4.4vw 4.4vw;
+    }
+
+    &__servesItem {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 1.2vw;
+        background: rgba(0, 0, 0, 0.75);
+        padding: 1.1vw 2.2vw;
+
+        svg {
+            width: 4.4vw;
+            height: 4.4vw;
+        }
+
+        p {
+            color: #F5F5F5;
+            font-size: 3.8vw;
+            font-weight: 600;
+            line-height: 5.5vw;
+            letter-spacing: -0.194vw;
+            padding-left: 1.1vw;
+        }
+    }
+
+    &__popupClose {
+        position: absolute;
+        width: 13.3vw;
+        height: 13.3vw;
+        background: #FFF;
+        border-radius: 50%;
+        right: 4.4vw;
+        top: 4.4vw;
+    }
+
+    &__popupClose::after,
+    &__popupClose::before {
+        content: '';
+        position: absolute;
+        height: 5vw;
+        width: 0.56vw;
+        background-color: #000;
+        top: calc(13.3vw/2 - 5vw/2);
+        left: calc(13.3vw/2 - 0.56vw/2);
+    }
+
+    &__popupClose::after {
+        transform: rotate(45deg);
+    }
+
+    &__popupClose::before {
+        transform: rotate(315deg);
+    }
+
+    &__popupInform {
+        background: #FFF;
+        padding: 2.2vw 4.4vw 4.4vw;
+    }
+
+    &__popupName {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__popupWrapper {
+        padding: 4.4vw 0 4.4vw;
+        border-bottom: 1px solid #e1e1e1;
+    }
+
+    &__popupTitle {
+        font-size: 3.3vw;
+        line-height: 4.4vw;
+        text-transform: uppercase;
+        padding-bottom: 1.1vw;
+    }
+
+    &__popupText,
+    &__additiveName,
+    &__additivePrice {
+        font-size: 4.4vw;
+        line-height: 6.6vw;
+    }
+
+    &__additives {
+        padding: 4.4vw 0 4.4vw;
+    }
+
+    &__additivePrice {
+        color: #26B657;
+    }
+
+    &__info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 4.4vw;
+    }
+
+    &__infoItem {
+        display: none;
+        column-gap: 2.2vw;
+        padding-bottom: 2.2vw;
+
+        div {
+            display: flex;
+            align-items: center;
+        }
+
+        span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+                width: 4.4vw;
+                height: 4.4vw;
+            }
+        }
+
+        p {
+            padding-top: 2.5px;
+            color: #BDBDBD;
+            font-size: 3.8vw;
+            font-weight: 600;
+            line-height: 5.5vw;
+            letter-spacing: -0.7px;
+        }
+    }
+
+    &__info_btn,
+    &__popup_btn {
+        button {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 10vw;
+            height: 10vw;
+            border-radius: 50%;
+            
+            svg {
+                width: 6.6vw;
+                height: 6.6vw;
+            }
+        }
+    }
+    &__info_btn {
+        button {
+            background: #2EB955;
+        }
+    }
+    &__popup_btn {
+        button {
+            background: #F5F5F5;   
+        }
+    }
+
+    &__name {
+        color: #000;
+        font-size: 5.5vw;
+        font-weight: 600;
+        line-height: 7.7vw;
+        letter-spacing: -1px;
+    }
+
+    &__price {
+        color: #2EB955;
+        font-size: 5vw;
+        font-weight: 600;
+        line-height: 6.1vw;
+        letter-spacing: -0.9px;
+    }
+
+    &__alergenBox {
+        position: absolute;
+        top: 0;
+        display: flex;
+        column-gap: 1.1vw;
+        padding-top: 4.4vw;
+        padding-left: 4.4vw;
+    }
+
+    &__alergen {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 8.8vw;
+        height: 6.6vw;
+        border-radius: 1.1vw;
+        background: #FF5C00;
+
+        svg {
+            width: 4.5vw;
+            height: 4.5vw;
+        }
+    }
+    &__textareaBox {
+        padding-top: 4.4vw;
+    }
+}
+
+.menuitem__min {
+    .menuitem {
+        &__servesItem {
+            display: none;
+        }
+
+        &__info {
+            position: relative;
+            padding: 4.4vw 4.4vw 0 4.4vw;
+            align-items: flex-end;
+            width: 100%;
+        }
+
+        &__wrapper {
+            display: flex;
+            padding: 4.4vw;
+        }
+
+        &__photo {
+            width: auto;
+            min-width: 17.7vw;
+            height: 17.7vw;
+            border-radius: 3.3vw;
+        }
+
+        &__infoItem {
+            display: flex;
+        }
+
+        &__alergenBox {
+            left: 0;
+            top: 0;
+            padding-top: 0;
+        }
+
+        &__alergen {
+            background: unset;
+            width: auto;
+            height: auto;
+
+            path {
+                fill: #FF5C00;
+            }
+        }
+
+        &__price {
+            font-size: 4.4vw;
+            line-height: 6.6vw;
+            letter-spacing: -0.8px;
+        }
+    }
+}
+
+.textarea {
+    padding: 4.4vw 0 4.4vw 4.4vw;
+    line-height: 24px;
+    width: 100%;
+    border-radius: 3.3vw;
+    border: 1px solid #DDD;
+    background: #FAFAFA;
+    resize: none;
+    height: auto;
+    overflow: hidden;
+}
+.textarea:focus-visible {
+    border: #000;
+}

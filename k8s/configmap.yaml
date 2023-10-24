@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-configmap
+data:
+  PROJECT_ID: ${PROJECT_ID}
+  GKE_CLUSTER: ${GKE_CLUSTER}
+  GKE_ZONE: ${GKE_ZONE}
+  IMAGE: ${IMAGE}

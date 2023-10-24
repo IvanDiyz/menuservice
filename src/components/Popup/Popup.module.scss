@@ -1,0 +1,22 @@
+
+.modal {
+  &__popup {
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    z-index: 10;
+    top: 0;
+    padding-top: 65px;
+    background: #00000099;
+    transition: 0.5s;
+    overflow-y: scroll;
+  }
+
+  &__popupActive {
+    pointer-events: all;
+    opacity: 1;
+  }
+}

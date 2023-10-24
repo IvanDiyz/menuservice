@@ -1,0 +1,18 @@
+.filterbtn {
+  display: inline-block;
+  padding: 8px;
+  line-height: 0;
+  border-radius: 50%;
+  background-color: #F5F5F5;
+  margin-right: 8px;
+  position: relative;
+}
+.filterbtn::after {
+  content: '';
+  position: absolute;
+  right: -8px;
+  top: 0;
+  height: 100%;
+  width: 1px;
+  background-color: rgba(221, 221, 221, 0.87);
+}

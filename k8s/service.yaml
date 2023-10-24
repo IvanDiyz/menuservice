@@ -1,0 +1,14 @@
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "menu-admin-panel-ui-service"
+  namespace: "main"
+spec:
+  ports:
+    - protocol: "TCP"
+      port: 3000
+      targetPort: 3000
+  selector:
+    app: "menu-admin-panel-ui"
+  type: "LoadBalancer"

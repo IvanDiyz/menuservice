@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: menu-admin-panel-ui
+  namespace: "main"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: menu-admin-panel-ui
+  template:
+    metadata:
+      namespace: "main"
+      labels:
+        app: menu-admin-panel-ui
+    spec:
+      containers:
+        - name: menu-admin-panel-ui
+          image: northamerica-northeast1-docker.pkg.dev/enuatv/containers/menu-admin-panel-ui:${GIT_SHA}
+          ports:
+            - containerPort: 3000
+#          volumeMounts:
+#            - name: artifact-registry-service-account
+#              mountPath: /secrets/artifact-registry
+#              readOnly: true
+#      volumes:
+#        - name: artifact-registry-service-account
+#          secret:
+#            secretName: artifact-registry-service-account

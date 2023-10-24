@@ -1,0 +1,19 @@
+.locationLink {
+  position: absolute;
+  right: 0;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 1px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    background-image: url("/images/icons/location-icon.svg");
+    background-repeat: no-repeat;
+    background-size: 24px auto;
+  }
+}

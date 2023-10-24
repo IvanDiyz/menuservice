@@ -1,0 +1,27 @@
+.filtres {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  padding-bottom: 16px;
+  padding-left: 8px;
+  border-bottom: 1px solid #DDD;
+
+  &__page {
+    pointer-events: none;
+    transition: transform .8s;
+    position: absolute;
+    width: 100%;
+    background: #fff;
+    left: 0;
+    z-index: 5;
+    height: calc(100vh - 65px);
+    top: 0;
+    transform: translateX(-100%);
+  }
+
+  &__pageOpen {
+    transform: translateX(0);
+    pointer-events: all;
+  }
+}
