@@ -2,20 +2,20 @@ import Link from "next/link";
 import s from "./ClientInfo.module.scss";
 import Image from "next/image";
 
-const ClientInfo = () => {
+const ClientInfo = ({name, logoUrl, openingTime, closingTime, types}) => {
   return (
     <div className={s.clientinfo}>
       <div className={s.clientinfo__logo}>
         <Image
-          src="/images/main/logo-partner.png"
+          src={logoUrl ? `${logoUrl}` : "/images/main/logo-partner.png"}
           alt="Логотип заведения"
           width={62}
           height={62}
         />
       </div>
       <div className={s.clientinfo__box}>
-        <p className={s.clientinfo__type}>Кафе-бар</p>
-        <h1 className={s.clientinfo__name}>У Сашка</h1>
+        <p className={s.clientinfo__type}>{types.lenght ? `${types}` : 'Кафе-Бар'}</p>
+        <h1 className={s.clientinfo__name}>{name}</h1>
         <div className={s.clientinfo__worktime}>
           <svg
             width="17"

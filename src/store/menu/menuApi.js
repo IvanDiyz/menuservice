@@ -3,10 +3,9 @@ import api from "@/services/api";
 
 export const fetchMenu = createAsyncThunk(
   "user/fetchMenu",
-  async (currentPage, thunkAPI) => {
+  async (venueId, thunkAPI) => {
     try {
-      const response = await api.get(`/venue?limit=4&page=${currentPage}`);
-
+      const response = await api.get(`/venue/1/main-page`);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue("Что-то пошло не так!");
