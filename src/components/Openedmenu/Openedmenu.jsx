@@ -9,7 +9,7 @@ export default function Openedmenu() {
     <div className={s.openedMenu}>
       <Openedinfo />
       <OrderMethods firstmethod={'В закладі'} lastmethod={'Із собою'}/>
-      <ServiceSheet />
+      {/* <ServiceSheet /> создать тригер в сторе для откртия и закрытия выполывающего меню */} 
       <Openedcontact />
     </div>
   );

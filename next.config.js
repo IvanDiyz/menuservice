@@ -2,7 +2,7 @@
 const path = require('path');
 const nextConfig = {
   images: {
-    domains: ["lh3.googleusercontent.com"],
+    domains: ['cdn.logo.com'],
   },
   // webpack: (config) => {
   //   config.resolve.alias['@'] = path.join(__dirname, 'src');
