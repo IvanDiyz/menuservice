@@ -1,30 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchParams } from "./paramsClientApi";
+import { fetchSection } from "./sectionApi";
 
 const initialState = {
   statuses: [],
   types: [],
 };
 
-export const getParams = createSlice({
-  name: "getParams",
+export const getSection = createSlice({
+  name: "getSection",
   initialState,
   reducer: {},
   extraReducers: (builder) =>
     builder
-      .addCase(fetchParams.fulfilled, (state, action) => {
+      .addCase(fetchSection.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = "";
         state.statuses = action.payload.statuses;
         state.types = action.payload.types;
       })
-      .addCase(fetchParams.pending, (state) => {
+      .addCase(fetchSection.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchParams.rejected, (state, action) => {
+      .addCase(fetchSection.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       }),
 });
 
-export default getParams.reducer;
+export default getSection.reducer;

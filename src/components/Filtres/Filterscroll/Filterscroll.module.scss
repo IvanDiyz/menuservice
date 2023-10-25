@@ -12,6 +12,9 @@
     border: 2px solid #DDD;
     white-space: nowrap;
   }
+  &__item::first-letter {
+    text-transform: uppercase;
+  }
   &__item.active {
     border: none;
     background: #EB7F00;

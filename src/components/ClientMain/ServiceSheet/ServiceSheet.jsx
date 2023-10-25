@@ -2,15 +2,22 @@
 // Styles
 import Link from "next/link";
 import s from "./ServiceSheet.module.scss";
-import { useEffect, useState } from "react";
+import { useAppDispatch } from "@/hooks/redux";
+import { setMenuId } from "@/store/getSections/getSections";
 
 const ServiceSheet = ({ menus }) => {
-  console.log("comp1", menus);
+  const dispatch = useAppDispatch();
+
+  //function set by id menu
+  const menuId = async (id) => {
+    dispatch(setMenuId(id));
+  };
+
   return (
     <div className={s.serviceSheet}>
       {menus.map((el) => {
         return (
-          <Link href="/menu" key={el.id}>
+          <Link href="/menu" key={el.id} onClick={() => menuId(el.id)}>
             <div className={s.serviceSheet__box}>
               <div className={s.serviceSheet__nameService}>
                 <p className={s.serviceSheet__name}>{el.name}</p>

@@ -9,13 +9,17 @@ import {
 import menuReducer from "./menu/menuSlice";
 import clientReducer from "./client/clientSlice";
 import stateAsideReducer from "./stateAside/stateAside";
-import getParams from "./getStatuses/getParams";
+import getSections from "./getSections/getSections";
+import getDishis from "./getDishis/getDishis";
+import getSection from "./getSection/getSection";
 
 export const store = configureStore({
   reducer: {
     menu: menuReducer,
     client: clientReducer,
     stateAside: stateAsideReducer,
-    paramsClients: getParams,
+    getSections: getSections,
+    getDishis: getDishis,
+    getSection: getSection,
   },
 });
