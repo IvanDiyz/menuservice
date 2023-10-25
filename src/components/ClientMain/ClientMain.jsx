@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchMenu } from "@/store/menu/menuApi";
 
+
 // Components
 import Container from "../Container/Container";
 import ClientInfo from "./ClientInfo/ClientInfo";
@@ -26,10 +27,10 @@ const ClientMain = () => {
     
     fetchData()
   }, [venueId])
+
   if (!dataLoaded) {
     return <Container>Loading...</Container>;
   }else {
-    console.log('true',dataLoaded)
     return (
       <Container>
         <ClientInfo name={name} logoUrl={logoUrl} openingTime={openingTime} closingTime={closingTime} types={types}/>
