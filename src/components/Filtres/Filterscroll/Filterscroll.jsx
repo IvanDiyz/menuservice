@@ -15,7 +15,6 @@ export default function Filterscroll() {
   useEffect(() => {
     const fetchData = async () => {
       if(selectedSection == null) {
-        console.log(menuId)
         await dispatch(fetchDishis({selectedSection, menuId}));
       }else {
         await dispatch(fetchDishis({selectedSection, menuId}));
@@ -31,7 +30,6 @@ export default function Filterscroll() {
     }else {
       setSelectedSection(id);
     }
-    console.log('null', selectedSection);
   };
 
   return (
@@ -47,9 +45,6 @@ export default function Filterscroll() {
           {el.name}
         </li>
       ))}
-      <li className={s.filterscroll__item}>Суші</li>
-      <li className={s.filterscroll__item}>Салати</li>
-      <li className={s.filterscroll__item}>Головні страви</li>
     </ul>
   );
 }
