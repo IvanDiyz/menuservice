@@ -15,6 +15,7 @@ const menu = () => {
   const dispatch = useAppDispatch();
   const [dataLoaded, setDataLoaded] = useState(false);
   const { menuId, error } = selector((state) => state.getSections);
+  
 
   useEffect(() => {
     //pregnant all sections by api

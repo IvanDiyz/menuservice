@@ -4,6 +4,7 @@ import { fetchDishis } from "./getDishisApi";
 const initialState = {
   menuId: null,
   dishis: [],
+  stateDishis: false,
 };
 
 export const getDishis = createSlice({
@@ -15,15 +16,21 @@ export const getDishis = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(fetchDishis.fulfilled, (state, action) => {
+        state.menuId = action?.payload.menuId;
         state.isLoading = false;
+        state.stateDishis = true;
         state.error = "";
-        state.dishis = action.payload;
+        state.menuId ? state.dishis = action.payload.data : state.dishis.items = action.payload.data;
+        
       })
       .addCase(fetchDishis.pending, (state) => {
         state.isLoading = true;
+        state.stateDishis = false;
         state.error = "";
+        state.menuId = null;
       })
       .addCase(fetchDishis.rejected, (state, action) => {
+        state.stateDishis = false;
         state.isLoading = false;
         state.error = action.payload;
       }),
