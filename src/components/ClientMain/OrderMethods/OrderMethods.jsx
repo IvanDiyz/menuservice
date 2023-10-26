@@ -1,10 +1,23 @@
 // Styles
+"use client"
+
+import { useState } from "react";
 import s from "./OrderMethods.module.scss";
+import { setMethodOrder } from "@/store/menu/menuSlice";
+import { useAppDispatch } from "@/hooks/redux";
 
 const OrderMethods = ({firstmethod, lastmethod, svg}) => {
+  const [isActive, setIsActive] = useState('Inside');
+  const dispatch = useAppDispatch();
+
+  const toggleOrder = (order) => {
+    setIsActive(order)
+    dispatch(setMethodOrder(order))
+  }
+
   return (
     <div className={s.orderMethods}>
-      <div className={`${s.orderMethods__button} ${s.active}`}>
+      <div className={`${s.orderMethods__button} ${isActive == 'Inside' ? s.active : ''}`} onClick={() => toggleOrder('Inside')}>
           {svg ? <svg
             width="24"
             height="24"
@@ -22,7 +35,7 @@ const OrderMethods = ({firstmethod, lastmethod, svg}) => {
           </svg> : ''}
         <button className={s.orderMethods__btn}>{firstmethod}</button>
       </div>
-      <div className={`${s.orderMethods__button}`}>
+      <div className={`${s.orderMethods__button} ${isActive == 'Takeaway' ? s.active : ''}`} onClick={() => toggleOrder('Takeaway')}>
         {svg ? <svg
             width="24"
             height="24"

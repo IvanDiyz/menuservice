@@ -3,6 +3,7 @@ import { fetchMenu } from "./menuApi";
 import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
+  methodOrder: 'Inside',
   venueId: 1,
   menus: [],
   name: null,
@@ -18,6 +19,9 @@ export const menuSlice = createSlice({
   name: "menu",
   initialState,
   reducers: {
+    setMethodOrder: (state, acton) => {
+      state.methodOrder = acton.payload;
+    }
   },
   extraReducers: (builder) =>
     builder
@@ -42,5 +46,5 @@ export const menuSlice = createSlice({
       }),
 });
 
-export const { changePage } = menuSlice.actions;
+export const { setMethodOrder } = menuSlice.actions;
 export default menuSlice.reducer;
