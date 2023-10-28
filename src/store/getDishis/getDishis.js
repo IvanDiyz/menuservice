@@ -3,6 +3,7 @@ import { fetchDishis } from "./getDishisApi";
 
 const initialState = {
   menuId: null,
+  actualSection: null,
   dishis: [],
   stateDishis: false,
 };
@@ -11,7 +12,9 @@ export const getDishis = createSlice({
   name: "getDishis",
   initialState,
   reducers: {
-    
+    setActualSection: (state, action) => {
+      state.actualSection = action.payload;
+    }
   },
   extraReducers: (builder) =>
     builder
@@ -36,5 +39,5 @@ export const getDishis = createSlice({
       }),
 });
 
-export const { setMenuId } = getDishis.actions;
+export const { setActualSection } = getDishis.actions;
 export default getDishis.reducer;

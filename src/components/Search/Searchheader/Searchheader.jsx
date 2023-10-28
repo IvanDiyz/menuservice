@@ -1,6 +1,14 @@
+import { changeValue } from "@/store/setSearch/setSearch";
 import s from "./Searchheader.module.scss";
+import { useAppDispatch } from "@/hooks/redux";
 
 export default function Searchheader({ result, changState }) {
+  const dispatch = useAppDispatch();
+  let close = () => {
+    changState();
+    dispatch(changeValue(''));
+  }
+
   return (
       <header className={s.header}>
         <h4 className={s.header__wrappertitle}>{result}</h4>
@@ -11,7 +19,7 @@ export default function Searchheader({ result, changState }) {
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            onClick={changState}
+            onClick={close}
           >
             <g id="close">
               <path

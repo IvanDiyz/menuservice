@@ -12,6 +12,7 @@ import stateAsideReducer from "./stateAside/stateAside";
 import getSections from "./getSections/getSections";
 import getDishis from "./getDishis/getDishis";
 import getSection from "./getSection/getSection";
+import setSearch from "./setSearch/setSearch";
 
 export const store = configureStore({
   reducer: {
@@ -21,5 +22,6 @@ export const store = configureStore({
     getSections: getSections,
     getDishis: getDishis,
     getSection: getSection,
+    setSearch: setSearch,
   },
 });
