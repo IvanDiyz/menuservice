@@ -5,6 +5,7 @@ import s from "./Filterscroll.module.scss";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useEffect, useState } from "react";
 import { fetchDishis } from "@/store/getDishis/getDishisApi";
+import { setActualSection } from "@/store/getDishis/getDishis";
 
 export default function Filterscroll() {
   const selector = useAppSelector;
@@ -16,8 +17,10 @@ export default function Filterscroll() {
     const fetchData = async () => {
       if(selectedSection == null) {
         await dispatch(fetchDishis({selectedSection, menuId}));
+        dispatch(setActualSection(null))
       }else {
         await dispatch(fetchDishis({selectedSection, menuId}));
+        dispatch(setActualSection(selectedSection))
       }
     };
     fetchData();
