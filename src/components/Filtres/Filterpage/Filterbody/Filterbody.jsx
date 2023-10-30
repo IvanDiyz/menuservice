@@ -6,7 +6,7 @@ export default function Filterbody() {
     <div className={s.filter}>
       <Checkbox id={'alergen'} name={'Алергени'}/>
       <Checkbox id={'vegan'} name={'Вегетаріанське'}/>
-      <Checkbox id={'hot'} name={'Гостре'}/>
+      <Checkbox id={'spicy'} name={'Гостре'}/>
     </div>
   );
 }

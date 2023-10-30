@@ -13,6 +13,7 @@ import getSections from "./getSections/getSections";
 import getDishis from "./getDishis/getDishis";
 import getSection from "./getSection/getSection";
 import setSearch from "./setSearch/setSearch";
+import setFilter from "./setFilter/setFilter";
 
 export const store = configureStore({
   reducer: {
@@ -23,5 +24,6 @@ export const store = configureStore({
     getDishis: getDishis,
     getSection: getSection,
     setSearch: setSearch,
+    setFilter: setFilter,
   },
 });
