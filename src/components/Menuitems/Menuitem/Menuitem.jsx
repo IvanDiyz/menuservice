@@ -1,19 +1,91 @@
 "use client";
 import Popup from "@/components/Popup/Popup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import s from "./Menuitem.module.scss";
+import {
+  addDish,
+  changeQuantity,
+  deleteDish,
+} from "@/store/setBasket/setBasket";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 export default function Menuitem({ triger, dish }) {
+  const dispatch = useAppDispatch();
+  const select = useAppSelector;
   const [popup, setPopup] = useState(false);
+  const [calculate, setCalculate] = useState("");
+  let [quantityDish, setQuantity] = useState(0);
+  const { items } = select((state) => state.setBasket);
+
   const openPopup = (e) => {
     setPopup(true);
     document.body.style.overflow = "hidden";
-    console.log(window.scroll);
   };
   const closePopup = (e) => {
     setPopup(false);
     document.body.style.overflow = "auto";
   };
+
+  let calculateObj = {
+    plus: () => {
+      if (quantityDish > 1) {
+        dispatch(
+          changeQuantity({
+            id: dish.id,
+            quantity: quantityDish,
+            sign: calculate,
+          })
+        );
+      } else {
+        dispatch(
+          addDish({
+            id: dish.id,
+            quantity: quantityDish,
+            amount: dish.cost,
+            isReady: false,
+            dish: dish,
+          })
+        );
+      }
+    },
+    minus: () => {
+      dispatch(
+        changeQuantity({
+          id: dish.id,
+          quantity: quantityDish,
+          sign: calculate,
+        })
+      );
+    },
+    delete: () => {
+      dispatch(
+        deleteDish({
+          id: dish.id,
+        })
+      );
+    },
+  };
+
+  useEffect(() => {
+    if (quantityDish > 0) {
+      calculateObj[calculate]();
+    }
+    if (quantityDish == 0 && calculate == "minus") {
+      calculateObj["delete"]();
+    }
+  }, [quantityDish]);
+
+  //increase quantityDish by one
+  let plusDish = () => {
+    setCalculate("plus");
+    setQuantity(quantityDish + 1);
+  };
+  //reduce quantityDish by one
+  let minusDish = () => {
+    setCalculate("minus");
+    setQuantity(quantityDish - 1);
+  };
+
   return (
     <div
       className={`${s.menuitem} ${triger === 0 ? `${s.menuitem__min}` : ""}`}
@@ -113,23 +185,63 @@ export default function Menuitem({ triger, dish }) {
               <p className={s.menuitem__price}>{dish.cost} ₴</p>
             </div>
             <div className={s.menuitem__info_btn}>
-              <button>
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g id="plus">
-                    <path
-                      id="Vector"
-                      d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z"
-                      fill="white"
-                    />
-                  </g>
-                </svg>
-              </button>
+              {quantityDish > 0 ? (
+                <div className={s.menuitem__info_btn_active}>
+                  <button onClick={() => minusDish()}>
+                    <svg
+                      width="24"
+                      height="25"
+                      viewBox="0 0 24 25"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g id="minus">
+                        <path
+                          id="Vector"
+                          d="M19 13.4259H5V11.4259H19V13.4259Z"
+                          fill="black"
+                        />
+                      </g>
+                    </svg>
+                  </button>
+                  <span>{quantityDish}</span>
+                  <button onClick={() => plusDish()}>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g id="plus">
+                        <path
+                          id="Vector"
+                          d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z"
+                          fill="black"
+                        />
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+              ) : (
+                <button onClick={() => plusDish()}>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g id="plus">
+                      <path
+                        id="Vector"
+                        d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z"
+                        fill="white"
+                      />
+                    </g>
+                  </svg>
+                </button>
+              )}
             </div>
           </div>
           <div className={s.menuitem__popupWrapper}>
@@ -402,23 +514,63 @@ export default function Menuitem({ triger, dish }) {
             <p className={s.menuitem__price}>{dish.cost}</p>
           </div>
           <div className={s.menuitem__info_btn}>
-            <button>
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="plus">
-                  <path
-                    id="Vector"
-                    d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z"
-                    fill="white"
-                  />
-                </g>
-              </svg>
-            </button>
+            {quantityDish > 0 ? (
+              <div className={s.menuitem__info_btn_active}>
+                <button onClick={() => minusDish()}>
+                  <svg
+                    width="24"
+                    height="25"
+                    viewBox="0 0 24 25"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g id="minus">
+                      <path
+                        id="Vector"
+                        d="M19 13.4259H5V11.4259H19V13.4259Z"
+                        fill="black"
+                      />
+                    </g>
+                  </svg>
+                </button>
+                <span>{quantityDish}</span>
+                <button onClick={() => plusDish()}>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g id="plus">
+                      <path
+                        id="Vector"
+                        d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z"
+                        fill="black"
+                      />
+                    </g>
+                  </svg>
+                </button>
+              </div>
+            ) : (
+              <button onClick={() => plusDish()}>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="plus">
+                    <path
+                      id="Vector"
+                      d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z"
+                      fill="white"
+                    />
+                  </g>
+                </svg>
+              </button>
+            )}
           </div>
         </div>
       </div>

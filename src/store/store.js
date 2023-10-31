@@ -14,6 +14,7 @@ import getDishis from "./getDishis/getDishis";
 import getSection from "./getSection/getSection";
 import setSearch from "./setSearch/setSearch";
 import setFilter from "./setFilter/setFilter";
+import setBasket from "./setBasket/setBasket";
 
 export const store = configureStore({
   reducer: {
@@ -25,5 +26,6 @@ export const store = configureStore({
     getSection: getSection,
     setSearch: setSearch,
     setFilter: setFilter,
+    setBasket: setBasket,
   },
 });

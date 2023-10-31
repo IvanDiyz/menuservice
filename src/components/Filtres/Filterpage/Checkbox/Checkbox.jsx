@@ -27,7 +27,6 @@ export default function Checkbox({ id, name }) {
       } else {
         stateFiltres = false;
       }
-      console.log('bool',stateFiltres);
     }
   }
 

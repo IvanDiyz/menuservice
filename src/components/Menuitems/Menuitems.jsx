@@ -19,7 +19,6 @@ export default function Menuitems() {
     // Дождитесь, пока stateDishis станет true, прежде чем установить dataLoaded в true
     if (stateDishis) {
       setDataLoaded(true);
-      console.log("items", items);
     }
   }, [stateDishis]);
   
