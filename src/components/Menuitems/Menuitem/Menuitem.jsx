@@ -12,10 +12,20 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 export default function Menuitem({ triger, dish }) {
   const dispatch = useAppDispatch();
   const select = useAppSelector;
+  const { items } = select((state) => state.setBasket);
+  let defaultQuant = () => {
+    let indexDish = items.findIndex(item => item.id === dish.id);
+    if(indexDish >= 0) {
+      return items[indexDish].quantity;
+    } else {
+      return 0;
+    }
+  }
   const [popup, setPopup] = useState(false);
   const [calculate, setCalculate] = useState("");
-  let [quantityDish, setQuantity] = useState(0);
-  const { items } = select((state) => state.setBasket);
+  let [quantityDish, setQuantity] = useState(defaultQuant());
+
+  
 
   const openPopup = (e) => {
     setPopup(true);
@@ -67,7 +77,7 @@ export default function Menuitem({ triger, dish }) {
   };
 
   useEffect(() => {
-    if (quantityDish > 0) {
+    if (quantityDish > 0 && calculate != "") {
       calculateObj[calculate]();
     }
     if (quantityDish == 0 && calculate == "minus") {
