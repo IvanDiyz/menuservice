@@ -21,7 +21,7 @@ export default function Menuitems() {
       setDataLoaded(true);
     }
   }, [stateDishis]);
-  
+
   let changeDispaly = () => {
     if (display !== 0) {
       setDispaly(0);
@@ -31,55 +31,57 @@ export default function Menuitems() {
   };
   //We check whether our dishes contain a filter
   useEffect(() => {
-    if(stateFilters) {
+    if (stateFilters) {
       setDataLoaded(false);
       let filteredItems = items?.filter((el) => {
         if (filters.alergen && el.isAllergen) {
           return true;
         }
         // if (filters.vegetarian && el.isVegetarian) {
-          //   return true;
-          // }
-          if (filters.spicy && el.isSpicy) {
-            return true;
-          }
-          return false;
-        });
-        setFiltersDish(filteredItems)
-        setDataLoaded(true);
-        console.log('filtres', filtersDish);
+        //   return true;
+        // }
+        if (filters.spicy && el.isSpicy) {
+          return true;
+        }
+        return false;
+      });
+      setFiltersDish(filteredItems);
+      setDataLoaded(true);
+      console.log("filtres", filtersDish);
     }
-
   }, [stateFilters, filters, items]);
 
   if (!dataLoaded) {
     return <>Loading...</>;
   } else {
     return (
-      <section className={s.menuitems}>
-        <div className={s.menuitems__change}>
-          <p>Відображення</p>
-          <div
-            className={`${s.menuitems__boxChange} ${
-              display === 0 ? `${s.menuitems__min}` : ""
-            }`}
-            onClick={changeDispaly}
-          >
-            <span className={s.menuitems__changebtn}></span>
+      <>
+        <section className={s.menuitems}>
+          <div className={s.menuitems__change}>
+            <p>Відображення</p>
+            <div
+              className={`${s.menuitems__boxChange} ${
+                display === 0 ? `${s.menuitems__min}` : ""
+              }`}
+              onClick={changeDispaly}
+            >
+              <span className={s.menuitems__changebtn}></span>
+            </div>
           </div>
-        </div>
-        <h4 className={s.menuitems__title}>Піца</h4>
-        {stateFilters && filtersDish.length > 0 ? filtersDish.map((el) => (
-            <Menuitem triger={display} dish={el} key={el.id} />
-          )) :
-        items.length > 0 ? (
-          items?.map((el) => (
-            <Menuitem triger={display} dish={el} key={el.id} />
-          ))
-        ) : (
-          <>Страви ще не додані</>
-        )}
-      </section>
+          <h4 className={s.menuitems__title}>Піца</h4>
+          {stateFilters && filtersDish.length > 0 ? (
+            filtersDish.map((el) => (
+              <Menuitem triger={display} dish={el} key={el.id} />
+            ))
+          ) : items.length > 0 ? (
+            items?.map((el) => (
+              <Menuitem triger={display} dish={el} key={el.id} />
+            ))
+          ) : (
+            <>Страви ще не додані</>
+          )}
+        </section>
+      </>
     );
   }
 }

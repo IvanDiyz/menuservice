@@ -1,11 +1,11 @@
 import s from "./OrderItem.module.scss";
 
-export default function OrderItems() {
+export default function OrderItems({dish}) {
   return (
     <div className={s.orderItem}>
       <div className={s.orderItem__photo}></div>
       <div className={s.orderItem__info}>
-        <h4 className={s.orderItem__infoTitle}>Піца 4 сири, 400г</h4>
+        <h4 className={s.orderItem__infoTitle}>{dish.dish.name}</h4>
         <div className={s.orderItem__infoBoxBtn}>
           <button className={s.orderItem__infoBtn}>
             <svg
@@ -24,7 +24,7 @@ export default function OrderItems() {
               </g>
             </svg>
           </button>
-          <span className={s.orderItem__infoValue}>1</span>
+          <span className={s.orderItem__infoValue}>{dish.quantity}</span>
           <button className={s.orderItem__infoBtn}>
             <svg
               width="24"
@@ -50,8 +50,8 @@ export default function OrderItems() {
         </div>
       </div>
       <div className={s.orderItem__price}>
-        <span className={s.orderItem__priceItems}>630 ₴</span>
-        <span className={s.orderItem__priceItem}>(275 ₴)</span>
+        <span className={s.orderItem__priceItems}>{dish.amount} ₴</span>
+        <span className={s.orderItem__priceItem}>{`(${dish.dish.cost}₴)`}</span>
       </div>
     </div>
   );
