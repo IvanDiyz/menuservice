@@ -6,6 +6,7 @@ import { fetchSections } from "@/store/getSections/sectionsApi";
 //style
 import Filtres from "@/components/Filtres/Filtres";
 import Menuitems from "@/components/Menuitems/Menuitems";
+import Totalscore from "@/components/Totalscore/Totalscore";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useEffect, useState } from "react";
 import Container from "@/components/Container/Container";
@@ -34,6 +35,7 @@ const menu = () => {
       <>
         <Filtres />
         <Menuitems />
+        <Totalscore />
       </>
     );
   }
