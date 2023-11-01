@@ -1,31 +1,12 @@
 "use client";
 import Popup from "@/components/Popup/Popup";
-import { useEffect, useState } from "react";
+import Buttons from "@/components/Buttons/Buttons";
+import { useState } from "react";
 import s from "./Menuitem.module.scss";
-import {
-  addDish,
-  changeQuantity,
-  deleteDish,
-} from "@/store/setBasket/setBasket";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 export default function Menuitem({ triger, dish }) {
-  const dispatch = useAppDispatch();
-  const select = useAppSelector;
-  const { items } = select((state) => state.setBasket);
-  let defaultQuant = () => {
-    let indexDish = items.findIndex(item => item.id === dish.id);
-    if(indexDish >= 0) {
-      return items[indexDish].quantity;
-    } else {
-      return 0;
-    }
-  }
-  const [popup, setPopup] = useState(false);
-  const [calculate, setCalculate] = useState("");
-  let [quantityDish, setQuantity] = useState(defaultQuant());
 
-  
+  const [popup, setPopup] = useState(false);
 
   const openPopup = (e) => {
     setPopup(true);
@@ -34,66 +15,6 @@ export default function Menuitem({ triger, dish }) {
   const closePopup = (e) => {
     setPopup(false);
     document.body.style.overflow = "auto";
-  };
-
-  let calculateObj = {
-    plus: () => {
-      if (quantityDish > 1) {
-        dispatch(
-          changeQuantity({
-            id: dish.id,
-            quantity: quantityDish,
-            sign: calculate,
-          })
-        );
-      } else {
-        dispatch(
-          addDish({
-            id: dish.id,
-            quantity: quantityDish,
-            amount: dish.cost,
-            isReady: false,
-            dish: dish,
-          })
-        );
-      }
-    },
-    minus: () => {
-      dispatch(
-        changeQuantity({
-          id: dish.id,
-          quantity: quantityDish,
-          sign: calculate,
-        })
-      );
-    },
-    delete: () => {
-      dispatch(
-        deleteDish({
-          id: dish.id,
-        })
-      );
-    },
-  };
-
-  useEffect(() => {
-    if (quantityDish > 0 && calculate != "") {
-      calculateObj[calculate]();
-    }
-    if (quantityDish == 0 && calculate == "minus") {
-      calculateObj["delete"]();
-    }
-  }, [quantityDish]);
-
-  //increase quantityDish by one
-  let plusDish = () => {
-    setCalculate("plus");
-    setQuantity(quantityDish + 1);
-  };
-  //reduce quantityDish by one
-  let minusDish = () => {
-    setCalculate("minus");
-    setQuantity(quantityDish - 1);
   };
 
   return (
@@ -195,7 +116,7 @@ export default function Menuitem({ triger, dish }) {
               <p className={s.menuitem__price}>{dish.cost} ₴</p>
             </div>
             <div className={s.menuitem__info_btn}>
-              {quantityDish > 0 ? (
+              {/* {quantityDish > 0 ? (
                 <div className={s.menuitem__info_btn_active}>
                   <button onClick={() => minusDish()}>
                     <svg
@@ -251,7 +172,8 @@ export default function Menuitem({ triger, dish }) {
                     </g>
                   </svg>
                 </button>
-              )}
+              )} */}
+              <Buttons dish={dish}/>
             </div>
           </div>
           <div className={s.menuitem__popupWrapper}>
@@ -524,7 +446,7 @@ export default function Menuitem({ triger, dish }) {
             <p className={s.menuitem__price}>{dish.cost}</p>
           </div>
           <div className={s.menuitem__info_btn}>
-            {quantityDish > 0 ? (
+            {/* {quantityDish > 0 ? (
               <div className={s.menuitem__info_btn_active}>
                 <button onClick={() => minusDish()}>
                   <svg
@@ -580,7 +502,8 @@ export default function Menuitem({ triger, dish }) {
                   </g>
                 </svg>
               </button>
-            )}
+            )} */}
+            <Buttons dish={dish}/>
           </div>
         </div>
       </div>
