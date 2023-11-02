@@ -8,13 +8,13 @@ import { useAppSelector } from "@/hooks/redux";
 
 export default function Order() {
   const selector = useAppSelector;
-  const { amount } = selector(state => state.setBasket)
+  const { amount, tipsBool } = selector(state => state.setBasket)
   return (
     <div className={s.order}>
      <OrderMethods firstmethod={'По готовності'} lastmethod={'Все разом'} svg={false}/>
      <OrderItems />
      <Total total={amount}/>
-     <Tips tips={true}/>
+     <Tips tips={tipsBool}/>
     </div>
   );
 }

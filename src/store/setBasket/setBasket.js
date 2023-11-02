@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   amount: null,
   items: [],
+  tipsBool: true,
+  tips: '',
 };
 
 export const setBasket = createSlice({
@@ -28,6 +30,10 @@ export const setBasket = createSlice({
       state.amount = (+state.amount - +state.items[indexDish].dish.cost).toString();
       state.items.splice(indexDish, 1)
       // calculateAmount(state)
+    },
+    giveTips: (state, action) => {
+      state.tipsBool = action.payload.bool;
+      state.tips = Math.floor(state.amount * (action.payload.actualTips / 100));
     }
   },
 });
@@ -41,5 +47,5 @@ let calculateAmount = (state) => {
   state.amount = amountAll.toString();
 }
 
-export const { changeQuantity, addDish, deleteDish } = setBasket.actions;
+export const { changeQuantity, addDish, deleteDish, giveTips } = setBasket.actions;
 export default setBasket.reducer;

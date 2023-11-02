@@ -23,15 +23,32 @@
         }
     }
 
-    &__control,
     &__items {
         display: flex;
         align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        row-gap: 8px;
+    }
+
+    &__control {
+        display: flex;
+        align-items: center;
         justify-content: space-between;
+        column-gap: 8px;
     }
 
     &__items {
         margin-bottom: 4.4vw;
+    }
+
+    .tips__item.tips__activeItem {
+        border: none;
+        background: #EB7F00;
+        color: #fff;
+        span {
+            color: #fff;
+        }
     }
 
     &__item,
@@ -49,7 +66,12 @@
         letter-spacing: -0.8px;
     }
 
+    &__btn {
+        width: 45%;
+    }
+
     &__procent {
+        pointer-events: none;
         color: #696969;
         font-size: 3.3vw;
         font-weight: 400;
@@ -61,5 +83,50 @@
             width: 6.6vw;
             height: 6.6vw;
         }
+    }
+
+    &__btn__input {
+        position: relative;
+    }
+
+    &__btn__close {
+        top: -8px;
+        right: 0;
+        position: absolute;
+        width: 5.5vw;
+        height: 5.5vw;
+    }
+
+    &__input {
+        width: 100%;
+        line-height: 6.6vw;
+        padding: 0;
+        pointer-events: fill;
+        background-color: #FFFCF8;
+        font-size: 4.4vw;
+        font-weight: 400;
+    }
+
+    &__input::placeholder {
+        font-size: 3.3vw;
+    }
+
+    &__btn__close::after,
+    &__btn__close::before {
+        content: '';
+        position: absolute;
+        width: 4.6vw;
+        height: 2px;
+        background: #FFC700;
+        top: 8px;
+        right: 0;
+    }
+
+    &__btn__close::after {
+        transform: rotate(45deg);
+    }
+
+    &__btn__close::before {
+        transform: rotate(315deg);
     }
 }
