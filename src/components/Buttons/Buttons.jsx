@@ -12,7 +12,6 @@ export default function Buttons({ dish }) {
   const dispatch = useAppDispatch();
   const select = useAppSelector;
   const { items } = select((state) => state.setBasket);
-  const [calculate, setCalculate] = useState("");
   let [quantityDish, setQuantity] = useState(0);
 
   let calculateObj = {
@@ -22,7 +21,7 @@ export default function Buttons({ dish }) {
           changeQuantity({
             id: dish.id,
             quantity: quantityDish + 1,
-            sign: calculate,
+            sign: "plus",
           })
         );
       } else {
@@ -42,7 +41,7 @@ export default function Buttons({ dish }) {
         changeQuantity({
           id: dish.id,
           quantity: quantityDish - 1,
-          sign: calculate,
+          sign: "minus",
         })
       );
     },
@@ -67,12 +66,10 @@ export default function Buttons({ dish }) {
 
   //increase quantityDish by one
   let plusDish = () => {
-    setCalculate("plus");
     calculateObj["plus"]();
   };
   //reduce quantityDish by one
   let minusDish = () => {
-    setCalculate("minus");
     if (quantityDish == 1) {
       calculateObj["delete"]();
     }else {

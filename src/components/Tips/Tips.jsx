@@ -1,6 +1,49 @@
+"use client";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+
 import s from "./Tips.module.scss";
+import { useEffect, useState } from "react";
+import { giveTips } from "@/store/setBasket/setBasket";
 
 export default function Tips({ tips }) {
+  const selector = useAppSelector;
+  const dispatch = useAppDispatch();
+  const { amount } = selector((state) => state.setBasket);
+  const [bool, setTips] = useState(true);
+  const [input, setInput] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [actualTips, setActualTips] = useState();
+
+  useEffect(() => {
+    console.log("actualTips", actualTips);
+    dispatch(giveTips({bool, actualTips}));
+  }, [bool, actualTips, amount]);
+  //отображение карточки чаевых
+  const changeTips = () => {
+    if(bool) {
+      setTips(false);
+      setActualTips(0);
+    } else {
+      setTips(true)
+    }
+  };
+  //отображение input для чаевых
+  const changeInput = () => {
+    input ? setInput(false) : setInput(true);
+  };
+  //изменение value в input
+  const handleInputChange = (e) => {
+    //разрешить только числа
+    const numericValue = e.target.value.replace(/[^0-9]/g, "");
+    setInputValue(numericValue);
+  };
+
+  const getTicketTips = (e) => {
+    console.log(e.target.firstElementChild.textContent.match(/\d+/)[0]);
+    let actual = e.target.firstElementChild.textContent.match(/\d+/)[0];
+    actual == actualTips ? setActualTips(0) : setActualTips(actual);
+  };
+
   return tips ? (
     <div className={s.tips}>
       <h4 className={s.tips__title}>
@@ -22,12 +65,48 @@ export default function Tips({ tips }) {
         Залишити чайові?
       </h4>
       <div className={s.tips__items}>
-        <span className={s.tips__item}>10₴ <span className={s.tips__procent}>(5%)</span></span>
-        <span className={s.tips__item}>50₴ <span className={s.tips__procent}>(10%)</span></span>
-        <span className={s.tips__item}>150₴ <span className={s.tips__procent}>(15%)</span></span>
+        <span
+          className={`${s.tips__item} ${
+            Math.floor((amount * actualTips) / 100) ==
+              Math.floor(amount * 0.05) && amount * 0.05 != 0
+              ? `${s.tips__activeItem}`
+              : ""
+          }`}
+          id={Math.floor(amount * 0.05)}
+          onClick={getTicketTips}
+        >
+          {amount ? `${Math.floor(amount * 0.05)}₴` : ""}
+          <span className={s.tips__procent}>(5%)</span>
+        </span>
+        <span
+          className={`${s.tips__item} ${
+            Math.floor((amount * actualTips) / 100) ==
+              Math.floor(amount * 0.1) && amount * 0.05 != 0
+              ? `${s.tips__activeItem}`
+              : ""
+          }`}
+          id={Math.floor(amount * 0.1)}
+          onClick={getTicketTips}
+        >
+          {amount ? `${Math.floor(amount * 0.1)}₴` : ""}
+          <span className={s.tips__procent}>(10%)</span>
+        </span>
+        <span
+          className={`${s.tips__item} ${
+            Math.floor((amount * actualTips) / 100) ==
+              Math.floor(amount * 0.15) && amount * 0.05 != 0
+              ? `${s.tips__activeItem}`
+              : ""
+          }`}
+          id={Math.floor(amount * 0.15)}
+          onClick={getTicketTips}
+        >
+          {amount ? `${Math.floor(amount * 0.15)}₴` : ""}
+          <span className={s.tips__procent}>(15%)</span>
+        </span>
       </div>
       <div className={s.tips__control}>
-        <span className={s.tips__btn}>
+        <span className={s.tips__btn} onClick={changeTips}>
           <svg
             width="24"
             height="24"
@@ -45,23 +124,45 @@ export default function Tips({ tips }) {
           </svg>
           Без чайових
         </span>
-        <span className={s.tips__btn}>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g id="pencil">
-              <path
-                id="Vector"
-                d="M20.71 7.04C21.1 6.65 21.1 6 20.71 5.63L18.37 3.29C18 2.9 17.35 2.9 16.96 3.29L15.12 5.12L18.87 8.87M3 17.25V21H6.75L17.81 9.93L14.06 6.18L3 17.25Z"
-                fill="black"
-              />
-            </g>
-          </svg>
-          Своя сума
+        <span
+          className={`${s.tips__btn} ${input ? `${s.tips__btn__input}` : ""}`}
+        >
+          <span
+            className={s.tips__btn__close}
+            onClick={() => {
+              changeInput();
+              setInputValue("");
+            }}
+          ></span>
+          {input ? (
+            <input
+              className={s.tips__input}
+              onChange={handleInputChange}
+              value={inputValue}
+              placeholder="Ваша сума"
+              type="text"
+            ></input>
+          ) : (
+            <>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                onClick={changeInput}
+              >
+                <g id="pencil">
+                  <path
+                    id="Vector"
+                    d="M20.71 7.04C21.1 6.65 21.1 6 20.71 5.63L18.37 3.29C18 2.9 17.35 2.9 16.96 3.29L15.12 5.12L18.87 8.87M3 17.25V21H6.75L17.81 9.93L14.06 6.18L3 17.25Z"
+                    fill="black"
+                  />
+                </g>
+              </svg>
+              <span onClick={changeInput}>Своя сума</span>
+            </>
+          )}
         </span>
       </div>
     </div>
