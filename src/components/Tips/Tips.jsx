@@ -15,7 +15,6 @@ export default function Tips({ tips }) {
   const [actualTips, setActualTips] = useState();
 
   useEffect(() => {
-    console.log("actualTips", actualTips);
     dispatch(giveTips({bool, actualTips}));
   }, [bool, actualTips, amount]);
   //отображение карточки чаевых
@@ -29,16 +28,27 @@ export default function Tips({ tips }) {
   };
   //отображение input для чаевых
   const changeInput = () => {
-    input ? setInput(false) : setInput(true);
+    if(input) {
+      setInput(false);
+      dispatch(giveTips({bool, actualTips: 0}));
+    } else {
+      setInput(true)
+      setActualTips(0);
+    }
   };
   //изменение value в input
   const handleInputChange = (e) => {
     //разрешить только числа
     const numericValue = e.target.value.replace(/[^0-9]/g, "");
     setInputValue(numericValue);
+    dispatch(giveTips({inputTips: true, inputValue: numericValue}))
+    console.log("inputValue", numericValue);
+
   };
 
   const getTicketTips = (e) => {
+    setInput(false)
+    setInputValue('')
     console.log(e.target.firstElementChild.textContent.match(/\d+/)[0]);
     let actual = e.target.firstElementChild.textContent.match(/\d+/)[0];
     actual == actualTips ? setActualTips(0) : setActualTips(actual);

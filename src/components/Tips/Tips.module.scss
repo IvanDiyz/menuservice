@@ -87,6 +87,9 @@
 
     &__btn__input {
         position: relative;
+        .tips__btn__close {
+            display: block;
+        }
     }
 
     &__btn__close {
@@ -110,7 +113,9 @@
     &__input::placeholder {
         font-size: 3.3vw;
     }
-
+    &__btn__close {
+        display: none;
+    }
     &__btn__close::after,
     &__btn__close::before {
         content: '';
