@@ -32,8 +32,12 @@ export const setBasket = createSlice({
       // calculateAmount(state)
     },
     giveTips: (state, action) => {
-      state.tipsBool = action.payload.bool;
-      state.tips = Math.floor(state.amount * (action.payload.actualTips / 100));
+      if(action.payload.inputTips) {
+        state.tips = action.payload.inputValue;
+      } else {
+        state.tipsBool = action.payload?.bool;
+        state.tips = Math.floor(state.amount * (action.payload.actualTips / 100));
+      }
     }
   },
 });
