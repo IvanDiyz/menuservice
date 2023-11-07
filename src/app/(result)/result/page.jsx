@@ -6,8 +6,8 @@ import Openedmenu from "@/components/Openedmenu/Openedmenu";
 const result = () => {
   return (
     <>
-      <Openedmenu answer={true}/>
-      {/* <Pageresult answer={true}/> */}
+      {/* <Openedmenu answer={true}/> */}
+      <Pageresult answer={true}/>
     </>
   );
 };

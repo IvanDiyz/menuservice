@@ -7,9 +7,10 @@ import { fetchSections } from "@/store/getSections/sectionsApi";
 import Filtres from "@/components/Filtres/Filtres";
 import Menuitems from "@/components/Menuitems/Menuitems";
 import Totalscore from "@/components/Totalscore/Totalscore";
+import Notificate from "@/components/Notificate/Notificate";
+import Container from "@/components/Container/Container";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useEffect, useState } from "react";
-import Container from "@/components/Container/Container";
 
 const menu = () => {
   const selector = useAppSelector;
@@ -36,6 +37,7 @@ const menu = () => {
         <Filtres />
         <Menuitems />
         <Totalscore />
+        <Notificate />
       </>
     );
   }

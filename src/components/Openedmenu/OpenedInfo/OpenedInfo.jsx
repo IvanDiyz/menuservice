@@ -1,7 +1,7 @@
 import s from "./OpenedInfo.module.scss";
 import Image from "next/image";
 
-const OpenedInfo = () => {
+const OpenedInfo = ({ name }) => {
   return (
     <div className={s.clientinfo}>
       <div className={s.clientinfo__logo}>
@@ -14,7 +14,7 @@ const OpenedInfo = () => {
       </div>
       <div className={s.clientinfo__box}>
         <p className={s.clientinfo__type}>Кафе-бар</p>
-        <h1 className={s.clientinfo__name}>У Сашка</h1>
+        <h1 className={s.clientinfo__name}>{name}</h1>
         <div className={s.clientinfo__worktime}>
           <svg
             width="17"

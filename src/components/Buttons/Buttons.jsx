@@ -1,14 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import {
-  addDish,
-  changeQuantity,
-  deleteDish,
-} from "@/store/setBasket/setBasket";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import s from "./Buttons.module.scss";
 
-export default function Buttons({ dish }) {
+export default function Buttons({ dish, addDish, changeQuantity, deleteDish }) {
   const dispatch = useAppDispatch();
   const select = useAppSelector;
   const { items } = select((state) => state.setBasket);

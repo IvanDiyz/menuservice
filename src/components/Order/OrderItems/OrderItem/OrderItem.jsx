@@ -1,3 +1,8 @@
+import {
+  addDish,
+  changeQuantity,
+  deleteDish,
+} from "@/store/setBasket/setBasket";
 import Buttons from "@/components/Buttons/Buttons";
 import s from "./OrderItem.module.scss";
 
@@ -8,7 +13,7 @@ export default function OrderItems({dish}) {
       <div className={s.orderItem__info}>
         <h4 className={s.orderItem__infoTitle}>{dish.dish.name}</h4>
         <div className={s.orderItem__infoBoxBtn}>
-          <Buttons dish={dish}/>
+          <Buttons dish={dish} addDish={addDish} changeQuantity={changeQuantity} deleteDish={deleteDish}/>
         </div>
         <div className={s.orderItem__infoAdditives}>
           <p className={s.orderItem__infoAdditive}>Сир чедер (25₴)</p>
