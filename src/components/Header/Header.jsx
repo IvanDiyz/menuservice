@@ -1,11 +1,16 @@
+"use client"
 import { useState } from "react";
 import s from "./Header.module.scss";
 import Openedmenu from "../Openedmenu/Openedmenu";
 import Search from "@/components/Search/Search";
+import { useAppDispatch } from "@/hooks/redux";
+import { setNotificate } from "@/store/menu/menuSlice";
 
 export default function Header() {
+  const dispatch = useAppDispatch();
   const [search, setSearch] = useState(false);
   const [menu, setMenu] = useState(false);
+
   const changSearch = () => {
     !search ? setSearch(true) : setSearch(false);
     setMenu(false)
@@ -14,6 +19,11 @@ export default function Header() {
     !menu ? setMenu(true) : setMenu(false);
     setSearch(false)
   }
+  //function for open Notificate
+  const openNotificate = () => {
+    dispatch(setNotificate(true))
+  }
+
   return (
     <header className={s.header}>
       <div className={s.header__wrapper}>
@@ -40,6 +50,7 @@ export default function Header() {
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            onClick={openNotificate}
           >
             <g id="room-service">
               <path

@@ -7,10 +7,10 @@ import { useAppSelector } from "@/hooks/redux";
 
 export default function Openedmenu() {
   const selector = useAppSelector;
-  const { menus } = selector(state => state.menu)
+  const { menus, name } = selector(state => state.menu)
   return (
     <div className={s.openedMenu}>
-      <Openedinfo />
+      <Openedinfo name={name}/>
       <OrderMethods firstmethod={'В закладі'} lastmethod={'Із собою'}/>
       {menus ? <ServiceSheet menus={menus}/> : 'Loading'} 
       <Openedcontact />
