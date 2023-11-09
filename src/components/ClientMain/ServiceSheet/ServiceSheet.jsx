@@ -9,15 +9,15 @@ const ServiceSheet = ({ menus }) => {
   const dispatch = useAppDispatch();
 
   //function set by id menu
-  const menuId = async (id) => {
-    dispatch(setMenuId(id));
+  const menuId = async (id, name) => {
+    dispatch(setMenuId({id, name}));
   };
 
   return (
     <div className={s.serviceSheet}>
       {menus.map((el) => {
         return (
-          <Link href={`/${el.name.replace(/\s/g, '')}${el.id}`} key={el.id} onClick={() => menuId(el.id)}>
+          <Link href={`/${el.name.replace(/\s/g, '')}${el.id}`} key={el.id} onClick={() => menuId(el.id, el.name)}>
             <div className={s.serviceSheet__box}>
               <div className={s.serviceSheet__nameService}>
                 <p className={s.serviceSheet__name}>{el.name}</p>

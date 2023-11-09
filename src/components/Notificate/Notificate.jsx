@@ -3,13 +3,14 @@ import NotificateItem from "@/components/Notificate/NotificateItem/NotificateIte
 import Link from "next/link";
 import s from "./Notificate.module.scss";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { setNotificate } from "@/store/menu/menuSlice";
+import { setNotificate } from "@/store/notificate/notificate";
 import { useEffect, useState } from "react";
+import { postNotificate } from "@/store/notificate/notificateApi";
 
 export default function Notificate() {
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
-  const { notificate } = selector((state) => state.menu);
+  const { notificate } = selector((state) => state.notificate);
   const [call, changeCall] = useState(false);
   const [callRole, changeRole] = useState(false);
 
@@ -30,7 +31,7 @@ export default function Notificate() {
   let objRole = {
     'WAITER': 'Офіціант',
     'ADMIN': 'Адміністратор',
-    'HOOK': 'Кальянщік',
+    'HOOKAH': 'Кальянщік',
   }
   
   //function that is triggered by pressing a call
@@ -39,7 +40,7 @@ export default function Notificate() {
     changeCall(true);
     setTimeout(() => {
       dispatch(setNotificate(false));
-      
+      dispatch(postNotificate({"request":role}));
     }, 1000);
   };
 
@@ -108,7 +109,7 @@ export default function Notificate() {
             callNotificate={callNotificate}
           />
           <NotificateItem
-            role={"HOOK"}
+            role={"HOOKAH"}
             translateR={"кальянщика"}
             callNotificate={callNotificate}
           />

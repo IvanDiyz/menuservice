@@ -15,7 +15,11 @@ export default function Tips({ tips }) {
   const [actualTips, setActualTips] = useState();
 
   useEffect(() => {
-    dispatch(giveTips({bool, actualTips}));
+    if(inputValue && bool) {
+      dispatch(giveTips({bool: bool, inputValue: inputValue, inputTips: true}));
+    } else {
+      dispatch(giveTips({bool, actualTips}));
+    }
   }, [bool, actualTips, amount]);
   //отображение карточки чаевых
   const changeTips = () => {

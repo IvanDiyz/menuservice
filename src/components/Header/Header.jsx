@@ -4,7 +4,7 @@ import s from "./Header.module.scss";
 import Openedmenu from "../Openedmenu/Openedmenu";
 import Search from "@/components/Search/Search";
 import { useAppDispatch } from "@/hooks/redux";
-import { setNotificate } from "@/store/menu/menuSlice";
+import { setNotificate } from "@/store/notificate/notificate";
 
 export default function Header() {
   const dispatch = useAppDispatch();

@@ -3,6 +3,7 @@ import { fetchSections } from "./sectionsApi";
 
 const initialState = {
   menuId: null,
+  menuName: '',
   sections: [],
 };
 
@@ -11,7 +12,9 @@ export const getSections = createSlice({
   initialState,
   reducers: {
     setMenuId: (state, action) => {
-      state.menuId = action.payload;
+      console.log(action)
+      state.menuId = action.payload.id;
+      state.menuName = action.payload.name;
     },
   },
   extraReducers: (builder) =>

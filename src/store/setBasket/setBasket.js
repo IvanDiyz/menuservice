@@ -32,6 +32,7 @@ export const setBasket = createSlice({
       // calculateAmount(state)
     },
     giveTips: (state, action) => {
+      console.log(action)
       if(action.payload.inputTips) {
         state.tips = action.payload.inputValue;
       } else {
