@@ -15,6 +15,7 @@ import getSection from "./getSection/getSection";
 import setSearch from "./setSearch/setSearch";
 import setFilter from "./setFilter/setFilter";
 import setBasket from "./setBasket/setBasket";
+import notificate from "./notificate/notificate";
 
 export const store = configureStore({
   reducer: {
@@ -27,5 +28,6 @@ export const store = configureStore({
     setSearch: setSearch,
     setFilter: setFilter,
     setBasket: setBasket,
+    notificate: notificate,
   },
 });

@@ -13,7 +13,6 @@ const initialState = {
   closingTime: null,
   types: [],
   isLoading: 'nune',
-  notificate: false,
 };
 
 export const menuSlice = createSlice({
@@ -22,9 +21,6 @@ export const menuSlice = createSlice({
   reducers: {
     setMethodOrder: (state, acton) => {
       state.methodOrder = acton.payload;
-    },
-    setNotificate: (state, acton) => {
-      state.notificate = acton.payload;
     },
   },
   extraReducers: (builder) =>
@@ -50,5 +46,5 @@ export const menuSlice = createSlice({
       }),
 });
 
-export const { setMethodOrder, setNotificate } = menuSlice.actions;
+export const { setMethodOrder } = menuSlice.actions;
 export default menuSlice.reducer;
