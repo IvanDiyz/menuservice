@@ -2,14 +2,19 @@
 import {
   addDish,
   changeQuantity,
+  clearState,
   deleteDish,
 } from "@/store/setBasket/setBasket";
 import Popup from "@/components/Popup/Popup";
 import Buttons from "@/components/Buttons/Buttons";
+import SuppleButton from "@/components/SuppleButton/SuppleButton";
+import Totaldish from "@/components/Menuitems/Totaldish/Totaldish";
 import { useState } from "react";
 import s from "./Menuitem.module.scss";
+import { useAppDispatch } from "@/hooks/redux";
 
 export default function Menuitem({ triger, dish }) {
+  const dispatch = useAppDispatch();
   const supplements = [
     {
       id: 1,
@@ -41,6 +46,7 @@ export default function Menuitem({ triger, dish }) {
   };
   const closePopup = (e) => {
     setPopup(false);
+    dispatch(clearState())
     document.body.style.overflow = "auto";
   };
 
@@ -143,7 +149,12 @@ export default function Menuitem({ triger, dish }) {
               <p className={s.menuitem__price}>{dish.cost} ₴</p>
             </div>
             <div className={s.menuitem__info_btn}>
-              <Buttons dish={dish} addDish={addDish} changeQuantity={changeQuantity} deleteDish={deleteDish}/>
+              <Buttons
+                dish={dish}
+                addDish={addDish}
+                changeQuantity={changeQuantity}
+                deleteDish={deleteDish}
+              />
             </div>
           </div>
           <div className={s.menuitem__popupWrapper}>
@@ -168,30 +179,15 @@ export default function Menuitem({ triger, dish }) {
             <h4 className={s.menuitem__popupTitle}>Додатки:</h4>
             {supplements.map((el) => (
               <div
-                className={`${s.menuitem__popupWrapper} ${s.menuitem__popupName}`} key={el.id}
+                className={`${s.menuitem__popupWrapper} ${s.menuitem__popupName}`}
+                key={el.id}
               >
                 <div className={s.menuitem__info_box}>
                   <p className={s.menuitem__additiveName}>{el.name}</p>
                   <p className={s.menuitem__additivePrice}>{el.cost} ₴</p>
                 </div>
                 <div className={s.menuitem__popup_btn}>
-                  <button>
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g id="plus">
-                        <path
-                          id="Vector"
-                          d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z"
-                          fill="#000"
-                        />
-                      </g>
-                    </svg>
-                  </button>
+                  <SuppleButton addonsId={el.id} addonsCost={el.cost} addonsName={el.name}/>
                 </div>
               </div>
             ))}
@@ -202,6 +198,7 @@ export default function Menuitem({ triger, dish }) {
               ></textarea>
             </div>
           </div>
+          <Totaldish closePopup={closePopup}/>
         </div>
       </Popup>
       <div className={s.menuitem__wrapper}>
@@ -337,64 +334,8 @@ export default function Menuitem({ triger, dish }) {
             <p className={s.menuitem__price}>{dish.cost}</p>
           </div>
           <div className={s.menuitem__info_btn}>
-            {/* {quantityDish > 0 ? (
-              <div className={s.menuitem__info_btn_active}>
-                <button onClick={() => minusDish()}>
-                  <svg
-                    width="24"
-                    height="25"
-                    viewBox="0 0 24 25"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g id="minus">
-                      <path
-                        id="Vector"
-                        d="M19 13.4259H5V11.4259H19V13.4259Z"
-                        fill="black"
-                      />
-                    </g>
-                  </svg>
-                </button>
-                <span>{quantityDish}</span>
-                <button onClick={() => plusDish()}>
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g id="plus">
-                      <path
-                        id="Vector"
-                        d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z"
-                        fill="black"
-                      />
-                    </g>
-                  </svg>
-                </button>
-              </div>
-            ) : (
-              <button onClick={() => plusDish()}>
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g id="plus">
-                    <path
-                      id="Vector"
-                      d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z"
-                      fill="white"
-                    />
-                  </g>
-                </svg>
-              </button>
-            )} */}
-            <Buttons dish={dish} addDish={addDish} changeQuantity={changeQuantity} deleteDish={deleteDish}/>
+            {/* отобразить общее колличество блюда */}
+            12
           </div>
         </div>
       </div>

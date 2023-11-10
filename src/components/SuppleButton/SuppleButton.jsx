@@ -1,73 +1,72 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import s from "./Buttons.module.scss";
+import s from "./SuppleButton.module.scss";
+import { addAddons, addonsQuantity, deleteAddons } from "@/store/setBasket/setBasket";
 
-export default function Buttons({ dish, addDish, changeQuantity, deleteDish }) {
+export default function SuppleButton({ addonsId, addonsCost, addonsName }) {
   const dispatch = useAppDispatch();
   const select = useAppSelector;
-  const { item, addons} = select((state) => state.setBasket);
-  let [quantityDish, setQuantity] = useState(0);
+  const { addons } = select((state) => state.setBasket);
+  let [quantityAddons, setAddons] = useState(0);
 
   let calculateObj = {
     plus: () => {
-      if (quantityDish > 0) {
+      if (quantityAddons > 0) {
         dispatch(
-          changeQuantity({
-            id: dish.id,
-            quantity: quantityDish + 1,
+          addonsQuantity({
+            id: addonsId,
+            quantity: quantityAddons + 1,
             sign: "plus",
-            addons: addons,
           })
         );
       } else {
         dispatch(
-          addDish({
-            id: dish.id,
-            quantity: quantityDish + 1,
-            amount: dish.cost,
+          addAddons({
+            id: addonsId,
+            quantity: quantityAddons + 1,
+            amount: addonsCost,
             isReady: false,
-            dish: dish,
-            addons: addons,
+            name: addonsName,
           })
         );
       }
     },
     minus: () => {
       dispatch(
-        changeQuantity({
-          id: dish.id,
-          quantity: quantityDish - 1,
+        addonsQuantity({
+          id: addonsId,
+          quantity: quantityAddons - 1,
           sign: "minus",
-          addons: addons,
         })
       );
     },
     delete: () => {
       dispatch(
-        deleteDish({
-          id: dish.id,
+        deleteAddons({
+          id: addonsId,
         })
       );
     },
   };
 
   useEffect(() => {
-    console.log(addons);
-    if (item.quantity) {
-      setQuantity(item.quantity);
+    let indexDish = addons.findIndex((item) => item.id === addonsId);
+    if (indexDish != -1) {
+      let quantityA = addons[indexDish].quantity;
+      setAddons(quantityA);
     } else {
-      setQuantity(0);
+      setAddons(0);
     }
-  }, [item]);
+  }, [addons]);
 
-  //increase quantityDish by one
+  //increase quantityAddons by one
   let plusDish = () => {
     calculateObj["plus"]();
   };
-  //reduce quantityDish by one
+  //reduce quantityAddons by one
   let minusDish = () => {
-    if (quantityDish == 1) {
+    if (quantityAddons == 1) {
       calculateObj["delete"]();
     }else {
       calculateObj["minus"]();
@@ -76,7 +75,7 @@ export default function Buttons({ dish, addDish, changeQuantity, deleteDish }) {
 
   return (
     <div className={s.buttons__info_btn}>
-      {quantityDish > 0 ? (
+      {quantityAddons > 0 ? (
         <div className={s.buttons__info_btn_active}>
           <button onClick={() => minusDish()}>
             <svg
@@ -90,12 +89,12 @@ export default function Buttons({ dish, addDish, changeQuantity, deleteDish }) {
                 <path
                   id="Vector"
                   d="M19 13.4259H5V11.4259H19V13.4259Z"
-                  fill="black"
+                  fill="#000"
                 />
               </g>
             </svg>
           </button>
-          <span>{quantityDish}</span>
+          <span>{quantityAddons}</span>
           <button onClick={() => plusDish()}>
             <svg
               width="24"
@@ -108,7 +107,7 @@ export default function Buttons({ dish, addDish, changeQuantity, deleteDish }) {
                 <path
                   id="Vector"
                   d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z"
-                  fill="black"
+                  fill="#000"
                 />
               </g>
             </svg>
@@ -127,7 +126,7 @@ export default function Buttons({ dish, addDish, changeQuantity, deleteDish }) {
               <path
                 id="Vector"
                 d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z"
-                fill="white"
+                fill="#000"
               />
             </g>
           </svg>
