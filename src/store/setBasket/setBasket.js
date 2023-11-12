@@ -16,39 +16,50 @@ export const setBasket = createSlice({
     changeQuantity: (state, action) => {
       state.item.quantity = action.payload.quantity;
       state.item.addons = action.payload.addons;
-      state.item.amount = (state.item.dish.cost * action.payload.quantity).toString();
+      state.item.amountDish = (+state.item.dish.cost * action.payload.quantity);
       action.payload.sign == 'plus' ?
-      state.amount = (+state.amount + +state.item.dish.cost).toString() :
-      state.amount = (+state.amount - +state.item.dish.cost).toString();
-      
+      state.amount = (+state.amount + +state.item.dish.cost) :
+      state.amount = (+state.amount - +state.item.dish.cost);
+      calculateAmout(state);  
+      state.item.amount = state.item.amountDish + state.item.amountAddons;
     },
     addDish: (state, action) => {
       state.item = action.payload;
-      state.amount = (+state.amount + +action.payload.amount).toString();
+      state.amount = (+state.amount + +action.payload.amount);
+      calculateAmout(state);  
+      state.item.amount = state.item.amountDish + state.item.amountAddons;
     
     },
     deleteDish: (state, action) => {
-      state.amount = (+state.amount - +state.item.dish.cost).toString();
+      state.amount = (+state.amount - +state.item.dish.cost);
       state.item = {};
-      
+      calculateAmout(state);
+      state.item.amount = state.item.amountDish + state.item.amountAddons;
     },
     addonsQuantity: (state, action) => {
       let indexAddons = state.addons.findIndex(item => item.id === action.payload.id);
       state.addons[indexAddons].quantity = action.payload.quantity;
       state.item.addons = state.addons;
-      state.addons[indexAddons].amount = (state.addons[indexAddons].amount * action.payload.quantity).toString();
+      state.addons[indexAddons].amount = +(state.addons[indexAddons].startAmount * action.payload.quantity).toString();
+      calculateAmout(state);
+      state.item.amount = state.item.amountDish + state.item.amountAddons;
     },
     addAddons: (state, action) => {
       state.addons.push(action.payload);   
+      let indexAddons = state.addons.findIndex(item => item.id === action.payload.id);
+      state.addons[indexAddons].amount = +(state.addons[indexAddons].startAmount * action.payload.quantity).toString();
       if(state.item.addons) {
         state.item.addons = state.addons; 
       }
+      calculateAmout(state);
+      state.item.amount = state.item.amountDish + state.item.amountAddons;
     },
     deleteAddons: (state, action) => {
       let indexDish = state.addons.findIndex(item => item.id === action.payload.id);
       state.item.addons = state.addons;
       state.addons.splice(indexDish, 1)
-      
+      calculateAmout(state);
+      state.item.amount = state.item.amountDish + state.item.amountAddons;
     },
     giveTips: (state, action) => {
       console.log(action)
@@ -71,6 +82,18 @@ export const setBasket = createSlice({
   },
 });
 
+
+let calculateAmout = (state) => {
+  let amount = 0;
+  if(state.item.addons?.length > 0) {
+    state.item.addons.map(el => {
+      amount = amount + el.amount;
+    })
+    state.item.amountAddons = amount * state.item?.quantity;
+  } else {
+    state.item.amountAddons = 0;
+  }
+}
 
 export const { changeQuantity, addDish, deleteDish, giveTips, addonsQuantity, addAddons, deleteAddons, addBasket, clearState } = setBasket.actions;
 export default setBasket.reducer;
