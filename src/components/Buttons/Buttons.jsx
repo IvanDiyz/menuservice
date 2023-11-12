@@ -25,7 +25,7 @@ export default function Buttons({ dish, addDish, changeQuantity, deleteDish }) {
           addDish({
             id: dish.id,
             quantity: quantityDish + 1,
-            amount: dish.cost,
+            amountDish: +dish.cost,
             isReady: false,
             dish: dish,
             addons: addons,
@@ -53,7 +53,6 @@ export default function Buttons({ dish, addDish, changeQuantity, deleteDish }) {
   };
 
   useEffect(() => {
-    console.log(addons);
     if (item.quantity) {
       setQuantity(item.quantity);
     } else {

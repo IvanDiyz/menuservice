@@ -25,7 +25,7 @@ export default function SuppleButton({ addonsId, addonsCost, addonsName }) {
           addAddons({
             id: addonsId,
             quantity: quantityAddons + 1,
-            amount: addonsCost,
+            startAmount: addonsCost,
             isReady: false,
             name: addonsName,
           })
