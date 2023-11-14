@@ -2,12 +2,14 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import s from "./Buttons.module.scss";
+import { usePathname } from "next/navigation";
 
-export default function Buttons({ dish, addDish, changeQuantity, deleteDish }) {
+export default function Buttons({ dish, addDish, changeQuantity, deleteDish, orderQuantity, indexItem }) {
   const dispatch = useAppDispatch();
   const select = useAppSelector;
-  const { item, addons} = select((state) => state.setBasket);
-  let [quantityDish, setQuantity] = useState(0);
+  const pathName = usePathname();
+  const { item, addons, items} = select((state) => state.setBasket);
+  let [quantityDish, setQuantity] = useState(orderQuantity ? orderQuantity : 0);
 
   let calculateObj = {
     plus: () => {
@@ -18,6 +20,7 @@ export default function Buttons({ dish, addDish, changeQuantity, deleteDish }) {
             quantity: quantityDish + 1,
             sign: "plus",
             addons: addons,
+            indexItem: indexItem,
           })
         );
       } else {
@@ -53,12 +56,19 @@ export default function Buttons({ dish, addDish, changeQuantity, deleteDish }) {
   };
 
   useEffect(() => {
-    if (item.quantity) {
-      setQuantity(item.quantity);
-    } else {
-      setQuantity(0);
+    
+    if(dish.quantity !== quantityDish) {
+      setQuantity(orderQuantity)
     }
-  }, [item]);
+    console.log('button', quantityDish)
+    if(!orderQuantity && pathName != '/order') {
+      if (item.quantity) {
+        setQuantity(item.quantity);
+      } else {
+        setQuantity(0);
+      }
+    }
+  }, [item, items]);
 
   //increase quantityDish by one
   let plusDish = () => {

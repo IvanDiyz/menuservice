@@ -9,12 +9,15 @@ import Popup from "@/components/Popup/Popup";
 import Buttons from "@/components/Buttons/Buttons";
 import SuppleButton from "@/components/SuppleButton/SuppleButton";
 import Totaldish from "@/components/Menuitems/Totaldish/Totaldish";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import s from "./Menuitem.module.scss";
-import { useAppDispatch } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 export default function Menuitem({ triger, dish }) {
   const dispatch = useAppDispatch();
+  const selector = useAppSelector;
+  const { items } = selector((state) => state.setBasket);
+  const [quantity, setQuantity] = useState(0);
   const supplements = [
     {
       id: 1,
@@ -37,7 +40,15 @@ export default function Menuitem({ triger, dish }) {
       name: "Цебуля",
     },
   ];
-
+  useEffect(() => {
+    items.reduce((sum, item) => {
+      if (item.id === dish.id) {
+        setQuantity(sum + item.quantity);
+        return sum + item.quantity;
+      }
+      return sum;
+    }, 0);
+  }, [items]);
   const [popup, setPopup] = useState(false);
 
   const openPopup = (e) => {
@@ -46,7 +57,7 @@ export default function Menuitem({ triger, dish }) {
   };
   const closePopup = (e) => {
     setPopup(false);
-    dispatch(clearState())
+    dispatch(clearState());
     document.body.style.overflow = "auto";
   };
 
@@ -187,7 +198,11 @@ export default function Menuitem({ triger, dish }) {
                   <p className={s.menuitem__additivePrice}>{el.cost} ₴</p>
                 </div>
                 <div className={s.menuitem__popup_btn}>
-                  <SuppleButton addonsId={el.id} addonsCost={el.cost} addonsName={el.name}/>
+                  <SuppleButton
+                    addonsId={el.id}
+                    addonsCost={el.cost}
+                    addonsName={el.name}
+                  />
                 </div>
               </div>
             ))}
@@ -198,7 +213,7 @@ export default function Menuitem({ triger, dish }) {
               ></textarea>
             </div>
           </div>
-          <Totaldish closePopup={closePopup}/>
+          <Totaldish closePopup={closePopup} />
         </div>
       </Popup>
       <div className={s.menuitem__wrapper}>
@@ -333,10 +348,13 @@ export default function Menuitem({ triger, dish }) {
             </div>
             <p className={s.menuitem__price}>{dish.cost}</p>
           </div>
-          <div className={s.menuitem__info_btn}>
-            {/* отобразить общее колличество блюда */}
-            12
-          </div>
+          {quantity > 0 ? (
+            <div className={s.menuitem__info_quantity}>
+              <span>{quantity > 0 ? quantity : ""}</span>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
