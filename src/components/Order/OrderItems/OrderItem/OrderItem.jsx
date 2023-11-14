@@ -6,14 +6,14 @@ import {
 import Buttons from "@/components/Buttons/Buttons";
 import s from "./OrderItem.module.scss";
 
-export default function OrderItems({dish}) {
+export default function OrderItem({dish, indexItem}) {
   return (
     <div className={s.orderItem}>
       <div className={s.orderItem__photo}></div>
       <div className={s.orderItem__info}>
         <h4 className={s.orderItem__infoTitle}>{dish.dish.name}</h4>
         <div className={s.orderItem__infoBoxBtn}>
-          <Buttons dish={dish} addDish={addDish} changeQuantity={changeQuantity} deleteDish={deleteDish}/>
+          <Buttons dish={dish} orderQuantity={dish.quantity} indexItem={indexItem} addDish={addDish} changeQuantity={changeQuantity} deleteDish={deleteDish}/>
         </div>
         <div className={s.orderItem__infoAdditives}>
           <p className={s.orderItem__infoAdditive}>Сир чедер (25₴)</p>

@@ -10,7 +10,7 @@ export default function OrderItems() {
   const { items, amount } = selector(state => state.setBasket);
 
   useEffect(() => {
-    console.log(items)
+    console.log('gththbcjndrf', items)
   }, [items])
 
   if(items.length == 0) {
@@ -18,8 +18,8 @@ export default function OrderItems() {
   } else {
     return (
       <div className={s.orderItems}>
-        {items.map((el) => (
-          <OrderItem key={el.id} dish={el}/>
+        {items.map((el, index) => (
+          <OrderItem key={el.id} dish={el} indexItem={index + 1}/>
         ))}
       </div>
     );

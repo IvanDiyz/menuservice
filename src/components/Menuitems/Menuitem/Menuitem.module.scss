@@ -182,17 +182,18 @@
             background: #2EB955;
         }
     }
-    
+
     &__popup_btn {
         button {
             background: #F5F5F5;
         }
     }
-    
+
     &__info_btn_active {
         display: flex;
         align-items: center;
         column-gap: 10px;
+
         span {
             color: #27257A;
             font-size: 6.6vw;
@@ -200,9 +201,25 @@
             line-height: 32px;
             letter-spacing: -1.2px;
         }
+
         button {
             background: #F5F5F5;
         }
+    }
+
+    &__info_quantity {
+        width: 12vw;
+        height: 12vw;
+        border-radius: 50%;
+        background-color: #2EB955;
+        color: #FFF;
+        font-size: 6.6vw;
+        font-weight: 700;
+        line-height: 6vw;
+        letter-spacing: -1.2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     &__name {
