@@ -21,6 +21,7 @@ export default function Buttons({ dish, addDish, changeQuantity, deleteDish, ord
             sign: "plus",
             addons: addons,
             indexItem: indexItem,
+            pathName: pathName,
           })
         );
       } else {
@@ -43,6 +44,8 @@ export default function Buttons({ dish, addDish, changeQuantity, deleteDish, ord
           quantity: quantityDish - 1,
           sign: "minus",
           addons: addons,
+          indexItem: indexItem,
+          pathName: pathName,
         })
       );
     },
@@ -50,6 +53,8 @@ export default function Buttons({ dish, addDish, changeQuantity, deleteDish, ord
       dispatch(
         deleteDish({
           id: dish.id,
+          pathName: pathName,
+          indexItem: indexItem,
         })
       );
     },
