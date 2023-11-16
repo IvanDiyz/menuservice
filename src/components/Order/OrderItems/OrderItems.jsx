@@ -19,7 +19,7 @@ export default function OrderItems() {
     return (
       <div className={s.orderItems}>
         {items.map((el, index) => (
-          <OrderItem key={el.id} dish={el} indexItem={index + 1}/>
+          <OrderItem key={`${el.id}${index}`} dish={el} indexItem={index + 1}/>
         ))}
       </div>
     );
