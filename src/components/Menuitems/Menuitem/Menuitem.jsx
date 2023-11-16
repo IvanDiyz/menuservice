@@ -21,22 +21,22 @@ export default function Menuitem({ triger, dish }) {
   const supplements = [
     {
       id: 1,
-      cost: 75,
+      cost: 10,
       name: "Моцарела",
     },
     {
       id: 2,
-      cost: 75,
+      cost: 10,
       name: "Помідор чері",
     },
     {
       id: 3,
-      cost: 75,
+      cost: 10,
       name: "Курка",
     },
     {
       id: 4,
-      cost: 75,
+      cost: 10,
       name: "Цебуля",
     },
   ];
