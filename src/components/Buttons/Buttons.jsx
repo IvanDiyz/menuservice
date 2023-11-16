@@ -65,7 +65,6 @@ export default function Buttons({ dish, addDish, changeQuantity, deleteDish, ord
     if(dish.quantity !== quantityDish) {
       setQuantity(orderQuantity)
     }
-    console.log('button', quantityDish)
     if(!orderQuantity && pathName != '/order') {
       if (item.quantity) {
         setQuantity(item.quantity);
