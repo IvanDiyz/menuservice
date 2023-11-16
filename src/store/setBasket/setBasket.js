@@ -104,7 +104,7 @@ export const setBasket = createSlice({
         state.items.map(el => {
           if(el.id == state.item.id) {
             
-            arraysAreEqual(state.item, el)
+            arraysAreEqual(state.item, el, state)
           }
         })
         if(!state.item.push){
@@ -143,7 +143,7 @@ let calculateAmout = (obj) => {
 }
 
 // функция сровнения массивов
-function arraysAreEqual(array1, array2) {
+function arraysAreEqual(array1, array2, state) {
   if (array1.addons.length !== array2.addons?.length) {
     console.log('совпадений нет')
     return false;
@@ -158,7 +158,11 @@ function arraysAreEqual(array1, array2) {
     
     console.log('массивы равны')
     array1.push = true;
-    array2.quantity = array2.quantity + array1.quantity
+    array2.quantity += array1.quantity
+    array2.amountDish += array1.amountDish
+    array2.amountAddons += array1.amountAddons
+    array2.amount += array1.amount
+    state.amount += array1.amount
     return
   }else {
     console.log('массивы не равны')
