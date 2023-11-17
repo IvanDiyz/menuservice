@@ -16,7 +16,6 @@
         border-radius: 3.3vw;
     }
 
-    &__info {}
 
     &__infoTitle {
         color: #3E3E3E;
@@ -62,6 +61,9 @@
         line-height: 5.5vw;
         letter-spacing: -0.7px;
         padding-bottom: 4px;
+    }
+    &__infoAdditive::first-letter {
+        text-transform: uppercase;
     }
 
     &__priceItems {

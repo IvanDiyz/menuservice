@@ -31,16 +31,9 @@ export const setBasket = createSlice({
           amount = el.amount + amount;
           state.amount = amount + state.amount;
         })
-        // state.items[action.payload.indexItem - 1].quantity = action.payload.quantity;
-        // state.items[action.payload.indexItem - 1].amount = (+state.items[action.payload.indexItem - 1].dish.cost + state.items[action.payload.indexItem - 1].amountAddons) * state.items[action.payload.indexItem - 1].quantity;
       }
       if(!action.payload.indexItem) {
         creatDish(state.item)
-        // state.item.quantity = action.payload.quantity;
-        // state.item.addons = action.payload.addons;
-        // state.item.amountDish = (+state.item.dish.cost * action.payload.quantity);
-        // calculateAmout(state);  
-        // state.item.amount = state.item.amountDish + state.item.amountAddons;
       }
       
     },
@@ -51,7 +44,6 @@ export const setBasket = createSlice({
       
     },
     deleteDish: (state, action) => {
-      // state.amount = (+state.amount - +state.item.dish.cost);
       if(action.payload.pathName == '/order') {
         state.items.splice(action.payload.indexItem -1, 1)
         state.amount = 0;
@@ -168,18 +160,6 @@ function arraysAreEqual(array1, array2, state) {
     console.log('массивы не равны')
   };
 }
-
-// let calculateAmout = (state) => {
-//   let amount = 0;
-//   if(state.item.addons?.length > 0) {
-//     state.item.addons.map(el => {
-//       amount = amount + el.amount;
-//     })
-//     state.item.amountAddons = amount * state.item?.quantity;
-//   } else {
-//     state.item.amountAddons = 0;
-//   }
-// }
 
 export const { changeQuantity, addDish, deleteDish, giveTips, addonsQuantity, addAddons, deleteAddons, addBasket, clearState } = setBasket.actions;
 export default setBasket.reducer;

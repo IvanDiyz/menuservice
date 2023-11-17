@@ -16,30 +16,9 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 export default function Menuitem({ triger, dish }) {
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
-  const { items } = selector((state) => state.setBasket);
+  const { items, item } = selector((state) => state.setBasket);
   const [quantity, setQuantity] = useState(0);
-  const supplements = [
-    {
-      id: 1,
-      cost: 10,
-      name: "Моцарела",
-    },
-    {
-      id: 2,
-      cost: 10,
-      name: "Помідор чері",
-    },
-    {
-      id: 3,
-      cost: 10,
-      name: "Курка",
-    },
-    {
-      id: 4,
-      cost: 10,
-      name: "Цебуля",
-    },
-  ];
+
   useEffect(() => {
     items.reduce((sum, item) => {
       if (item.id === dish.id) {
@@ -151,7 +130,7 @@ export default function Menuitem({ triger, dish }) {
           )}
           <span className={s.menuitem__popupClose} onClick={closePopup}></span>
         </div>
-        <div className={s.menuitem__popupInform}>
+        <div className={`${s.menuitem__popupInform} ${item?.amount ? `${s.menuitem__popupInform__triger}` : ''}`}>
           <div
             className={`${s.menuitem__popupWrapper} ${s.menuitem__popupName}`}
           >
@@ -188,20 +167,20 @@ export default function Menuitem({ triger, dish }) {
           )}
           <div className={s.menuitem__additives}>
             <h4 className={s.menuitem__popupTitle}>Додатки:</h4>
-            {supplements.map((el) => (
+            {dish.addons.map((el) => (
               <div
                 className={`${s.menuitem__popupWrapper} ${s.menuitem__popupName}`}
                 key={el.id}
               >
                 <div className={s.menuitem__info_box}>
-                  <p className={s.menuitem__additiveName}>{el.name}</p>
+                  <p className={s.menuitem__additiveName}>{el.title}</p>
                   <p className={s.menuitem__additivePrice}>{el.cost} ₴</p>
                 </div>
                 <div className={s.menuitem__popup_btn}>
                   <SuppleButton
                     addonsId={el.id}
                     addonsCost={el.cost}
-                    addonsName={el.name}
+                    addonsName={el.title}
                   />
                 </div>
               </div>

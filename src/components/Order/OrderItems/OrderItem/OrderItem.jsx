@@ -16,9 +16,9 @@ export default function OrderItem({dish, indexItem}) {
           <Buttons dish={dish} orderQuantity={dish.quantity} indexItem={indexItem} addDish={addDish} changeQuantity={changeQuantity} deleteDish={deleteDish}/>
         </div>
         <div className={s.orderItem__infoAdditives}>
-          <p className={s.orderItem__infoAdditive}>Сир чедер (25₴)</p>
-          <p className={s.orderItem__infoAdditive}>Помідор чері (25₴)</p>
-          <p className={s.orderItem__infoAdditive}>Курка (35₴)</p>
+          {dish.addons.map(el => (
+            <p key={el.id} className={s.orderItem__infoAdditive}>{el.name} ({el.startAmount}₴) - {el.quantity}шт.</p>
+          ))}
         </div>
       </div>
       <div className={s.orderItem__price}>

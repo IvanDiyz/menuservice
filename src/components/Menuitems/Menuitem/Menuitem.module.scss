@@ -83,11 +83,13 @@
 
     &__popupInform {
         background: #FFF;
-        padding: 2.2vw 4.4vw 17.4vw;
+        padding: 2.2vw 4.4vw 4.4vw;
         position: relative;
         overflow: hidden;
     }
-
+    &__popupInform__triger {
+        padding: 2.2vw 4.4vw 17.4vw;
+    }
     &__popupName {
         display: flex;
         align-items: center;
