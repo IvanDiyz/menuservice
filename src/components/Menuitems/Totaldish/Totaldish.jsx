@@ -18,7 +18,7 @@ export default function Totaldish({ closePopup }) {
     <div className={`${s.total} ${item.amount ? `${s.total__active}` : ''}`}>
       <div className={s.total__chek}>
         <span className={s.total__title}>Разом</span>
-        <span className={s.total__score}>{item.amount} ₴</span>
+        <span className={s.total__score}>{item.amount ? item.amount : 0} ₴</span>
       </div>
       <div className={s.total__boxBtn}>
         

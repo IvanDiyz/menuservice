@@ -1,10 +1,13 @@
+'use client'
 import ClientMain from "@/components/ClientMain/ClientMain";
 import Notificate from "@/components/Notificate/Notificate";
 
-const Page = async () => {
+const Page = async ({params}) => {
+  
+  
   return (
     <>
-      <ClientMain />
+      <ClientMain params={params}/>
       <Notificate />
     </>
   );

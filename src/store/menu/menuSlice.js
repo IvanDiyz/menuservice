@@ -4,7 +4,8 @@ import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   methodOrder: 'Inside',
-  venueId: 1,
+  venueId: null,
+  tableId: null,
   menus: [],
   name: null,
   logoUrl: null,
@@ -26,9 +27,10 @@ export const menuSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(fetchMenu.fulfilled, (state, action) => {
+        console.log(action)
         state.isLoading = false;
         state.error = "";
-        const { menus, name, logoUrl, photoUrl, openingTime, closingTime, types } = action.payload[0];
+        const { menus, name, logoUrl, photoUrl, openingTime, closingTime, types } = action.payload.response[0];
         state.menus = menus;
         state.name = name;
         state.logoUrl = logoUrl;
@@ -36,6 +38,8 @@ export const menuSlice = createSlice({
         state.openingTime = openingTime;
         state.closingTime = closingTime;
         state.types = types;
+        state.venueId = +action.payload.venueId;
+        state.tableId = +action.payload.tableId;
       })
       .addCase(fetchMenu.pending, (state) => {
         state.isLoading = true;
