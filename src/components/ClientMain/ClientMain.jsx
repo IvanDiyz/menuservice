@@ -13,18 +13,17 @@ import ServiceSheet from "./ServiceSheet/ServiceSheet";
 // Styles
 import s from "./ClientMain.module.scss";
 
-
-const ClientMain = () => {
+const ClientMain = (params) => {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
   const [dataLoaded, setDataLoaded] = useState(false);
   const {venueId, menus, name, openingTime, closingTime, types, logoUrl} = selector((state)=> state.menu);
-  useEffect(() => {
+
+  useEffect(() => {   
     const fetchData = async () => {
-      await dispatch(fetchMenu());
+      await dispatch(fetchMenu(params.params));
       setDataLoaded(true);
     };
-    
     fetchData()
   }, [venueId])
 

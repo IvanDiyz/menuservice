@@ -1,11 +1,14 @@
+'use client'
 import Link from "next/link";
 import s from "./Orderheader.module.scss";
+import { useSelector } from "react-redux";
 
 export default function Header() {
+  const { venueId, tableId } = useSelector(state => state.menu);
   return (
     <header className={s.header}>
       <div className={s.header__wrapper}>
-        <Link href="/menu">
+        <Link href={`/${venueId}/${tableId}/menu`}>
           <svg
             width="24"
             height="24"
