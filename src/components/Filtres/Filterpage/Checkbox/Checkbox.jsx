@@ -1,34 +1,19 @@
 import { useEffect, useState } from "react";
 import s from "./Checkbox.module.scss";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { changeFilter, hasTrueFilter } from "@/store/setFilter/setFilter";
+import { useAppDispatch } from "@/hooks/redux";
+import { changeFilter } from "@/store/setFilter/setFilter";
 
 export default function Checkbox({ id, name }) {
   const [checkbox, setCheckbox] = useState(false);
   const dispatch = useAppDispatch();
-  const selector = useAppSelector;
-  const { filters } = selector(state => state.setFilter)
-  let stateFiltres;
+ 
+  
  
   useEffect(() => {
-    dispatch(changeFilter({name: id, bool: checkbox}));
+    dispatch(changeFilter({name: id, value: checkbox}));
   }, [checkbox])
   
-  useEffect(() => {
-    hasBoolFilter(filters);
-    dispatch(hasTrueFilter(stateFiltres))
-  }, [filters])
-
-  //check an object to see if it contains at least one true
-  function hasBoolFilter(filters) {
-    for (const filter in filters) {
-      if (filters[filter] === true) {
-        return stateFiltres = true;
-      } else {
-        stateFiltres = false;
-      }
-    }
-  }
+  
 
 
   let checkState = () => {

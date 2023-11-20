@@ -1,0 +1,130 @@
+.editVenueFormSelectWrapper {
+	padding: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-radius: 16px;
+	border: 2px solid #DDD;
+	margin-bottom: 8px;
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+	flex-wrap: wrap;
+	row-gap: 8px;
+	label {
+		text-wrap: nowrap;
+		padding-right: 15px;
+		color: #000;
+		font-size: 16px;
+		font-weight: 600;
+		line-height: 24px;
+	}
+}
+
+
+.editVenueArrow {
+	cursor: pointer;
+	background-image: url("/images/services/select-icon.svg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: right -2px center;
+	height: 26px;
+	width: 23px;
+}
+
+.Drop {
+	width: 155px;
+
+	&__Input {
+		align-items: center;
+		border: 1px solid #26B657;
+		border-radius: 5px;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		padding-left: .2em;
+		width: 100%;
+		min-height: 26px;
+
+		input {
+			border: none;
+			flex: 1;
+		}
+
+
+		button {
+			background: transparent;
+			border: none;
+			font-size: 1.5em;
+		}
+	}
+
+	&__Data {
+		align-items: center;
+		display: flex;
+		flex: 1;
+		flex-direction: row;
+		flex-wrap: wrap;
+		column-gap: 2px;
+
+		svg {
+			font-size: .5em;
+		}
+	}
+
+	&__Select {
+		border-radius: 0 0 5px 5px;
+		font-size: 14px;
+		width: inherit;
+		text-transform: uppercase;
+		position: absolute;
+		overflow: visible;
+		height: max-content;
+		border: 1px solid #747484;
+
+		option {
+			padding: 8px 0 8px 8px;
+
+			&:hover {
+				background: #1967d2;
+				color: #fff;
+			}
+		}
+	}
+}
+
+.Open {
+	display: inherit;
+	animation-duration: 1s;
+	z-index: 10;
+}
+
+.Closed {
+	display: inherit;
+	visibility: hidden;
+}
+
+.Chip {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	border: 1px solid #26B657;
+	border-radius: 5px;
+	height: 23px;
+	padding: 0 .15em;
+	column-gap: 2px;
+
+	span {
+		cursor: pointer;
+	}
+
+	button {
+		font-size: 1em;
+		padding: 0;
+
+	}
+
+
+}
