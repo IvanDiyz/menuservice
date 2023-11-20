@@ -2,18 +2,19 @@
 import { useEffect, useState } from "react";
 import Menuitem from "./Menuitem/Menuitem";
 import s from "./Menuitems.module.scss";
-import { useAppSelector } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { fetchFiltres } from "@/store/setFilter/setFiltresApi";
 
 export default function Menuitems() {
+  const dispatch = useAppDispatch();
   const selector = useAppSelector;
   const [display, setDispaly] = useState(1);
-  const [filtersDish, setFiltersDish] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
   const { items, total, limit, currentPage } = selector(
     (state) => state.getDishis.dishis
   );
-  const { stateDishis } = selector((state) => state.getDishis);
-  const { filters, stateFilters } = selector((state) => state.setFilter);
+  const { stateDishis, actualSection } = selector((state) => state.getDishis);
+  const { filters, stateFilters, filteredDish } = selector((state) => state.setFilter);
 
   useEffect(() => {
     // Дождитесь, пока stateDishis станет true, прежде чем установить dataLoaded в true
@@ -33,23 +34,10 @@ export default function Menuitems() {
   useEffect(() => {
     if (stateFilters) {
       setDataLoaded(false);
-      let filteredItems = items?.filter((el) => {
-        if (filters.alergen && el.isAllergen) {
-          return true;
-        }
-        // if (filters.vegetarian && el.isVegetarian) {
-        //   return true;
-        // }
-        if (filters.spicy && el.isSpicy) {
-          return true;
-        }
-        return false;
-      });
-      setFiltersDish(filteredItems);
+      dispatch(fetchFiltres({filters: filters, sectionId: actualSection}))
       setDataLoaded(true);
-      console.log("filtres", filtersDish);
     }
-  }, [stateFilters, filters, items]);
+  }, [stateFilters, filters, actualSection]);
 
   if (!dataLoaded) {
     return <>Loading...</>;
@@ -69,8 +57,8 @@ export default function Menuitems() {
             </div>
           </div>
           <h4 className={s.menuitems__title}>Піца</h4>
-          {stateFilters && filtersDish.length > 0 ? (
-            filtersDish.map((el) => (
+          {stateFilters ? (
+            filteredDish.map((el) => (
               <Menuitem triger={display} dish={el} key={el.id} />
             ))
           ) : items.length > 0 ? (
