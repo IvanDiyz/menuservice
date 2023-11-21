@@ -1,7 +1,8 @@
 .header {
-  padding: 20px 4vw;
+  padding: 8px 16px;
   border-bottom: 1px solid #DDD;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   position: relative;
 
@@ -12,8 +13,9 @@
   }
   &__burgerBox {
     display: flex;
+    justify-content: flex-start;
     align-items: center;
-    width: 24px;
+    width: 64px;
     height: 24px;
   }
   &__burger {
@@ -68,7 +70,6 @@
   }
   
   &__menu {
-    height: calc(100vh - 65px);
     top: calc(100% + 1px);
     transform: translateX(-100%);
   }

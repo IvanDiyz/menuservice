@@ -1,14 +1,33 @@
+// .clientinfo__bcg {
+//     padding-top: 100px;
+// }
 .clientinfo {
-    margin-top: 20px;
+    // padding-top: 40px;
+    padding-top: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    position: relative;
+    &__background {
+        position: absolute;
+        width: calc(100% + 32px);
+        z-index: -1;
+        top: 0;
+        height: 142px;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
     &__logo {
         padding: 9px;
         border-radius: 12px;
         border: 2px solid #DDD;
         margin-bottom: 16px;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 80px;
+        height: 80px;
     }
 
     &__type {

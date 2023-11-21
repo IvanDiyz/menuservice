@@ -12,6 +12,7 @@ import ServiceSheet from "./ServiceSheet/ServiceSheet";
 
 // Styles
 import s from "./ClientMain.module.scss";
+import Openedcontact from "../Openedmenu/Openedcontact/Openedcontact";
 
 const ClientMain = (params) => {
   const selector = useAppSelector;
@@ -33,8 +34,9 @@ const ClientMain = (params) => {
     return (
       <Container>
         <ClientInfo name={name} logoUrl={logoUrl} openingTime={openingTime} closingTime={closingTime} types={types}/>
-        <OrderMethods firstmethod={'В закладі'} lastmethod={'Із собою'}/>
+        <OrderMethods firstmethod={'В закладі'} lastmethod={'Із собою'} svg={true}/>
         <ServiceSheet menus={menus}/>
+        <Openedcontact />
       </Container>
     );
   }
