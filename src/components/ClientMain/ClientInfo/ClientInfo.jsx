@@ -1,17 +1,11 @@
-import Link from "next/link";
 import s from "./ClientInfo.module.scss";
 import Image from "next/image";
 
-const ClientInfo = ({name, logoUrl, openingTime, closingTime, types}) => {
+const ClientInfo = ({name, logoUrl, openingTime, closingTime, types, image}) => {
   return (
-    <div className={s.clientinfo}>
-      <div className={s.clientinfo__logo}>
-        <Image
-          src={logoUrl ? `${logoUrl}` : "/images/main/logo-partner.png"}
-          alt="Логотип заведения"
-          width={62}
-          height={62}
-        />
+    <div className={`${s.clientinfo} ${image ? `${s.clientInfo__bcg}` : ''}`}>
+      <div className={s.clientinfo__background} style={{backgroundImage: "url(/images/services/background.jpg)"}}></div>
+      <div className={s.clientinfo__logo} style={{backgroundImage:  `url(${logoUrl ? logoUrl : "/images/main/logo-partner.png"})`}}>
       </div>
       <div className={s.clientinfo__box}>
         <p className={s.clientinfo__type}>{types.lenght ? `${types}` : 'Кафе-Бар'}</p>
