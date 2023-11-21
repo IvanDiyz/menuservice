@@ -16,14 +16,14 @@ export const setBasket = createSlice({
     changeQuantity: (state, action) => {
       let creatDish = (obj) => {
         obj.quantity = action.payload.quantity;
-        if(!action.payload.pathName == '/order') {
+        if(!action.payload.pathName == `/${action.payload.venueId}/${action.payload.tableId}/order`) {
           obj.addons = action.payload.addons;
         }
         obj.amountDish = (+obj.dish.cost * action.payload.quantity);
         calculateAmout(obj);  
         obj.amount = obj.amountDish + obj.amountAddons;
       }
-      if(action.payload.pathName == '/order') {
+      if(action.payload.pathName == `/${action.payload.venueId}/${action.payload.tableId}/order`) {
         creatDish(state.items[action.payload.indexItem - 1]);
         state.amount = 0;
         state.items.map(el => {
@@ -44,7 +44,7 @@ export const setBasket = createSlice({
       
     },
     deleteDish: (state, action) => {
-      if(action.payload.pathName == '/order') {
+      if(action.payload.pathName == `/${action.payload.venueId}/${action.payload.tableId}/order`) {
         state.items.splice(action.payload.indexItem -1, 1)
         state.amount = 0;
         state.items.map(el => {

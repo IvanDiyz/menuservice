@@ -9,6 +9,7 @@ export default function Buttons({ dish, addDish, changeQuantity, deleteDish, ord
   const select = useAppSelector;
   const pathName = usePathname();
   const { item, addons, items} = select((state) => state.setBasket);
+  const { venueId, tableId} = select((state) => state.menu);
   let [quantityDish, setQuantity] = useState(orderQuantity ? orderQuantity : 0);
 
   let calculateObj = {
@@ -22,6 +23,8 @@ export default function Buttons({ dish, addDish, changeQuantity, deleteDish, ord
             addons: addons,
             indexItem: indexItem,
             pathName: pathName,
+            venueId: venueId,
+            tableId: tableId,
           })
         );
       } else {
@@ -46,6 +49,8 @@ export default function Buttons({ dish, addDish, changeQuantity, deleteDish, ord
           addons: addons,
           indexItem: indexItem,
           pathName: pathName,
+          venueId: venueId,
+          tableId: tableId,
         })
       );
     },
@@ -55,17 +60,19 @@ export default function Buttons({ dish, addDish, changeQuantity, deleteDish, ord
           id: dish.id,
           pathName: pathName,
           indexItem: indexItem,
+          venueId: venueId,
+          tableId: tableId,
         })
       );
     },
   };
 
   useEffect(() => {
-    
+    console.log(venueId, tableId)
     if(dish.quantity !== quantityDish) {
       setQuantity(orderQuantity)
     }
-    if(!orderQuantity && pathName != '/order') {
+    if(!orderQuantity && pathName != `/${venueId}/${tableId}/order`) {
       if (item.quantity) {
         setQuantity(item.quantity);
       } else {
