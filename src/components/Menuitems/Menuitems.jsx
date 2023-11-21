@@ -15,6 +15,7 @@ export default function Menuitems() {
   );
   const { stateDishis, actualSection } = selector((state) => state.getDishis);
   const { venueId } = selector((state) => state.menu);
+  const { amount } = selector((state) => state.setBasket);
   const { filters, stateFilters, filteredDish } = selector((state) => state.setFilter);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ export default function Menuitems() {
   } else {
     return (
       <>
-        <section className={s.menuitems}>
+        <section className={`${s.menuitems} ${amount > 0 ? `${s.menuitems__amount}` : ''}`}>
           <div className={s.menuitems__change}>
             <p>Відображення</p>
             <div

@@ -17,7 +17,7 @@ export default function Totalscore() {
       <div className={s.total__boxBtn}>
         <Link href={`/${venueId}/${tableId}/order`}>
           <span className={s.total__btn}>
-            До замовлення
+          Переглянути замовлення
           </span>
         </Link>
       </div>
