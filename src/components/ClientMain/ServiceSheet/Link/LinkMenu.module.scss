@@ -1,0 +1,42 @@
+.menuWork {
+  color: red;
+}
+.menuNoWork {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.serviceSheet {
+  margin-top: 5vw;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  &__box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 16px;
+    border: 2px solid #DDD;
+    padding: 12px 16px;
+    height: 74px;
+  }
+  &__row {
+    display: flex;
+    align-items: center;
+  }
+  &__nameService {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.25vw;
+  }
+  &__name {
+    color: #000000;
+    font-weight: 600;
+    font-size: 5vw;
+    line-height: 7.5vw;
+  }
+  &__timeService {
+    color: #696969;
+    font-size: 3.75vw;
+    line-height: 5vw;
+  }
+}

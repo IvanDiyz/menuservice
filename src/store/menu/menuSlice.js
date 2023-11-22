@@ -14,6 +14,13 @@ const initialState = {
   closingTime: null,
   types: [],
   isLoading: 'nune',
+  facebook: null,
+  instagram: null,
+  website: null,
+  phone: null,
+  extraPhone: null,
+  description: null,
+  address: null
 };
 
 export const menuSlice = createSlice({
@@ -30,7 +37,7 @@ export const menuSlice = createSlice({
         console.log(action)
         state.isLoading = false;
         state.error = "";
-        const { menus, name, logoUrl, photoUrl, openingTime, closingTime, types } = action.payload.response[0];
+        const { menus, name, logoUrl, photoUrl, openingTime, closingTime, types, facebook, instagram, website, phone, extraPhone, description, address } = action.payload.response[0];
         state.menus = menus;
         state.name = name;
         state.logoUrl = logoUrl;
@@ -40,6 +47,13 @@ export const menuSlice = createSlice({
         state.types = types;
         state.venueId = +action.payload.venueId;
         state.tableId = +action.payload.tableId;
+        state.facebook = facebook;
+        state.instagram = instagram;
+        state.website = website;
+        state.phone = phone;
+        state.extraPhone = extraPhone;
+        state.description = description;
+        state.address = address;
       })
       .addCase(fetchMenu.pending, (state) => {
         state.isLoading = true;
