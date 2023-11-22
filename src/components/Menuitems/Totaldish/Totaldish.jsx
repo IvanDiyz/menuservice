@@ -4,13 +4,13 @@ import s from "./Totaldish.module.scss";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { addBasket } from "@/store/setBasket/setBasket";
 
-export default function Totaldish({ closePopup }) {
+export default function Totaldish({ text, closePopup }) {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
   const { item } = selector(state => state.setBasket);
 
   let clickBtn = () => {
-    dispatch(addBasket());
+    dispatch(addBasket(text));
     closePopup();
   }
 
