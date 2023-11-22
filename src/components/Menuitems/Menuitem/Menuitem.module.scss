@@ -8,6 +8,7 @@
         position: relative;
         border: 1px solid #DDD;
     }
+
     &__wrapper__active {
         border: 4px solid #2EB955;
     }
@@ -90,9 +91,11 @@
         position: relative;
         overflow: hidden;
     }
+
     &__popupInform__triger {
         padding: 2.2vw 4.4vw 17.4vw;
     }
+
     &__popupName {
         display: flex;
         align-items: center;
@@ -243,6 +246,16 @@
         letter-spacing: -0.9px;
     }
 
+    &__priceDiscount {
+        color: #585858;
+        font-size: 5vw;
+        font-weight: 600;
+        line-height: 6.1vw;
+        letter-spacing: -0.9px;
+        text-decoration: line-through;
+        padding-right: 8px;
+    }
+
     &__alergenBox {
         position: absolute;
         top: 0;
@@ -262,27 +275,32 @@
         width: 8.8vw;
         height: 6.6vw;
         border-radius: 1.1vw;
-        
+
         svg {
             width: 4.5vw;
             height: 4.5vw;
         }
     }
+
     &__alergen {
         background: #FF5C00;
     }
+
     &__new {
         background: #0094FF;
         color: #fff;
         font-size: 10px;
         font-weight: 600;
     }
+
     &__spicy {
         background: #FFC700;
     }
+
     &__top {
         background: #FF5C00;
     }
+
     &__textareaBox {
         padding-top: 4.4vw;
     }
@@ -332,20 +350,24 @@
             height: auto;
 
         }
+
         &__alergen,
         &__top {
             path {
                 fill: #FF5C00;
             }
         }
+
         &__new {
             color: #0094FF;
         }
+
         &__spicy {
             path {
                 fill: #FFC700;
             }
         }
+
         &__price {
             font-size: 4.4vw;
             line-height: 6.6vw;

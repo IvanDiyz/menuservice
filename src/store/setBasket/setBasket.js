@@ -108,6 +108,7 @@ export const setBasket = createSlice({
         }
       } else {
         console.log('push 2');
+        state.item.clientCooment = action.payload;
         state.items.push(state.item);
         state.amount = state.amount + state.item.amount;
         state.item = {};
