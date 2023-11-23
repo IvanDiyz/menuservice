@@ -18,7 +18,7 @@ const ClientMain = (params) => {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
   const [dataLoaded, setDataLoaded] = useState(false);
-  const {venueId, menus, name, openingTime, closingTime, types, logoUrl} = selector((state)=> state.menu);
+  const {photoUrl, venueId, menus, address, extraPhone, phone, website, instagram, facebook, name, openingTime, closingTime, types, logoUrl} = selector((state)=> state.menu);
 
   useEffect(() => {   
     const fetchData = async () => {
@@ -33,10 +33,10 @@ const ClientMain = (params) => {
   }else {
     return (
       <Container>
-        <ClientInfo name={name} logoUrl={logoUrl} openingTime={openingTime} closingTime={closingTime} types={types}/>
+        <ClientInfo photoUrl={photoUrl} name={name} logoUrl={logoUrl} openingTime={openingTime} closingTime={closingTime} types={types}/>
         <OrderMethods firstmethod={'В закладі'} lastmethod={'Із собою'} svg={true}/>
         <ServiceSheet menus={menus}/>
-        <Openedcontact />
+        <Openedcontact address={address} extraPhone={extraPhone} phone={phone} website={website} instagram={instagram} facebook={facebook}/>
       </Container>
     );
   }

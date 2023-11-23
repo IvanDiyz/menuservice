@@ -1,16 +1,21 @@
 import Link from "next/link";
 import s from "./Openedcontact.module.scss";
 
-const Openedcontact = () => {
+const Openedcontact = ({address, extraPhone, phone, website, instagram, facebook}) => {
   return (
     <div className={s.contact}>
       <div className={s.contact__box}>
-        <p className={s.contact__boxText}>Київ, вул. Велика Васильківська, 5</p>
-        <p className={s.contact__boxText}>099 199 99 99</p>
+        {address ? (
+          <p className={s.contact__boxText}>{address}</p>
+        ) : ''}
+        {phone ? (
+        <p className={s.contact__boxText}>{phone}</p>
+        ) : ''}
       </div>
       <div className={s.contact__box}>
         <div className={s.contact__social}>
-          <Link href={`https://www.google.com`}>
+          {instagram ? (
+          <Link href={`${instagram}`}>
             <svg
               width="24"
               height="24"
@@ -27,7 +32,9 @@ const Openedcontact = () => {
               </g>
             </svg>
           </Link>
-          <Link href={`https://www.google.com`}>
+          ) : ''}
+          {facebook ? (
+            <Link href={`${facebook}`}>
             <svg
               width="24"
               height="24"
@@ -44,10 +51,14 @@ const Openedcontact = () => {
               </g>
             </svg>
           </Link>
+          ) : ''}
+          
         </div>
       </div>
       <div className={s.contact__box}>
-        <p className={s.contact__boxText}>theburger.com</p>
+        {website ? (
+          <p className={s.contact__boxText}>{website}</p>
+        ) : ''}
       </div>
     </div>
   );
