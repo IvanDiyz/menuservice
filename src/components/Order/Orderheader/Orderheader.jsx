@@ -29,7 +29,7 @@ export default function Header() {
       <div className={s.header__wrapper}>
         <div className={s.header__wrapperBox}>
           <span className={s.header__wrapperSubtitle}>Моє замовлення</span>
-          <h4 className={s.header__wrappertitle}>Стіл №13</h4>
+          <h4 className={s.header__wrappertitle}>Стіл №{tableId}</h4>
         </div>
       </div>
       <div className={s.header__wrapper}>

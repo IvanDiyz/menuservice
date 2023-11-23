@@ -1,6 +1,6 @@
 .tips {
-    margin-top: 24px;
-    margin-bottom: 45px;
+    margin-top: 16px;
+    margin-bottom: 16px;
     padding: 4.4vw;
     border-radius: 8.8vw;
     border: 2px solid #FFC700;
@@ -47,6 +47,7 @@
         background: #26B657;
         border-color: #26B657;
         color: #fff;
+
         span {
             color: #fff;
         }
@@ -83,11 +84,26 @@
         svg {
             width: 6.6vw;
             height: 6.6vw;
+            path {
+                fill: #000;
+            }
+        }
+    }
+
+    &__btnActive {
+        border: 2px solid #E63152;
+        color: #FFFCF8;
+        background: #E63152;
+        svg {
+            path {
+                fill: #FFFCF8;
+            }
         }
     }
 
     &__btn__input {
         position: relative;
+
         .tips__btn__close {
             display: block;
         }
@@ -114,9 +130,11 @@
     &__input::placeholder {
         font-size: 3.3vw;
     }
+
     &__btn__close {
         display: none;
     }
+
     &__btn__close::after,
     &__btn__close::before {
         content: '';

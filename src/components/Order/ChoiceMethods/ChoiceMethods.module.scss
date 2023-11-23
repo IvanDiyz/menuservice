@@ -1,0 +1,36 @@
+.orderMethods {
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 6.6vw;
+  background: #F5F5F5;
+  padding: 1.25vw;
+
+  &__button {
+    display: flex;
+    align-items: center;
+    padding: 2.5vw 5.68vw;
+    color: #3E3E3E;
+    path {
+      fill: #3E3E3E;
+    }
+  }
+  &__button.active {
+    color: #000;
+    border-radius: 32px;
+    background: #FFF;
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.15);
+    path {
+      fill: #000;
+    }
+  }
+  &__btn {
+    background-color: unset;
+    font-weight: 600;
+    font-size: 4.4vw;
+    letter-spacing: -0.8px;
+    text-wrap: nowrap;
+    padding: 0;
+  }
+}

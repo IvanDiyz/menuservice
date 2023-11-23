@@ -9,10 +9,6 @@ export default function OrderItems() {
   const selector = useAppSelector;
   const { items, amount } = selector(state => state.setBasket);
 
-  useEffect(() => {
-    console.log('gththbcjndrf', items)
-  }, [items])
-
   if(items.length == 0) {
     return <span className={s.orderEmpty}>Ви ще нічого не замовили</span>
   } else {
