@@ -14,6 +14,12 @@ export const setBasket = createSlice({
   name: "setBasket",
   initialState,
   reducers: {
+    clearItems: (state, action) => {
+      state.items = [];
+      state.allAmount = 0;
+      state.amount = 0;
+      state.tips = 0;
+    },
     changeChoice: (state, action) => {
       state.choiceMethod = action.payload;
     },
@@ -167,5 +173,5 @@ function arraysAreEqual(array1, array2, state) {
   };
 }
 
-export const { changeChoice, changeQuantity, addDish, deleteDish, giveTips, addonsQuantity, addAddons, deleteAddons, addBasket, clearState } = setBasket.actions;
+export const { clearItems, changeChoice, changeQuantity, addDish, deleteDish, giveTips, addonsQuantity, addAddons, deleteAddons, addBasket, clearState } = setBasket.actions;
 export default setBasket.reducer;

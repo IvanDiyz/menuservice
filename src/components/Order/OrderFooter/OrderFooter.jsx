@@ -21,11 +21,11 @@ export default function OrderFooter() {
     setEmail(e.target.value);
   };
 
-  useEffect(() => {
-    setHeight(setHeightPay.current?.scrollHeight)
-  }, [choiceMethod])
 
   useEffect(() => {
+    if(choiceMethod == 'then') {
+      setActivePayment('cash')
+    }
     setHeight(setHeightPay.current?.scrollHeight)
   }, [choiceMethod])
   useEffect(() => {
