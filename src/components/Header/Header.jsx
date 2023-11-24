@@ -3,11 +3,16 @@ import { useState } from "react";
 import s from "./Header.module.scss";
 import Openedmenu from "../Openedmenu/Openedmenu";
 import Search from "@/components/Search/Search";
-import { useAppDispatch } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setNotificate } from "@/store/notificate/notificate";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
+  const selector = useAppSelector;
+  const pathName = usePathname();
   const dispatch = useAppDispatch();
+  const {venueId, tableId, logoUrl} = selector(state => state.menu)
   const [search, setSearch] = useState(false);
   const [menu, setMenu] = useState(false);
 
@@ -21,20 +26,30 @@ export default function Header() {
   };
   //function for open Notificate
   const openNotificate = () => {
+    console.log(pathName)
     dispatch(setNotificate(true));
   };
 
   return (
     <header className={s.header}>
-      <div className={s.header__burgerBox} onClick={changMenu}>
-        <span
-          className={`${s.header__burger} ${
-            menu ? `${s.header__burgerActive}` : ""
-          }`}
-        ></span>
+      <div className={s.header__burgerBox}>
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          onClick={openNotificate}
+        >
+          <path
+            d="M19.3636 16.7619V17.5714H4.63636V16.7619L6.27273 15.1429V10.2857C6.27273 7.77619 7.93364 5.56619 10.3636 4.85381C10.3636 4.77286 10.3636 4.7 10.3636 4.61905C10.3636 4.18965 10.536 3.77784 10.8429 3.47421C11.1498 3.17058 11.566 3 12 3C12.434 3 12.8502 3.17058 13.1571 3.47421C13.464 3.77784 13.6364 4.18965 13.6364 4.61905C13.6364 4.7 13.6364 4.77286 13.6364 4.85381C16.0664 5.56619 17.7273 7.77619 17.7273 10.2857V15.1429L19.3636 16.7619ZM13.6364 18.381C13.6364 18.8104 13.464 19.2222 13.1571 19.5258C12.8502 19.8294 12.434 20 12 20C11.566 20 11.1498 19.8294 10.8429 19.5258C10.536 19.2222 10.3636 18.8104 10.3636 18.381M18.3409 3.96333L17.1791 5.11286C18.5782 6.48095 19.3636 8.34286 19.3636 10.2857H21C21 7.91381 20.0509 5.63095 18.3409 3.96333ZM3 10.2857H4.63636C4.63636 8.34286 5.42182 6.48095 6.82091 5.11286L5.65909 3.96333C3.94909 5.63095 3 7.91381 3 10.2857Z"
+            fill="black"
+          />
+        </svg>
       </div>
       <div className={s.header__wrapper}>
-        <svg
+        <Link href={`/${venueId}/${tableId}`}>
+          {pathName == `/${venueId}/${tableId}` ? (<svg
           width="69"
           height="48"
           viewBox="0 0 69 48"
@@ -61,22 +76,48 @@ export default function Header() {
             d="M66.2507 4.40415C67.1115 4.40094 67.8099 5.08853 67.8061 5.93536C67.8023 6.78658 67.1021 7.47588 66.2369 7.48013L50.0258 7.56043L50.0016 8.01835C50.0051 9.70795 48.6029 11.0875 46.8744 11.095L37.2237 11.1696L37.2217 9.153L44.4236 9.09993L44.4108 7.02887L37.2199 7.07097L37.2289 5.06518L44.4197 5.04487L44.4511 2.9736L37.2382 2.994L37.2695 0.966322L46.9198 0.957154C48.6483 0.949652 50.0382 2.31712 50.0195 4.00681L50.0397 4.46455L66.2507 4.40415Z"
             fill="#45FF79"
           />
-        </svg>
+        </svg>) : (<div
+        className={s.header__logo}
+        style={{
+          backgroundImage: `url(${
+            logoUrl ? logoUrl : "/images/main/logo-partner.png" //временный url если logo нет
+          })`,
+        }}
+      ></div>)}
+        
+        </Link>
       </div>
       <div className={s.header__wrapper}>
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          onClick={openNotificate}
-        >
-          <path
-            d="M19.3636 16.7619V17.5714H4.63636V16.7619L6.27273 15.1429V10.2857C6.27273 7.77619 7.93364 5.56619 10.3636 4.85381C10.3636 4.77286 10.3636 4.7 10.3636 4.61905C10.3636 4.18965 10.536 3.77784 10.8429 3.47421C11.1498 3.17058 11.566 3 12 3C12.434 3 12.8502 3.17058 13.1571 3.47421C13.464 3.77784 13.6364 4.18965 13.6364 4.61905C13.6364 4.7 13.6364 4.77286 13.6364 4.85381C16.0664 5.56619 17.7273 7.77619 17.7273 10.2857V15.1429L19.3636 16.7619ZM13.6364 18.381C13.6364 18.8104 13.464 19.2222 13.1571 19.5258C12.8502 19.8294 12.434 20 12 20C11.566 20 11.1498 19.8294 10.8429 19.5258C10.536 19.2222 10.3636 18.8104 10.3636 18.381M18.3409 3.96333L17.1791 5.11286C18.5782 6.48095 19.3636 8.34286 19.3636 10.2857H21C21 7.91381 20.0509 5.63095 18.3409 3.96333ZM3 10.2857H4.63636C4.63636 8.34286 5.42182 6.48095 6.82091 5.11286L5.65909 3.96333C3.94909 5.63095 3 7.91381 3 10.2857Z"
-            fill="black"
-          />
-        </svg>
+        {/* <Link> */}
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g id="Frame 83">
+              <g id="Group">
+                <path
+                  id="Vector"
+                  d="M3.76514 3C3.34257 3 3 3.34257 3 3.76514C3 4.18772 3.34257 4.53029 3.76514 4.53029H4.14114C4.48276 4.53029 4.78299 4.75676 4.87684 5.08523L7.3032 13.5775C7.58475 14.5629 8.48544 15.2423 9.51031 15.2423H16.5017C17.4403 15.2423 18.2844 14.6709 18.633 13.7994L20.8891 8.1592C21.2911 7.15402 20.5507 6.06058 19.4682 6.06058H6.74703L6.34824 4.66483C6.0667 3.6794 5.166 3 4.14114 3H3.76514Z"
+                  fill="black"
+                />
+                <path
+                  id="Vector_2"
+                  d="M8.88631 21.0009C10.1541 21.0009 11.1817 19.9731 11.1817 18.7054C11.1817 17.4377 10.1541 16.41 8.88631 16.41C7.61858 16.41 6.59088 17.4377 6.59088 18.7054C6.59088 19.9731 7.61858 21.0009 8.88631 21.0009Z"
+                  fill="black"
+                />
+                <path
+                  id="Vector_3"
+                  d="M17.0075 21.0009C18.2752 21.0009 19.3029 19.9731 19.3029 18.7054C19.3029 17.4377 18.2752 16.41 17.0075 16.41C15.7397 16.41 14.712 17.4377 14.712 18.7054C14.712 19.9731 15.7397 21.0009 17.0075 21.0009Z"
+                  fill="black"
+                />
+              </g>
+            </g>
+          </svg>
+        {/* </Link> */}
+
         <svg
           width="24"
           height="24"

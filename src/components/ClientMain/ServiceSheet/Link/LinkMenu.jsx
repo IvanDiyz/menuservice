@@ -2,12 +2,14 @@
 // Styles
 import Link from "next/link";
 import s from "./LinkMenu.module.scss";
-import { useAppDispatch } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setMenuId } from "@/store/getSections/getSections";
 import { useEffect, useState } from "react";
 
 const LinkMenu = ({ menu }) => {
+  const selector = useAppSelector;
   const dispatch = useAppDispatch();
+  const {venueId, tableId} = selector(state => state.menu)
   const [startTime, setStartTime] = useState(false);
   const [finishTime, setFinishTime] = useState(false);
   const [actualTime, setactualTime] = useState();
@@ -44,7 +46,7 @@ const LinkMenu = ({ menu }) => {
               ? `${s.menuWork}`
               : `${s.menuNoWork}`
           }`}
-          href={`/1/1/${menu.name.replace(/\s/g, "")}${menu.id}`}
+          href={`/${venueId}/${tableId}/${menu.name.replace(/\s/g, "")}${menu.id}`}
           onClick={() => menuId(menu.id, menu.name)}
         >
           <div className={s.serviceSheet__box}>
@@ -84,7 +86,7 @@ const LinkMenu = ({ menu }) => {
       ) : (
         <Link
           className={s.menuWork}
-          href={`/1/1/${menu.name.replace(/\s/g, "")}${menu.id}`}
+          href={`/${venueId}/${tableId}/${menu.name.replace(/\s/g, "")}${menu.id}`}
           onClick={() => menuId(menu.id, menu.name)}
         >
           <div className={s.serviceSheet__box}>
