@@ -1,25 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  allAmount: 0,
   amount: 0,
   item: {},
   items: [],
   addons: [],
-  tipsBool: true,
-  tips: '',
+  tips: 0,
+  choiceMethod: 'then',
 };
 
 export const setBasket = createSlice({
   name: "setBasket",
   initialState,
   reducers: {
+    changeChoice: (state, action) => {
+      state.choiceMethod = action.payload;
+    },
     changeQuantity: (state, action) => {
       let creatDish = (obj) => {
         obj.quantity = action.payload.quantity;
         if(!action.payload.pathName == `/${action.payload.venueId}/${action.payload.tableId}/order`) {
           obj.addons = action.payload.addons;
         }
-        obj.amountDish = (+obj.dish.cost * action.payload.quantity);
+        obj.amountDish = (+obj.priceDicount * action.payload.quantity);
         calculateAmout(obj);  
         obj.amount = obj.amountDish + obj.amountAddons;
       }
@@ -84,10 +88,11 @@ export const setBasket = createSlice({
     },
     giveTips: (state, action) => {
       if(action.payload.inputTips) {
-        state.tips = action.payload.inputValue;
+        state.tips = +action.payload.inputValue;
+        state.allAmount = state.amount + state.tips;
       } else {
-        state.tipsBool = action.payload?.bool;
         state.tips = Math.floor(state.amount * (action.payload.actualTips / 100));
+        state.allAmount = state.amount + state.tips;
       }
     },
     addBasket: (state, action) => {
@@ -162,5 +167,5 @@ function arraysAreEqual(array1, array2, state) {
   };
 }
 
-export const { changeQuantity, addDish, deleteDish, giveTips, addonsQuantity, addAddons, deleteAddons, addBasket, clearState } = setBasket.actions;
+export const { changeChoice, changeQuantity, addDish, deleteDish, giveTips, addonsQuantity, addAddons, deleteAddons, addBasket, clearState } = setBasket.actions;
 export default setBasket.reducer;

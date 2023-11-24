@@ -4,13 +4,21 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import s from "./Buttons.module.scss";
 import { usePathname } from "next/navigation";
 
-export default function Buttons({ dish, addDish, changeQuantity, deleteDish, orderQuantity, indexItem }) {
+export default function Buttons({ costDiscount, dish, addDish, changeQuantity, deleteDish, orderQuantity, indexItem }) {
   const dispatch = useAppDispatch();
   const select = useAppSelector;
   const pathName = usePathname();
   const { item, addons, items} = select((state) => state.setBasket);
   const { venueId, tableId} = select((state) => state.menu);
   let [quantityDish, setQuantity] = useState(orderQuantity ? orderQuantity : 0);
+
+  const amountSet = () => {
+    if(costDiscount) {
+      return +costDiscount
+    } else {
+      return +dish.cost
+    }
+  }
 
   let calculateObj = {
     plus: () => {
@@ -30,9 +38,10 @@ export default function Buttons({ dish, addDish, changeQuantity, deleteDish, ord
       } else {
         dispatch(
           addDish({
+            priceDicount: +costDiscount,
             id: dish.id,
             quantity: quantityDish + 1,
-            amountDish: +dish.cost,
+            amountDish: amountSet(),
             isReady: false,
             dish: dish,
             addons: addons,

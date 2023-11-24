@@ -13,7 +13,7 @@ export default function OrderItem({dish, indexItem}) {
       <div className={s.orderItem__info}>
         <h4 className={s.orderItem__infoTitle}>{dish.dish.name}</h4>
         <div className={s.orderItem__infoBoxBtn}>
-          <Buttons dish={dish} orderQuantity={dish.quantity} indexItem={indexItem} addDish={addDish} changeQuantity={changeQuantity} deleteDish={deleteDish}/>
+          <Buttons costDiscount={dish.cost - (dish.cost * dish.discount) / 100} dish={dish} orderQuantity={dish.quantity} indexItem={indexItem} addDish={addDish} changeQuantity={changeQuantity} deleteDish={deleteDish}/>
         </div>
         <div className={s.orderItem__infoAdditives}>
           {dish.addons.map(el => (
@@ -23,7 +23,7 @@ export default function OrderItem({dish, indexItem}) {
       </div>
       <div className={s.orderItem__price}>
         <span className={s.orderItem__priceItems}>{dish.amount} ₴</span>
-        <span className={s.orderItem__priceItem}>{`(${dish.dish.cost}₴)`}</span>
+        <span className={s.orderItem__priceItem}>{`(${dish.priceDicount}₴)`}</span>
       </div>
     </div>
   );

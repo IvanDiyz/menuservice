@@ -26,13 +26,20 @@
         border-radius: 6.6vw;
         border: 2px solid #DDD;
     }
-
+    &__paymentBox {
+        overflow: hidden;
+        transition: all 0.8s;
+    }
     &__paymentActive {
         color: #FFF;
         border: 1px solid #26B657;
         background: #26B657;
     }
-
+    &__tips {
+        transition: all 0.8s;
+        height: 0;
+        overflow: hidden;
+    }
     &__btn {
         padding: 4.4vw 0;
 
@@ -47,5 +54,27 @@
             line-height: 6.6vw;
             letter-spacing: -0.8px;
         }
+    }
+
+    &__emailInput {
+        margin-top: 16px;
+        padding: 12px 16px;
+        width: 100%;
+        border-radius: 12px;
+        border: 1px solid #DDD;
+        background: #FAFAFA;
+        color: #696969;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: -0.32px;
+    }
+
+    &__emailInput::placeholder {
+        color: #696969;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: -0.32px;
     }
 }

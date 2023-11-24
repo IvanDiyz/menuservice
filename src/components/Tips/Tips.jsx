@@ -12,53 +12,58 @@ export default function Tips({ tips }) {
   const [bool, setTips] = useState(true);
   const [input, setInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [actualTips, setActualTips] = useState();
+  const [actualTips, setActualTips] = useState(0);
 
   useEffect(() => {
-    if(inputValue && bool) {
-      dispatch(giveTips({bool: bool, inputValue: inputValue, inputTips: true}));
+    if (inputValue && bool) {
+      dispatch(
+        giveTips({ bool: bool, inputValue: inputValue, inputTips: true })
+      );
     } else {
-      dispatch(giveTips({bool, actualTips}));
+      dispatch(giveTips({ bool, actualTips }));
     }
   }, [bool, actualTips, amount]);
   //отображение карточки чаевых
   const changeTips = () => {
-    if(bool) {
+    if (bool) {
       setTips(false);
+      setInputValue('')
+      setInput(false)
       setActualTips(0);
     } else {
-      setTips(true)
+      setTips(true);
     }
   };
   //отображение input для чаевых
   const changeInput = () => {
-    if(input) {
+    if (input) {
       setInput(false);
-      dispatch(giveTips({bool, actualTips: 0}));
+      dispatch(giveTips({ bool, actualTips: 0 }));
     } else {
-      setInput(true)
+      setInput(true);
       setActualTips(0);
     }
   };
   //изменение value в input
   const handleInputChange = (e) => {
+    setTips(true)
     //разрешить только числа
     const numericValue = e.target.value.replace(/[^0-9]/g, "");
     setInputValue(numericValue);
-    dispatch(giveTips({inputTips: true, inputValue: numericValue}))
+    dispatch(giveTips({ inputTips: true, inputValue: numericValue }));
     console.log("inputValue", numericValue);
-
   };
 
   const getTicketTips = (e) => {
-    setInput(false)
-    setInputValue('')
+    setTips(true);
+    setInput(false);
+    setInputValue("");
     console.log(e.target.firstElementChild.textContent.match(/\d+/)[0]);
     let actual = e.target.firstElementChild.textContent.match(/\d+/)[0];
     actual == actualTips ? setActualTips(0) : setActualTips(actual);
   };
 
-  return tips ? (
+  return (
     <div className={s.tips}>
       <h4 className={s.tips__title}>
         <svg
@@ -120,7 +125,10 @@ export default function Tips({ tips }) {
         </span>
       </div>
       <div className={s.tips__control}>
-        <span className={s.tips__btn} onClick={changeTips}>
+        <span
+          className={`${s.tips__btn} ${!bool ? `${s.tips__btnActive}` : ""}`}
+          onClick={changeTips}
+        >
           <svg
             width="24"
             height="24"
@@ -132,7 +140,7 @@ export default function Tips({ tips }) {
               <path
                 id="Vector"
                 d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
-                fill="black"
+                fill="#FFFCF8"
               />
             </g>
           </svg>
@@ -180,7 +188,5 @@ export default function Tips({ tips }) {
         </span>
       </div>
     </div>
-  ) : (
-    <></>
   );
 }

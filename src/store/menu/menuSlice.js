@@ -27,8 +27,8 @@ export const menuSlice = createSlice({
   name: "menu",
   initialState,
   reducers: {
-    setMethodOrder: (state, acton) => {
-      state.methodOrder = acton.payload;
+    setMethodOrder: (state, action) => {
+      state.methodOrder = action.payload;
     },
   },
   extraReducers: (builder) =>
