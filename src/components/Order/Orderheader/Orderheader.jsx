@@ -2,11 +2,45 @@
 import Link from "next/link";
 import s from "./Orderheader.module.scss";
 import { useSelector } from "react-redux";
+import { useState } from "react";
+import Popup from "@/components/Popup/Popup";
+import { useAppDispatch } from "@/hooks/redux";
+import { changeChoice, clearItems } from "@/store/setBasket/setBasket";
 
 export default function Header() {
+  const dispath = useAppDispatch();
   const { venueId, tableId } = useSelector(state => state.menu);
+  const [clearBox, callClearBox] = useState(false)
+
+  const clearOrder = () => {
+    console.log('click')
+    if(clearBox) {
+      callClearBox(false)
+    } else {
+      callClearBox(true)
+    }
+  }
+
+  const closePopup = (clear) => {
+    if(clear) {
+      dispath(clearItems())
+      dispath(changeChoice('then'))
+    } 
+    callClearBox(false)
+  }
+
   return (
     <header className={s.header}>
+      {clearBox ? (<Popup popup={clearBox}>
+        <div className={s.header__popupBox}>
+          <h6 className={s.header__popupTitle}>Ви точно бажаєте очистити замовлення</h6>
+          <div className={s.header__popupBtns}>
+            <span className={`${s.header__popupBtn} ${s.header__popupBtnY}`} onClick={() => closePopup(true)}>Так</span>
+            <span className={`${s.header__popupBtn} ${s.header__popupBtnN}`} onClick={() => closePopup(false)}>Ні</span>
+          </div>
+        </div>
+      </Popup>) : ''}
+      
       <div className={s.header__wrapper}>
         <Link href={`/${venueId}/${tableId}/menu`}>
           <svg
@@ -32,7 +66,7 @@ export default function Header() {
           <h4 className={s.header__wrappertitle}>Стіл №{tableId}</h4>
         </div>
       </div>
-      <div className={s.header__wrapper}>
+      <div className={s.header__wrapper} onClick={clearOrder}>
         <svg
           width="24"
           height="24"

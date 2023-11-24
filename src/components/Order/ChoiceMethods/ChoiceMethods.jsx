@@ -1,8 +1,8 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import s from "./ChoiceMethods.module.scss";
 import { useAppDispatch } from "@/hooks/redux";
-import { changeChoice } from "@/store/setBasket/setBasket";
+import { changeChoice, giveTips } from "@/store/setBasket/setBasket";
 import { useSelector } from "react-redux";
 
 const ChoiceMethods = ({firstmethod, lastmethod, svg}) => {
@@ -15,6 +15,13 @@ const ChoiceMethods = ({firstmethod, lastmethod, svg}) => {
     setIsActive(order)
     dispatch(changeChoice(order))
   }
+
+  useEffect(() => {
+    if(isActive == 'then') {
+      dispatch(giveTips({actualTips: 0}))
+    }
+    setIsActive(choiceMethod)
+  }, [choiceMethod])
 
   return (
     <div className={s.orderMethods}>

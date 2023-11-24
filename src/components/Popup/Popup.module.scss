@@ -12,12 +12,18 @@
     padding-top: 65px;
     background: #00000099;
     transition: 0.5s;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   &__popupActive {
     pointer-events: all;
     opacity: 1;
     z-index: 100;
+  }
+  &__popupContent {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
   }
 }
