@@ -2,12 +2,12 @@
 import Link from "next/link";
 import s from "./Totaldish.module.scss";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { addBasket } from "@/store/setBasket/setBasket";
+import { addBasket } from "@/store/setOrder/setOrder";
 
 export default function Totaldish({ text, closePopup }) {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
-  const { item } = selector(state => state.setBasket);
+  const { item } = selector(state => state.setOrder);
 
   let clickBtn = () => {
     dispatch(addBasket(text));

@@ -4,7 +4,7 @@ import {
   changeQuantity,
   clearState,
   deleteDish,
-} from "@/store/setBasket/setBasket";
+} from "@/store/setOrder/setOrder";
 import Popup from "@/components/Popup/Popup";
 import Buttons from "@/components/Buttons/Buttons";
 import SuppleButton from "@/components/SuppleButton/SuppleButton";
@@ -16,7 +16,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 export default function Menuitem({ triger, dish }) {
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
-  const { items, item } = selector((state) => state.setBasket);
+  const { items, item } = selector((state) => state.setOrder);
   const [quantity, setQuantity] = useState(0);
   const [text, setComment] = useState("");
 

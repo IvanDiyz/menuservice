@@ -5,7 +5,7 @@ import { useAppSelector } from "@/hooks/redux";
 
 export default function Totalscore() {
   const selector = useAppSelector;
-  const { amount } = selector(state => state.setBasket)
+  const { amount } = selector(state => state.setOrder)
   const { venueId, tableId } = selector(state => state.menu)
 
   return (

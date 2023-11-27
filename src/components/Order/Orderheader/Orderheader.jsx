@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import Popup from "@/components/Popup/Popup";
 import { useAppDispatch } from "@/hooks/redux";
-import { changeChoice, clearItems } from "@/store/setBasket/setBasket";
+import { changeChoice, clearItems } from "@/store/setOrder/setOrder";
 
 export default function Header() {
   const dispath = useAppDispatch();

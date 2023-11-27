@@ -6,18 +6,18 @@ import s from "./OrderMethods.module.scss";
 import { setMethodOrder } from "@/store/menu/menuSlice";
 import { useAppDispatch } from "@/hooks/redux";
 
-const OrderMethods = ({firstmethod, lastmethod, svg}) => {
-  const [isActive, setIsActive] = useState('Inside');
+const OrderMethods = ({keySlice, firstmethod, lastmethod, svg, dispatchMethod, firstDescription, lastDescription}) => {  
+  const [isActive, setIsActive] = useState(keySlice);
   const dispatch = useAppDispatch();
 
   const toggleOrder = (order) => {
     setIsActive(order)
-    dispatch(setMethodOrder(order))
+    dispatch(dispatchMethod(order))
   }
 
   return (
     <div className={s.orderMethods}>
-      <div className={`${s.orderMethods__button} ${isActive == 'Inside' ? s.active : ''}`} onClick={() => toggleOrder('Inside')}>
+      <div className={`${s.orderMethods__button} ${isActive == firstDescription ? s.active : ''}`} onClick={() => toggleOrder(firstDescription)}>
           {svg ? <svg
             width="24"
             height="24"
@@ -35,7 +35,7 @@ const OrderMethods = ({firstmethod, lastmethod, svg}) => {
           </svg> : ''}
         <button className={s.orderMethods__btn}>{firstmethod}</button>
       </div>
-      <div className={`${s.orderMethods__button} ${isActive == 'Takeaway' ? s.active : ''}`} onClick={() => toggleOrder('Takeaway')}>
+      <div className={`${s.orderMethods__button} ${isActive == lastDescription ? s.active : ''}`} onClick={() => toggleOrder(lastDescription)}>
         {svg ? <svg
             width="24"
             height="24"
