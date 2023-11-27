@@ -20,6 +20,8 @@ export default function BasketItems() {
     }
   }, [check])
 
+  
+
   if(items.length == 0) {
     return <span className={s.orderEmpty}>Ви ще нічого не замовили</span>
   } else {

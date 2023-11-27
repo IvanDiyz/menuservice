@@ -7,8 +7,8 @@ const initialState = {
   items: [],
   addons: [],
   tips: 0,
-  choiceMethod: 'then',
-  delivery: 'when ready',
+  choiceMethod: false,
+  delivery: false,
   paymentMethod: '',
 };
 
@@ -110,16 +110,17 @@ export const setOrder = createSlice({
       }
     },
     addBasket: (state, action) => {
+      
       if(state.items.length) {
         state.item.push = false;
         state.items.map(el => {
           if(el.id == state.item.id) {
-            
-            arraysAreEqual(state.item, el, state)
+            arraysAreEqual(state.item, el, state, action.payload)
           }
         })
         if(!state.item.push){
           console.log('push 1');
+          state.item.clientCooment = action.payload;
           state.items.push(state.item);
           state.amount = state.amount + state.item.amount;
           state.item = {};
@@ -155,7 +156,7 @@ let calculateAmout = (obj) => {
 }
 
 // функция сровнения массивов
-function arraysAreEqual(array1, array2, state) {
+function arraysAreEqual(array1, array2, state, commnet) {
   if (array1.addons.length !== array2.addons?.length) {
     console.log('совпадений нет')
     return false;
@@ -167,11 +168,11 @@ function arraysAreEqual(array1, array2, state) {
 
   // Сравнение отсортированных массивов
   if(JSON.stringify(sortedArray1) === JSON.stringify(sortedArray2)) {
-    
     console.log('массивы равны')
     array1.push = true;
     array2.quantity += array1.quantity
     array2.amountDish += array1.amountDish
+    array2.clientCooment = commnet;
     array2.amountAddons += array1.amountAddons
     array2.amount += array1.amount
     state.amount += array1.amount

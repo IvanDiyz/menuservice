@@ -21,16 +21,16 @@ const PaymentMethod = ({dispatchMethod}) => {
   };
 
   useEffect(() => {
-    if (choiceMethod == "then") {
+    if (!choiceMethod) {
       setActivePayment("cash");
     }
-    setHeight(setHeightPay.current?.scrollHeight + 1);
+    setHeight(setHeightPay.current?.scrollHeight + 3);
   }, [choiceMethod]);
   useEffect(() => {
     if (activePayment == "cash") {
-      setHeight(115);
+      setHeight(120);
     } else {
-      setHeight(335);
+      setHeight(355);
     }
     dispatch(dispatchMethod(activePayment))
   }, [activePayment]);
@@ -43,10 +43,10 @@ const PaymentMethod = ({dispatchMethod}) => {
     <div
       ref={setHeightPay}
       style={{
-        height: choiceMethod === "now" ? `${heightPay}px` : "0",
+        height: choiceMethod ? `${heightPay}px` : "0",
       }}
       className={`${s.orderFooter__paymentBox} ${
-        choiceMethod == "now" ? `${s.orderFooter__paymentBox__active}` : ""
+        choiceMethod  ? `${s.orderFooter__paymentBox__active}` : ""
       }`}
     >
       <div className={s.orderFooter__payment}>

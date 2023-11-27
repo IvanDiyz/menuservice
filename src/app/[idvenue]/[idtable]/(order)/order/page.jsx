@@ -11,7 +11,7 @@ export default function Order() {
   const { delivery } = selector(store => store.setOrder)
   return (
     <div className={s.order}>
-     <OrderMethods keySlice={delivery} dispatchMethod={setDelivery} firstDescription={'when ready'} lastDescription={'together'} firstmethod={'По готовності'} lastmethod={'Все разом'} svg={false}/>
+     <OrderMethods keySlice={delivery} dispatchMethod={setDelivery} firstDescription={false} lastDescription={true} firstmethod={'По готовності'} lastmethod={'Все разом'} svg={false}/>
      <OrderItems />
     </div>
   );
