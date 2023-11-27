@@ -1,0 +1,17 @@
+.orderFooter {
+    &__btn {
+        padding: 4.4vw 0;
+
+        button {
+            width: 100%;
+            padding: 3.3vw 0;
+            border-radius: 3.3vw;
+            background: #26B657;
+            color: #FFF;
+            font-size: 4.4vw;
+            font-weight: 600;
+            line-height: 6.6vw;
+            letter-spacing: -0.8px;
+        }
+    }
+}

@@ -17,7 +17,7 @@ const ChoiceMethods = ({firstmethod, lastmethod, svg}) => {
   }
 
   useEffect(() => {
-    if(isActive == 'then') {
+    if(isActive == false) {
       dispatch(giveTips({actualTips: 0}))
     }
     setIsActive(choiceMethod)
@@ -25,7 +25,7 @@ const ChoiceMethods = ({firstmethod, lastmethod, svg}) => {
 
   return (
     <div className={s.orderMethods}>
-      <div className={`${s.orderMethods__button} ${isActive == 'then' ? s.active : ''}`} onClick={() => toggleOrder('then')}>
+      <div className={`${s.orderMethods__button} ${isActive == false ? s.active : ''}`} onClick={() => toggleOrder(false)}>
           {svg ? <svg
             width="24"
             height="24"
@@ -43,7 +43,7 @@ const ChoiceMethods = ({firstmethod, lastmethod, svg}) => {
           </svg> : ''}
         <button className={s.orderMethods__btn}>{firstmethod}</button>
       </div>
-      <div className={`${s.orderMethods__button} ${isActive == 'now' ? s.active : ''}`} onClick={() => toggleOrder('now')}>
+      <div className={`${s.orderMethods__button} ${isActive == true ? s.active : ''}`} onClick={() => toggleOrder(true)}>
         {svg ? <svg
             width="24"
             height="24"
