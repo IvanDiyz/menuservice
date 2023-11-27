@@ -2,12 +2,12 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import s from "./SuppleButton.module.scss";
-import { addAddons, addonsQuantity, deleteAddons } from "@/store/setBasket/setBasket";
+import { addAddons, addonsQuantity, deleteAddons } from "@/store/setOrder/setOrder";
 
 export default function SuppleButton({ addonsId, addonsCost, addonsName }) {
   const dispatch = useAppDispatch();
   const select = useAppSelector;
-  const { addons } = select((state) => state.setBasket);
+  const { addons } = select((state) => state.setOrder);
   let [quantityAddons, setAddons] = useState(0);
 
   let calculateObj = {

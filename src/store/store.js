@@ -14,6 +14,7 @@ import getDishis from "./getDishis/getDishis";
 import getSection from "./getSection/getSection";
 import setSearch from "./setSearch/setSearch";
 import setFilter from "./setFilter/setFilter";
+import setOrder from "./setOrder/setOrder";
 import setBasket from "./setBasket/setBasket";
 import notificate from "./notificate/notificate";
 
@@ -27,6 +28,7 @@ export const store = configureStore({
     getSection: getSection,
     setSearch: setSearch,
     setFilter: setFilter,
+    setOrder: setOrder,
     setBasket: setBasket,
     notificate: notificate,
   },

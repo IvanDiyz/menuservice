@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 export default function OrderItems() {
   const selector = useAppSelector;
-  const { items, amount } = selector(state => state.setBasket);
+  const { items, amount } = selector(state => state.setOrder);
 
   if(items.length == 0) {
     return <span className={s.orderEmpty}>Ви ще нічого не замовили</span>

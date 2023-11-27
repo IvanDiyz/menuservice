@@ -2,12 +2,12 @@
 import { useEffect, useState } from "react";
 import s from "./ChoiceMethods.module.scss";
 import { useAppDispatch } from "@/hooks/redux";
-import { changeChoice, giveTips } from "@/store/setBasket/setBasket";
+import { changeChoice, giveTips } from "@/store/setOrder/setOrder";
 import { useSelector } from "react-redux";
 
 const ChoiceMethods = ({firstmethod, lastmethod, svg}) => {
   const selector = useSelector;
-  const {choiceMethod} = selector(state => state.setBasket)
+  const {choiceMethod} = selector(state => state.setOrder)
   const [isActive, setIsActive] = useState(choiceMethod);
   const dispatch = useAppDispatch();
 

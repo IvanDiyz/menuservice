@@ -88,7 +88,7 @@ export default function Header() {
         </Link>
       </div>
       <div className={s.header__wrapper}>
-        {/* <Link> */}
+        <Link href={`/${venueId}/${tableId}/basket`}>
           <svg
             width="24"
             height="24"
@@ -116,7 +116,7 @@ export default function Header() {
               </g>
             </g>
           </svg>
-        {/* </Link> */}
+        </Link>
 
         <svg
           width="24"

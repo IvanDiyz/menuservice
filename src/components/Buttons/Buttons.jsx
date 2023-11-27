@@ -8,7 +8,7 @@ export default function Buttons({ costDiscount, dish, addDish, changeQuantity, d
   const dispatch = useAppDispatch();
   const select = useAppSelector;
   const pathName = usePathname();
-  const { item, addons, items} = select((state) => state.setBasket);
+  const { item, addons, items} = select((state) => state.setOrder);
   const { venueId, tableId} = select((state) => state.menu);
   let [quantityDish, setQuantity] = useState(orderQuantity ? orderQuantity : 0);
 

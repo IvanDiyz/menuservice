@@ -3,12 +3,12 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 import s from "./Tips.module.scss";
 import { useEffect, useState } from "react";
-import { giveTips } from "@/store/setBasket/setBasket";
+import { giveTips } from "@/store/setOrder/setOrder";
 
 export default function Tips({ tips }) {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
-  const { amount } = selector((state) => state.setBasket);
+  const { amount } = selector((state) => state.setOrder);
   const [bool, setTips] = useState(true);
   const [input, setInput] = useState(false);
   const [inputValue, setInputValue] = useState("");

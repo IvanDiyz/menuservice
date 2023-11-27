@@ -2,6 +2,15 @@
     border-top: 1px solid #e1e1e1;
     padding: 16px 16px 0 16px;
 
+    &__title {
+        font-size: 3.3vw;
+        font-weight: 600;
+        line-height: 4.4vw;
+        letter-spacing: -0.24px;
+        text-transform: uppercase;
+        padding-bottom: 2.2vw;
+    }
+
     &__payment {
         display: flex;
         justify-content: space-between;

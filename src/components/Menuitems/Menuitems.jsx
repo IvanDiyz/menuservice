@@ -15,7 +15,7 @@ export default function Menuitems() {
   );
   const { stateDishis, actualSection } = selector((state) => state.getDishis);
   const { venueId } = selector((state) => state.menu);
-  const { amount } = selector((state) => state.setBasket);
+  const { amount } = selector((state) => state.setOrder);
   const { filters, stateFilters, filteredDish } = selector((state) => state.setFilter);
 
   useEffect(() => {

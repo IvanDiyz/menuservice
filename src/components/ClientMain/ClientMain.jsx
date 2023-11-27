@@ -13,12 +13,13 @@ import ServiceSheet from "./ServiceSheet/ServiceSheet";
 // Styles
 import s from "./ClientMain.module.scss";
 import Openedcontact from "../Openedmenu/Openedcontact/Openedcontact";
+import { setMethodOrder } from "@/store/menu/menuSlice";
 
 const ClientMain = (params) => {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
   const [dataLoaded, setDataLoaded] = useState(false);
-  const {photoUrl, venueId, menus, address, extraPhone, phone, website, instagram, facebook, name, openingTime, closingTime, types, logoUrl} = selector((state)=> state.menu);
+  const {photoUrl, venueId, menus, address, extraPhone, phone, website, instagram, facebook, name, openingTime, closingTime, types, logoUrl, methodOrder} = selector((state)=> state.menu);
 
   useEffect(() => {   
     const fetchData = async () => {
@@ -34,7 +35,7 @@ const ClientMain = (params) => {
     return (
       <Container>
         <ClientInfo photoUrl={photoUrl} name={name} logoUrl={logoUrl} openingTime={openingTime} closingTime={closingTime} types={types}/>
-        <OrderMethods firstmethod={'В закладі'} lastmethod={'Із собою'} svg={true}/>
+        <OrderMethods keySlice={methodOrder} firstDescription={'Inside'} lastDescription={'Takeaway'} dispatchMethod={setMethodOrder} firstmethod={'В закладі'} lastmethod={'Із собою'} svg={true}/>
         <ServiceSheet menus={menus}/>
         <Openedcontact address={address} extraPhone={extraPhone} phone={phone} website={website} instagram={instagram} facebook={facebook}/>
       </Container>
