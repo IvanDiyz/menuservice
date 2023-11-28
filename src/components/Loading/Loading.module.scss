@@ -1,0 +1,55 @@
+.loading {
+    display: flex;
+    justify-content: space-between;
+    width: 180px;
+    padding: 30px 0;
+    margin: 0 auto;
+    max-width: 100%;
+
+    span {
+        height: 20px;
+        width: 20px;
+        animation: pulse 1.5s ease-in-out 0s infinite;
+        background-color: #26B657;
+        border-radius: 50%;
+
+        // add delay to spans
+        @for $i from 2 through 5 {
+            &:nth-child(#{$i}) {
+                animation-delay: #{ ($i - 1) * 0.2}s;
+            }
+        }
+    }
+}
+
+.text {
+    color: #000;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: -1.2px;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    20% {
+        transform: scale(2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.body {
+    height: 100vh;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
