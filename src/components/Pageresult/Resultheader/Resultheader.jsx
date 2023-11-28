@@ -1,12 +1,19 @@
 import Link from "next/link";
 
 import s from "./Resultheader.module.scss";
+import { useAppDispatch } from "@/hooks/redux";
 
-export default function Resultheader({ result }) {
+export default function Resultheader({ result, venueId, tableId, slice }) {
+  const dispatch = useAppDispatch();
+  const methodSlice = () => {
+    if(slice) {
+      dispatch(slice())
+    }
+  }
   return (
       <header className={s.header}>
         <h4 className={s.header__wrappertitle}>{result}</h4>
-        <Link className={s.header__close} href="/">
+        <Link onClick={methodSlice} className={s.header__close} href={`/${venueId}/${tableId}`}>
           <svg
             width="24"
             height="24"
