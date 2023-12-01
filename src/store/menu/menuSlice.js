@@ -3,7 +3,7 @@ import { fetchMenu } from "./menuApi";
 import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
-  methodOrder: 'Inside',
+  methodOrder: false,
   venueId: null,
   tableId: null,
   menus: [],

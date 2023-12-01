@@ -3,28 +3,36 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 import s from "./Tips.module.scss";
 import { useEffect, useState } from "react";
-import { giveTips } from "@/store/setOrder/setOrder";
 
-export default function Tips({ tips }) {
+export default function Tips({ amount, tipsDispatch, tips }) {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
-  const { amount } = selector((state) => state.setOrder);
+  const { paymentStatus } = selector((state) => state.setBasket);
   const [bool, setTips] = useState(true);
   const [input, setInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [actualTips, setActualTips] = useState(0);
 
   useEffect(() => {
+    if(tips == 0) {
+      setActualTips(tips)
+    }
+  }, [tips])
+
+  useEffect(() => {
     if (inputValue && bool) {
       dispatch(
-        giveTips({ bool: bool, inputValue: inputValue, inputTips: true })
+        tipsDispatch({ bool: bool, inputValue: inputValue, inputTips: true })
       );
     } else {
-      dispatch(giveTips({ bool, actualTips }));
+      dispatch(tipsDispatch({ bool, actualTips }));
     }
   }, [bool, actualTips, amount]);
   //отображение карточки чаевых
   const changeTips = () => {
+    if(paymentStatus) {
+      return
+    }
     if (bool) {
       setTips(false);
       setInputValue('')
@@ -36,9 +44,12 @@ export default function Tips({ tips }) {
   };
   //отображение input для чаевых
   const changeInput = () => {
+    if(paymentStatus) {
+      return
+    }
     if (input) {
       setInput(false);
-      dispatch(giveTips({ bool, actualTips: 0 }));
+      dispatch(tipsDispatch({ bool, actualTips: 0 }));
     } else {
       setInput(true);
       setActualTips(0);
@@ -46,15 +57,21 @@ export default function Tips({ tips }) {
   };
   //изменение value в input
   const handleInputChange = (e) => {
+    if(paymentStatus) {
+      return
+    }
     setTips(true)
     //разрешить только числа
     const numericValue = e.target.value.replace(/[^0-9]/g, "");
     setInputValue(numericValue);
-    dispatch(giveTips({ inputTips: true, inputValue: numericValue }));
+    dispatch(tipsDispatch({ inputTips: true, inputValue: numericValue }));
     console.log("inputValue", numericValue);
   };
 
   const getTicketTips = (e) => {
+    if(paymentStatus) {
+      return
+    }
     setTips(true);
     setInput(false);
     setInputValue("");

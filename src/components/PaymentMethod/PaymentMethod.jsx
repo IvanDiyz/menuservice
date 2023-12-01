@@ -4,13 +4,16 @@ import { useEffect, useRef, useState } from "react";
 import s from "./PaymentMethod.module.scss";
 import Tips from "../Tips/Tips";
 
-const PaymentMethod = ({dispatchMethod}) => {
+const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch}) => {
   const setHeightPay = useRef(null);
   const setHeightTips = useRef(null);
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
   const { choiceMethod } = selector(
     (state) => state.setOrder
+  );
+  const { paymentStatus } = selector(
+    (state) => state.setBasket
   );
   const [email, setEmail] = useState("");
   const [activePayment, setActivePayment] = useState("cash");
@@ -24,18 +27,22 @@ const PaymentMethod = ({dispatchMethod}) => {
     if (!choiceMethod) {
       setActivePayment("cash");
     }
-    setHeight(setHeightPay.current?.scrollHeight + 3);
+    // setHeight((setHeightPay.current?.scrollHeight / 3.4));
+    setHeight(31);
   }, [choiceMethod]);
   useEffect(() => {
     if (activePayment == "cash") {
-      setHeight(120);
+      setHeight(31);
     } else {
-      setHeight(355);
+      setHeight(83.4);
     }
     dispatch(dispatchMethod(activePayment))
   }, [activePayment]);
 
   const handlePaymentClick = (paymentMethod) => {
+    if(paymentStatus) {
+      return
+    }
     setActivePayment(paymentMethod);
   };
 
@@ -43,7 +50,7 @@ const PaymentMethod = ({dispatchMethod}) => {
     <div
       ref={setHeightPay}
       style={{
-        height: choiceMethod ? `${heightPay}px` : "0",
+        height: choiceMethod ? `${heightPay}vw` : "0",
       }}
       className={`${s.orderFooter__paymentBox} ${
         choiceMethod  ? `${s.orderFooter__paymentBox__active}` : ""
@@ -81,11 +88,12 @@ const PaymentMethod = ({dispatchMethod}) => {
         style={{
           height:
             activePayment != "cash"
-              ? `${setHeightTips.current?.scrollHeight}px`
+              // ? `${setHeightTips.current?.scrollHeight / 3.8}vw`
+              ? `${52}vw`
               : "0",
         }}
       >
-        <Tips />
+        <Tips tips={tips} tipsDispatch={tipsDispatch} amount={amount}/>
       </div>
       <input
         className={s.orderFooter__emailInput}

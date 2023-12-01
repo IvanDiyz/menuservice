@@ -4,13 +4,18 @@
 import { useState } from "react";
 import s from "./OrderMethods.module.scss";
 import { setMethodOrder } from "@/store/menu/menuSlice";
-import { useAppDispatch } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 const OrderMethods = ({keySlice, firstmethod, lastmethod, svg, dispatchMethod, firstDescription, lastDescription}) => {  
+  const selector = useAppSelector;
+  const {paymentStatus} = selector(state => state.setBasket);
   const [isActive, setIsActive] = useState(keySlice);
   const dispatch = useAppDispatch();
 
   const toggleOrder = (order) => {
+    if(paymentStatus) {
+      return
+    }
     setIsActive(order)
     dispatch(dispatchMethod(order))
   }

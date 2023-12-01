@@ -5,27 +5,63 @@ import Total from "@/components/Total/Total";
 import { useEffect, useRef, useState } from "react";
 import PaymentMethod from "@/components/PaymentMethod/PaymentMethod";
 import OrderBtn from "@/components/OrderBtn/OrderBtn";
-import { setPaymentMethod } from "@/store/setBasket/setBasket";
+import { getPaymentStatus, giveTips, setPaymentMethod, setPaymentStatus } from "@/store/setBasket/setBasket";
 import { changeChoice } from "@/store/setOrder/setOrder";
+import { fetchBasket } from "@/store/setBasket/basketApi";
 
 export default function BasketFooter() {
+  let localPaymentStatus;
+  if (typeof window !== 'undefined') {
+    if(window.localStorage) {
+      localPaymentStatus = localStorage.getItem('paymentStatus');
+    }
+  }
   const dispath = useAppDispatch();
   const selector = useAppSelector;
-  const { allAmount, choiceMethod } = selector(
-    (state) => state.setOrder
+  const { totalAmount, isPaid, orderId, items, allAmount, tips, paymentStatus } = selector(
+    (state) => state.setBasket
   );
+  const [totalItems, setTotalItems] = useState(totalAmount);
+  
+
+  const paymnet = () => {
+    console.log(localPaymentStatus)
+    dispath(setPaymentStatus(true))
+    localStorage.setItem('paymentStatus', true);
+  }
 
   useEffect(() => {
-    dispath(changeChoice('now'))
-  }, [])
+    if(localPaymentStatus) {
+      if(isPaid && localPaymentStatus == 'true') {
+        dispath(setPaymentStatus(false))
+      }
+      dispath(getPaymentStatus(localPaymentStatus))
+    }
+  }, [localPaymentStatus])
 
-  return (
-    <div className={s.orderFooter}>
-      <Total total={allAmount} />
-      <PaymentMethod dispatchMethod={setPaymentMethod}/>
+  useEffect(() => {
+    setTotalItems(allAmount)
+    dispath(changeChoice("now"));
+    if (orderId) {
+      dispath(fetchBasket(orderId));
+    }
+  }, []);
 
-      <OrderBtn title={'Сплатити'}/>
+  useEffect(() => {
+    let total = 0;
+    items.map((el) => {
+      total += +el.amount;
+    });
+    setTotalItems(total + tips)
+  }, [items, tips]);
 
-    </div>
-  );
+  if (orderId) {
+    return (
+      <div className={s.orderFooter}>
+        <Total total={totalItems} />
+        <PaymentMethod tips={tips} tipsDispatch={giveTips} dispatchMethod={setPaymentMethod} amount={totalAmount}/>
+        <OrderBtn title={"Сплатити"} setData={paymnet}/>
+      </div>
+    );
+  }
 }

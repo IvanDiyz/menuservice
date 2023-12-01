@@ -6,10 +6,12 @@ import { useState } from "react";
 import Popup from "@/components/Popup/Popup";
 import { useAppDispatch } from "@/hooks/redux";
 import { changeChoice } from "@/store/setOrder/setOrder";
+import { useRouter } from "next/navigation";
 
 export default function Basketheader() {
-
+  const router = useRouter();
   const { venueId, tableId } = useSelector(state => state.menu);
+
 
   return (
     <header className={s.header}>

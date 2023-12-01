@@ -7,11 +7,11 @@ import s from "./OrderBtn.module.scss";
 const OrderBtn = ({ title, setData }) => {
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
-  const {items} = selector(state => state.setOrder)
+  const {paymentStatus} = selector(state => state.setBasket)
 
   return (
     <div className={s.orderFooter__btn}>
-      <button onClick={setData}>{title}</button>
+      <button onClick={setData} disabled={paymentStatus}>{title}</button>
     </div>
   );
 };

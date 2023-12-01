@@ -10,7 +10,7 @@ export default function Searchheader({ result, changState }) {
   }
 
   return (
-      <header className={s.header}>
+      <div className={s.header}>
         <h4 className={s.header__wrappertitle}>{result}</h4>
         <div className={s.header__close}>
           <svg
@@ -30,6 +30,6 @@ export default function Searchheader({ result, changState }) {
             </g>
           </svg>
         </div>
-      </header>
+      </div>
   );
 }

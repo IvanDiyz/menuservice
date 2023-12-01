@@ -23,6 +23,7 @@ export const setOrder = createSlice({
     },
     setPaymentMethod: (state, action) => {
       state.paymentMethod = action.payload;
+      state.tips = 0;
     },
     setDelivery: (state, action) => {
       state.delivery = action.payload;
@@ -97,7 +98,7 @@ export const setOrder = createSlice({
         state.addons[indexAddons].startAmount * action.payload.quantity
       ).toString();
       calculateAmout(state.item);
-      state.item.amount = state.item.amountDish + state.item.amountAddons;
+      state.item.amount = Math.ceil((state.item.amountDish + state.item.amountAddons) * 100) / 100;
     },
     addAddons: (state, action) => {
       state.addons.push(action.payload);
@@ -111,7 +112,7 @@ export const setOrder = createSlice({
         state.item.addons = state.addons;
       }
       calculateAmout(state.item);
-      state.item.amount = state.item.amountDish + state.item.amountAddons;
+      state.item.amount = Math.ceil((state.item.amountDish + state.item.amountAddons) * 100) / 100;
     },
     deleteAddons: (state, action) => {
       let indexDish = state.addons.findIndex(
@@ -120,7 +121,7 @@ export const setOrder = createSlice({
       state.item.addons = state.addons;
       state.addons.splice(indexDish, 1);
       calculateAmout(state.item);
-      state.item.amount = state.item.amountDish + state.item.amountAddons;
+      state.item.amount = Math.ceil((state.item.amountDish + state.item.amountAddons) * 100) / 100;
     },
     giveTips: (state, action) => {
       if (action.payload.inputTips) {

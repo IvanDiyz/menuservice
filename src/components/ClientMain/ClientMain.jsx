@@ -35,7 +35,7 @@ const ClientMain = (params) => {
     return (
       <Container>
         <ClientInfo photoUrl={photoUrl} name={name} logoUrl={logoUrl} openingTime={openingTime} closingTime={closingTime} types={types}/>
-        <OrderMethods keySlice={methodOrder} firstDescription={'Inside'} lastDescription={'Takeaway'} dispatchMethod={setMethodOrder} firstmethod={'В закладі'} lastmethod={'Із собою'} svg={true}/>
+        <OrderMethods keySlice={methodOrder} firstDescription={false} lastDescription={true} dispatchMethod={setMethodOrder} firstmethod={'В закладі'} lastmethod={'Із собою'} svg={true}/>
         <ServiceSheet menus={menus}/>
         <Openedcontact address={address} extraPhone={extraPhone} phone={phone} website={website} instagram={instagram} facebook={facebook}/>
       </Container>
