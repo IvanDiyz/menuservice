@@ -4,8 +4,8 @@ import OrderFooter from "@/components/Order/OrderFooter/OrderFooter";
 
 export default function DashboardLayout({ children }) {
   return (
-    <main className={s.main}>
+    <div className={s.main}>
         {children}
-    </main>
+    </div>
   );
 }

@@ -10,7 +10,9 @@
   &__button {
     display: flex;
     align-items: center;
-    padding: 2.5vw 5.68vw;
+    padding: 2.5vw 0;
+    width: 48%;
+    justify-content: center;
     color: #3E3E3E;
     path {
       fill: #3E3E3E;

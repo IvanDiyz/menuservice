@@ -39,7 +39,7 @@ const LinkMenu = ({ menu }) => {
 
   return (
     <>
-      {startTime && finishTime ? (
+      {!startTime && finishTime ? (
         <Link
           className={`${
             actualTime >= startTime && actualTime < finishTime

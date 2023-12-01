@@ -22,13 +22,13 @@ export default function DashboardLayout({ children }) {
     )
   } else {
     return (
-      <main className={s.main}>
+      <div className={s.main}>
         <div>
           <Orderheader />
           {children}
         </div>
         <OrderFooter />
-      </main>
+      </div>
     );
   }
 }

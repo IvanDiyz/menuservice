@@ -3,9 +3,9 @@ import s from "./Content.module.scss";
 
 const Content = ({ children }) => {
   return (
-    <section className={s.site}>
+    <div className={s.site}>
       {children}
-    </section>
+    </div>
   );
 };
 

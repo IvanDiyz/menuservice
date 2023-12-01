@@ -1,72 +1,77 @@
 .orderFooter {
-  &__payment {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-  }
+    &__payment {
+        padding-bottom: 4.4vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-  &__paymentMethod {
-      font-size: 4.4vw;
-      font-weight: 600;
-      line-height: 6.6vw;
-      letter-spacing: -0.8px;
-      padding: 2.2vw 4.4vw;
-      border-radius: 6.6vw;
-      border: 2px solid #DDD;
-  }
-  &__paymentBox {
-      overflow: hidden;
-      transition: all 0.8s;
-  }
-  &__paymentActive {
-      color: #FFF;
-      border: 1px solid #26B657;
-      background: #26B657;
-  }
-  &__tips {
-      transition: all 0.8s;
-      height: 0;
-      overflow: hidden;
-  }
-  &__btn {
-      padding: 4.4vw 0;
+    &__paymentMethod {
+        font-size: 4.4vw;
+        font-weight: 600;
+        line-height: 6.6vw;
+        letter-spacing: -0.8px;
+        padding: 2.2vw 4.4vw;
+        border-radius: 6.6vw;
+        border: 2px solid #DDD;
+    }
 
-      button {
-          width: 100%;
-          padding: 3.3vw 0;
-          border-radius: 3.3vw;
-          background: #26B657;
-          color: #FFF;
-          font-size: 4.4vw;
-          font-weight: 600;
-          line-height: 6.6vw;
-          letter-spacing: -0.8px;
-      }
-  }
+    &__paymentBox {
+        overflow: hidden;
+        transition: all 0.8s;
+    }
 
-  &__emailInput {
-      margin-top: 16px;
-      padding: 12px 16px;
-      width: 100%;
-      border-radius: 12px;
-      border: 1px solid #DDD;
-      background: #FAFAFA;
-      color: #696969;
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 24px;
-      letter-spacing: -0.32px;
-  }
+    &__paymentActive {
+        color: #FFF;
+        border: 1px solid #26B657;
+        background: #26B657;
+    }
 
-  &__emailInput::placeholder {
-      color: #696969;
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 24px;
-      letter-spacing: -0.32px;
-  }
-  &__emailInput:focus {
-    outline: none;
-    border: 2px solid #26B657;
-  }
+    &__tips {
+        transition: all 0.8s;
+        height: 0;
+        overflow: hidden;
+    }
+
+    &__btn {
+        padding: 4.4vw 0;
+
+        button {
+            width: 100%;
+            padding: 3.3vw 0;
+            border-radius: 3.3vw;
+            background: #26B657;
+            color: #FFF;
+            font-size: 4.4vw;
+            font-weight: 600;
+            line-height: 6.6vw;
+            letter-spacing: -0.8px;
+        }
+    }
+
+    &__emailInput {
+        padding: 3.3vw 4.4vw;
+        width: 100%;
+        border-radius: 3.3vw;
+        border: 1px solid #DDD;
+        background: #FAFAFA;
+        color: #696969;
+        font-size: 4.4vw;
+        font-weight: 400;
+        line-height: 6.6vw;
+        letter-spacing: -0.32px;
+    }
+
+    &__emailInput::placeholder {
+        color: #696969;
+        font-size: 4.4vw;
+        font-weight: 400;
+        line-height: 6.6vw;
+        letter-spacing: -0.32px;
+    }
+
+    &__emailInput:focus {
+        outline: none;
+        border: 2px solid #26B657;
+    }
 }
