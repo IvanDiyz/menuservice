@@ -27,7 +27,6 @@ export default function Header() {
   };
   //function for open Notificate
   const openNotificate = () => {
-    console.log(pathName)
     dispatch(setNotificate(true));
   };
 

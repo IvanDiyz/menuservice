@@ -12,7 +12,6 @@ export const getSections = createSlice({
   initialState,
   reducers: {
     setMenuId: (state, action) => {
-      console.log(action)
       state.menuId = action.payload.id;
       state.menuName = action.payload.name;
     },

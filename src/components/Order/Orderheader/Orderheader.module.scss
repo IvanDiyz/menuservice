@@ -7,12 +7,14 @@
   &__popupBox {
     border-radius: 12px;
     border: 2px solid #BDBDBD;
+    border-radius: 24px;
     background: #FFF;
-    width: 85%;
-    padding: 12px;
+    width: 90%;
+    padding: 16px;
   }
 
   &__popupTitle {
+    max-width: 400px;
     color: #000;
     text-align: center;
     font-size: 24px;
@@ -34,15 +36,15 @@
     font-weight: 600;
     line-height: 24px;
     letter-spacing: -0.8px;
-    padding: 8px 30px;
-    border-radius: 24px;
+    padding: 12px 58px;
+    border-radius: 12px;
     color: #FFFCF8;
   }
   &__popupBtnY {
-    background: #E63152;
+    background: #26B657;
   }
   &__popupBtnN {
-    background: #26B657;
+    background: #E63152;
   }
 
   &__wrapper {

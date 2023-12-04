@@ -143,7 +143,6 @@ export const setOrder = createSlice({
           }
         });
         if (!state.item.push) {
-          console.log("push 1");
           state.item.clientCooment = action.payload;
           state.items.push(state.item);
           state.amount = state.amount + state.item.amount;
@@ -151,7 +150,6 @@ export const setOrder = createSlice({
           state.addons = [];
         }
       } else {
-        console.log("push 2");
         state.item.clientCooment = action.payload;
         state.items.push(state.item);
         state.amount = state.amount + state.item.amount;
@@ -194,7 +192,7 @@ let calculateAmout = (obj) => {
 // функция сровнения массивов
 function arraysAreEqual(array1, array2, state, commnet) {
   if (array1.addons.length !== array2.addons?.length) {
-    console.log("совпадений нет");
+    // если совпадений нет
     return false;
   }
 
@@ -204,7 +202,7 @@ function arraysAreEqual(array1, array2, state, commnet) {
 
   // Сравнение отсортированных массивов
   if (JSON.stringify(sortedArray1) === JSON.stringify(sortedArray2)) {
-    console.log("массивы равны");
+    //массивы равны
     array1.push = true;
     array2.quantity += array1.quantity;
     array2.amountDish += array1.amountDish;
@@ -214,7 +212,7 @@ function arraysAreEqual(array1, array2, state, commnet) {
     state.amount += array1.amount;
     return;
   } else {
-    console.log("массивы не равны");
+    //массивы не равны
   }
 }
 

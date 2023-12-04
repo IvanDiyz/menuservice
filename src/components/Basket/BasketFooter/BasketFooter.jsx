@@ -25,7 +25,6 @@ export default function BasketFooter() {
   
 
   const paymnet = () => {
-    console.log(localPaymentStatus)
     dispath(setPaymentStatus(true))
     localStorage.setItem('paymentStatus', true);
   }

@@ -22,8 +22,6 @@ export default function BasketItem({ dish, indexItem, check }) {
       commentSpan.current.style.height = 24 + "px";
     } else {
       checkHeight(true);
-      console.log("target", e);
-      console.log("ref", commentSpan);
       let height = e.target.scrollHeight;
       commentSpan.current.style.height = height + "px";
     }

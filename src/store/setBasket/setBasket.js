@@ -8,7 +8,7 @@ const initialState = {
   check: 'payAll',
   items: [],
   status: false,
-  orderId: '',
+  orderId: 65,
   tips: 0,
   isPaid: null,
   totalAmount: 0,
@@ -40,7 +40,6 @@ export const setBasket = createSlice({
       
     },
     getPaymentStatus: (state, action) => {
-      console.log('asd',state)
       if(action.payload == 'true') {
         state.paymentStatus = true;
       } else {
