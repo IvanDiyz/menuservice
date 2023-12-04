@@ -77,7 +77,6 @@ export default function Buttons({ costDiscount, dish, addDish, changeQuantity, d
   };
 
   useEffect(() => {
-    console.log(venueId, tableId)
     if(dish.quantity !== quantityDish) {
       setQuantity(orderQuantity)
     }

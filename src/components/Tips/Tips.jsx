@@ -65,7 +65,6 @@ export default function Tips({ amount, tipsDispatch, tips }) {
     const numericValue = e.target.value.replace(/[^0-9]/g, "");
     setInputValue(numericValue);
     dispatch(tipsDispatch({ inputTips: true, inputValue: numericValue }));
-    console.log("inputValue", numericValue);
   };
 
   const getTicketTips = (e) => {
@@ -75,7 +74,6 @@ export default function Tips({ amount, tipsDispatch, tips }) {
     setTips(true);
     setInput(false);
     setInputValue("");
-    console.log(e.target.firstElementChild.textContent.match(/\d+/)[0]);
     let actual = e.target.firstElementChild.textContent.match(/\d+/)[0];
     actual == actualTips ? setActualTips(0) : setActualTips(actual);
   };

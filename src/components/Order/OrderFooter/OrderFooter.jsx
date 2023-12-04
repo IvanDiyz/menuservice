@@ -21,7 +21,6 @@ export default function OrderFooter() {
   useEffect(() => {
     dispatch(changeChoice(false))
     if(orderId) {
-      console.log('asdasd')
       dispatch(giveTips({inputTips: false, actualTips: 0}))
     }
   }, [amount])
@@ -74,7 +73,6 @@ export default function OrderFooter() {
         data: data,
       })
     );
-    console.log(creatData());
   };
 
   return (

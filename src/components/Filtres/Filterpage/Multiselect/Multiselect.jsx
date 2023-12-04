@@ -22,7 +22,6 @@ const Multiselect = ({ id, label, name, paramsClient }) =>{
 	}
 	const handleRemoveChip =(chipToRemove)=>{
 		let indexOption = multiselect.current.options.selectedIndex;
-		console.log(indexOption)
 		multiselect.current.options[indexOption].selected = false;
 		let index = chips.indexOf(chipToRemove);
 		if(index !== -1) {

@@ -34,7 +34,6 @@ export const menuSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(fetchMenu.fulfilled, (state, action) => {
-        console.log(action)
         state.isLoading = false;
         state.error = "";
         const { menus, name, logoUrl, photoUrl, openingTime, closingTime, types, facebook, instagram, website, phone, extraPhone, description, address } = action.payload.response[0];

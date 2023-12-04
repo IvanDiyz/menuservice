@@ -13,7 +13,6 @@ export default function Header() {
   const [clearBox, callClearBox] = useState(false)
 
   const clearOrder = () => {
-    console.log('click')
     if(clearBox) {
       callClearBox(false)
     } else {
@@ -31,9 +30,9 @@ export default function Header() {
 
   return (
     <header className={s.header}>
-      {clearBox ? (<Popup popup={clearBox}>
+      {clearBox ? (<Popup popup={clearBox} order='order'>
         <div className={s.header__popupBox}>
-          <h6 className={s.header__popupTitle}>Ви точно бажаєте очистити замовлення</h6>
+          <h6 className={s.header__popupTitle}>Ви впевнені, що хочете очистити кошик?</h6>
           <div className={s.header__popupBtns}>
             <span className={`${s.header__popupBtn} ${s.header__popupBtnY}`} onClick={() => closePopup(true)}>Так</span>
             <span className={`${s.header__popupBtn} ${s.header__popupBtnN}`} onClick={() => closePopup(false)}>Ні</span>
