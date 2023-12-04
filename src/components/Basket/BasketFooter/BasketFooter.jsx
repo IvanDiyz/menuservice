@@ -50,6 +50,7 @@ export default function BasketFooter() {
   useEffect(() => {
     let total = 0;
     items.map((el) => {
+      if(el.dishStatusId != 6)
       total += +el.amount;
     });
     setTotalItems(total + tips)

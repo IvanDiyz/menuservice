@@ -9,7 +9,6 @@ import { setItems, clearItems } from "@/store/setBasket/setBasket";
 export default function BasketItems() {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
-  // const { items, amount } = selector(state => state.setOrder);
   const {check, items, responsDish } = selector(state => state.setBasket);
 
   useEffect(() => {
