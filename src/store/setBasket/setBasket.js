@@ -8,7 +8,7 @@ const initialState = {
   check: 'payAll',
   items: [],
   status: false,
-  orderId: 65,
+  orderId: '',
   tips: 0,
   isPaid: null,
   totalAmount: 0,

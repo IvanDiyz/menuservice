@@ -4,6 +4,16 @@
   display: flex;
   justify-content: space-between;
 
+  &__wrapperSubtitle {
+    color: #696969;
+    text-align: center;
+    font-size: 4.4vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 6.6vw;
+    letter-spacing: -0.8px;
+  }
+
   &__popupBox {
     border-radius: 12px;
     border: 2px solid #BDBDBD;
@@ -38,9 +48,11 @@
     border-radius: 24px;
     color: #FFFCF8;
   }
+
   &__popupBtnY {
     background: #E63152;
   }
+
   &__popupBtnN {
     background: #26B657;
   }
@@ -62,6 +74,10 @@
 
   &__wrappertitle {
     color: #000;
+    text-align: center;
+    font-size: 4.4vw;
     font-weight: 600;
+    line-height: 6.6vw;
+    letter-spacing: -0.8px;
   }
 }

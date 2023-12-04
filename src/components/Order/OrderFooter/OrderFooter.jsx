@@ -20,7 +20,11 @@ export default function OrderFooter() {
 
   useEffect(() => {
     dispatch(changeChoice(false))
-  }, [])
+    if(orderId) {
+      console.log('asdasd')
+      dispatch(giveTips({inputTips: false, actualTips: 0}))
+    }
+  }, [amount])
 
   const creatData = () => {
     let dishList = [];
