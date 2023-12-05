@@ -4,16 +4,17 @@ import Menuitem from "./Menuitem/Menuitem";
 import s from "./Menuitems.module.scss";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchFiltres } from "@/store/setFilter/setFiltresApi";
+import { setCurrentPage } from "../../store/getDishis/getDishis";
 
 export default function Menuitems() {
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
   const [display, setDispaly] = useState(1);
   const [dataLoaded, setDataLoaded] = useState(false);
-  const { items, total, limit, currentPage } = selector(
+  const { items, total, limit, pages } = selector(
     (state) => state.getDishis.dishis
   );
-  const { stateDishis, actualSection } = selector((state) => state.getDishis);
+  const { stateDishis, actualSection, currentPage, isLoading } = selector((state) => state.getDishis);
   const { venueId } = selector((state) => state.menu);
   const { amount } = selector((state) => state.setOrder);
   const { filters, stateFilters, filteredDish } = selector((state) => state.setFilter);
@@ -23,6 +24,26 @@ export default function Menuitems() {
     if (stateDishis) {
       setDataLoaded(true);
     }
+    const handleScroll = () => {
+      // Проверка, достиг ли пользователь конца страницы
+      if (
+       window.innerHeight + document.documentElement.scrollTop >=
+        document.documentElement.offsetHeight - 10 &&
+        currentPage < pages &&
+        !isLoading
+      ) {
+        // Загрузка следующей порции блюд из API
+        dispatch(setCurrentPage(currentPage + 1))
+      }
+    };
+  
+    // Добавление обработчика события прокрутки
+    window.addEventListener('scroll', handleScroll);
+  
+    // Очистка обработчика события при размонтировании компонента
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [stateDishis]);
 
   let changeDispaly = () => {

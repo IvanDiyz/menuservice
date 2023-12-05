@@ -6,29 +6,35 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useEffect, useState } from "react";
 import { fetchDishis } from "@/store/getDishis/getDishisApi";
 import { setActualSection } from "@/store/getDishis/getDishis";
+import { clearDishis, setCurrentPage } from "../../../store/getDishis/getDishis";
 
 export default function Filterscroll() {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
   const { sections, menuId } = selector((state) => state.getSections);
+  const { currentPage, dishis } = selector((state) => state.getDishis);
   const [selectedSection, setSelectedSection] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       if(selectedSection == null) {
-        await dispatch(fetchDishis({selectedSection, menuId}));
-        dispatch(setActualSection(null))
+        if(currentPage !== dishis.currentPage) {
+          await dispatch(fetchDishis({selectedSection, menuId, currentPage}));
+          dispatch(setActualSection(null))
+        }
       }else {
-        await dispatch(fetchDishis({selectedSection, menuId}));
+        await dispatch(fetchDishis({selectedSection, menuId, currentPage}));
         dispatch(setActualSection(selectedSection))
       }
     };
     fetchData();
-  }, [selectedSection])
+  }, [selectedSection, currentPage])
 
   //change the state of the section
   const handleItemClick = (id) => {
     if(id == selectedSection) {
+      dispatch(clearDishis())
+      dispatch(setCurrentPage(1))
       setSelectedSection(null);
     }else {
       setSelectedSection(id);

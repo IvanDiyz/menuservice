@@ -66,22 +66,31 @@
     position: absolute;
     width: 100%;
     background: #fff;
-    left: 0;
+    right: 0;
     z-index: 5;
   }
   
   &__search {
     height: 100vh;
     top: 0;
-    transform: translateX(100%);
+    width: 0;
   }
   
   &__menu {
     top: calc(100% + 1px);
     transform: translateX(-100%);
   }
-
-  &__searchOpen,
+  &__search {
+    transition: width .8s;
+    overflow: hidden;
+    position: absolute;
+    background: #fff;
+    right: 0;
+    z-index: 5;
+  }
+  &__searchOpen {
+    width: 100%;
+  }
   &__menuhOpen {
     transform: translateX(0);
   }
