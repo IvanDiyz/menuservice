@@ -18,9 +18,7 @@ export default function BasketFooter() {
   }
   const dispath = useAppDispatch();
   const selector = useAppSelector;
-  const { totalAmount, isPaid, orderId, items, allAmount, tips, paymentStatus } = selector(
-    (state) => state.setBasket
-  );
+  const { totalAmount, isPaid, orderId, items, allAmount, tips, paymentStatus } = selector((state) => state.setBasket);
   const [totalItems, setTotalItems] = useState(totalAmount);
   
 
@@ -44,7 +42,7 @@ export default function BasketFooter() {
     if (orderId) {
       dispath(fetchBasket(orderId));
     }
-  }, []);
+  }, [orderId]);
 
   useEffect(() => {
     let total = 0;
@@ -60,7 +58,7 @@ export default function BasketFooter() {
       <div className={s.orderFooter}>
         <Total total={totalItems} />
         <PaymentMethod tips={tips} tipsDispatch={giveTips} dispatchMethod={setPaymentMethod} amount={totalAmount}/>
-        <OrderBtn title={"Сплатити"} setData={paymnet}/>
+        <OrderBtn title={`${paymentStatus ? 'Очікуйте підтвердження оплати' : 'Сплатити'}`} setData={paymnet}/>
       </div>
     );
   }

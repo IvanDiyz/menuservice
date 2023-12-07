@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchOrder } from "../setOrder/orderApi";
 import { fetchBasket } from "../setBasket/basketApi";
+import { fetchMenu } from "../menu/menuApi";
 
 const initialState = {
   allAmount: 0,
@@ -8,7 +9,7 @@ const initialState = {
   check: 'payAll',
   items: [],
   status: false,
-  orderId: 65,
+  orderId: null,
   tips: 0,
   isPaid: null,
   totalAmount: 0,
@@ -101,7 +102,18 @@ export const setBasket = createSlice({
       .addCase(fetchBasket.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(fetchMenu.fulfilled, (state, action) => {
+        state.orderId = action.payload.response.orders[0].id;
+      })
+      .addCase(fetchMenu.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchMenu.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       }),
+      
 });
 
 // находим наш объект который уже существует в items

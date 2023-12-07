@@ -21,7 +21,7 @@ const OrderMethods = ({keySlice, firstmethod, lastmethod, svg, dispatchMethod, f
   }
 
   return (
-    <div className={s.orderMethods}>
+    <div className={`${s.orderMethods} ${paymentStatus ? s.waiterWait : ''}`}>
       <div className={`${s.orderMethods__button} ${isActive == firstDescription ? s.active : ''}`} onClick={() => toggleOrder(firstDescription)}>
           {svg ? <svg
             width="24"
@@ -38,7 +38,7 @@ const OrderMethods = ({keySlice, firstmethod, lastmethod, svg, dispatchMethod, f
               />
             </g>
           </svg> : ''}
-        <button className={s.orderMethods__btn}>{firstmethod}</button>
+        <button className={`${s.orderMethods__btn}`}>{firstmethod}</button>
       </div>
       <div className={`${s.orderMethods__button} ${isActive == lastDescription ? s.active : ''}`} onClick={() => toggleOrder(lastDescription)}>
         {svg ? <svg

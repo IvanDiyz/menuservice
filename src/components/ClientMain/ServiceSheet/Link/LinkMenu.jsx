@@ -9,11 +9,12 @@ import { useEffect, useState } from "react";
 const LinkMenu = ({ menu }) => {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
-  const {venueId, tableId} = selector(state => state.menu)
+  const { venueId, tableId } = selector((state) => state.menu);
   const [startTime, setStartTime] = useState(false);
   const [finishTime, setFinishTime] = useState(false);
   const [actualTime, setactualTime] = useState();
-
+  const [click, chekedClick] = useState(false);
+  const { id, name } = menu;
   let setTime = (time, methodTime) => {
     const formattedTime = +time.replace(":", "");
     methodTime(formattedTime);
@@ -32,9 +33,18 @@ const LinkMenu = ({ menu }) => {
     }
   }, [menu.startTime, menu.finishTime]);
 
+  useEffect(() => {
+    if (click) {
+      localStorage.setItem("menuId", id);
+      localStorage.setItem("menuName", name);
+      dispatch(setMenuId({ id, name }));
+      chekedClick(false);
+    }
+  }, [click]);
+
   //function set by id menu
-  const menuId = async (id, name) => {
-    dispatch(setMenuId({ id, name }));
+  const menuId = (id, name) => {
+    chekedClick(true);
   };
 
   return (
@@ -46,7 +56,9 @@ const LinkMenu = ({ menu }) => {
               ? `${s.menuWork}`
               : `${s.menuNoWork}`
           }`}
-          href={`/${venueId}/${tableId}/${menu.name.replace(/\s/g, "")}${menu.id}`}
+          href={`/${venueId}/${tableId}/${menu.name.replace(/\s/g, "")}${
+            menu.id
+          }`}
           onClick={() => menuId(menu.id, menu.name)}
         >
           <div className={s.serviceSheet__box}>
@@ -86,7 +98,9 @@ const LinkMenu = ({ menu }) => {
       ) : (
         <Link
           className={s.menuWork}
-          href={`/${venueId}/${tableId}/${menu.name.replace(/\s/g, "")}${menu.id}`}
+          href={`/${venueId}/${tableId}/${menu.name.replace(/\s/g, "")}${
+            menu.id
+          }`}
           onClick={() => menuId(menu.id, menu.name)}
         >
           <div className={s.serviceSheet__box}>

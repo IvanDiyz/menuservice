@@ -28,9 +28,16 @@
     }
   }
   &__btn {
+    color: inherit;
     background-color: unset;
     font-weight: 600;
     font-size: 4.4vw;
     padding: 0;
+  }
+}
+.waiterWait {
+  .orderMethods__button.active {
+    color: #3E3E3E;
+    background: #DDD;
   }
 }

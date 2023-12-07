@@ -4,7 +4,7 @@ import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   methodOrder: false,
-  venueId: null,
+  venueId: '2d0e8ddb-4413-4260-9ca3-3df758252fea',
   tableId: null,
   menus: [],
   name: null,
@@ -20,7 +20,8 @@ const initialState = {
   phone: null,
   extraPhone: null,
   description: null,
-  address: null
+  address: null,
+  orders: null,
 };
 
 export const menuSlice = createSlice({
@@ -30,13 +31,20 @@ export const menuSlice = createSlice({
     setMethodOrder: (state, action) => {
       state.methodOrder = action.payload;
     },
+    managerVenueId: (state, action) => {
+      state.venueId = action.payload.venueId;
+      state.tableId = action.payload.tableId;
+    },
+    managerOrderId: (state, action) => {
+      state.orders = action.payload;
+    },
   },
   extraReducers: (builder) =>
     builder
       .addCase(fetchMenu.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = "";
-        const { menus, name, logoUrl, photoUrl, openingTime, closingTime, types, facebook, instagram, website, phone, extraPhone, description, address } = action.payload.response[0];
+        const { orders, menus, name, logoUrl, photoUrl, openingTime, closingTime, types, facebook, instagram, website, phone, extraPhone, description, address } = action.payload.response;
         state.menus = menus;
         state.name = name;
         state.logoUrl = logoUrl;
@@ -44,7 +52,7 @@ export const menuSlice = createSlice({
         state.openingTime = openingTime;
         state.closingTime = closingTime;
         state.types = types;
-        state.venueId = +action.payload.venueId;
+        // state.venueId = +action.payload.venueId; ожидаем что в ответе будет id
         state.tableId = +action.payload.tableId;
         state.facebook = facebook;
         state.instagram = instagram;
@@ -53,6 +61,7 @@ export const menuSlice = createSlice({
         state.extraPhone = extraPhone;
         state.description = description;
         state.address = address;
+        state.orders = action.payload.response.orders[0].id;
       })
       .addCase(fetchMenu.pending, (state) => {
         state.isLoading = true;
@@ -63,5 +72,5 @@ export const menuSlice = createSlice({
       }),
 });
 
-export const { setMethodOrder } = menuSlice.actions;
+export const { managerOrderId, managerVenueId, setMethodOrder } = menuSlice.actions;
 export default menuSlice.reducer;

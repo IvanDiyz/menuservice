@@ -52,7 +52,7 @@ export default function BasketItem({ dish, indexItem, check }) {
     <div className={`${s.basketItem} ${dish.dishStatusId == 6 ? `${s.basketItem__declined}` : ''}`}>
       <div className={s.basketItem__info}>
         <div
-          style={img ? { backgroundImage: `url(${dish.dish.img})` } : ""}
+          style={img ? { backgroundImage: `url(${dish.dish.img})` } : { backgroundImage: `url(${dish.dish.img})` }}
           className={s.basketItem__photo}
         ></div>
         <div className={s.basketItem__infoBox}>

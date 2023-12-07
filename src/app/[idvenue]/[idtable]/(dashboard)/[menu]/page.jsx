@@ -11,15 +11,24 @@ import Notificate from "@/components/Notificate/Notificate";
 import Container from "@/components/Container/Container";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useEffect, useState } from "react";
+import { setMenuId } from "@/store/getSections/getSections";
+import { managerItems } from "@/store/setOrder/setOrder";
 
 const menu = () => {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
   const [dataLoaded, setDataLoaded] = useState(false);
   const { menuId, error } = selector((state) => state.getSections);
+  const { amount, items } = selector((state) => state.setOrder);
   
 
   useEffect(() => {
+    if(menuId == null) {
+      const id = localStorage.getItem("menuId");
+      const name = localStorage.getItem("menuName");
+      dispatch(setMenuId({id, name}))
+      return
+    }
     //pregnant all sections by api
     const fetchData = async () => {
       await dispatch(fetchSections(menuId));
@@ -28,6 +37,16 @@ const menu = () => {
     };
     fetchData();
   }, [menuId]);
+
+ 
+
+  useEffect(() => {
+    const localItems = JSON.parse(localStorage.getItem('items'))
+    const localAmount = JSON.parse(localStorage.getItem('amount'))
+    if(localItems !== null && localAmount !== null) {
+      dispatch(managerItems({items: localItems, amount: localAmount}))
+    }
+  }, [])
 
   if (!dataLoaded || error != '') {
     return <Container>{error == '' ? 'Loading...' : error}</Container>;

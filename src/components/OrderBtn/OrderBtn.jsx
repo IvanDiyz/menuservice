@@ -8,10 +8,24 @@ const OrderBtn = ({ title, setData }) => {
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
   const {paymentStatus} = selector(state => state.setBasket)
+  const [click, changeClick] = useState(false);
+
+  useEffect(() => {
+    if(click) {
+      localStorage.removeItem("items");
+      localStorage.removeItem("amount");
+      setData()
+    }
+  }, [click])
+
+  const observer = () => {
+    console.log('popal')
+    changeClick(true)
+  }
 
   return (
-    <div className={s.orderFooter__btn}>
-      <button onClick={setData} disabled={paymentStatus}>{title}</button>
+    <div className={`${s.orderFooter__btn} ${paymentStatus ? `${s.orderFooter__btnWaiterWait}` : ''}`}>
+      <button onClick={observer} disabled={paymentStatus}>{title}</button>
     </div>
   );
 };
