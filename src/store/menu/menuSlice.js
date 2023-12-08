@@ -4,7 +4,7 @@ import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   methodOrder: false,
-  venueId: '2d0e8ddb-4413-4260-9ca3-3df758252fea',
+  venueId: '',
   tableId: null,
   menus: [],
   name: null,
@@ -52,7 +52,7 @@ export const menuSlice = createSlice({
         state.openingTime = openingTime;
         state.closingTime = closingTime;
         state.types = types;
-        // state.venueId = +action.payload.venueId; ожидаем что в ответе будет id
+        state.venueId = action.payload.venueId; //ожидаем что в ответе будет id
         state.tableId = +action.payload.tableId;
         state.facebook = facebook;
         state.instagram = instagram;
@@ -61,7 +61,7 @@ export const menuSlice = createSlice({
         state.extraPhone = extraPhone;
         state.description = description;
         state.address = address;
-        state.orders = action.payload.response.orders[0].id;
+        state.orders = action.payload.response?.orders[0].id;
       })
       .addCase(fetchMenu.pending, (state) => {
         state.isLoading = true;
