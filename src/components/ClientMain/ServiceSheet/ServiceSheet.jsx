@@ -5,12 +5,11 @@ import s from "./ServiceSheet.module.scss";
 import { useAppDispatch } from "@/hooks/redux";
 
 const ServiceSheet = ({ menus }) => {
-  const dispatch = useAppDispatch();
 
   return (
     <div className={s.serviceSheet}>
-      {menus.map((el) => (
-        <LinkMenu key={el.id} menu={el} />
+      {menus.map((el, index) => (
+        <LinkMenu key={index} menu={el} />
       ))}
     </div>
   );

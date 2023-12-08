@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchOrder } from "./orderApi";
+import { fetchMenu } from "../menu/menuApi";
 
 const initialState = {
   allAmount: 0,
@@ -11,7 +12,8 @@ const initialState = {
   choiceMethod: false,
   delivery: false,
   paymentMethod: "",
-  status: false
+  status: false,
+  orderId: false,
 };
 
 export const setOrder = createSlice({
@@ -20,6 +22,10 @@ export const setOrder = createSlice({
   reducers: {
     setStatus: (state, action) => {
       state.status = false;
+    },
+    managerItems: (state, action) => {
+      state.items = action.payload.items;
+      state.amount = action.payload.amount;
     },
     setPaymentMethod: (state, action) => {
       state.paymentMethod = action.payload;
@@ -168,12 +174,24 @@ export const setOrder = createSlice({
         state.status = "loading";
       })
       .addCase(fetchOrder.fulfilled, (state, action) => {
+        console.log(action.payload)
         Object.assign(state, initialState);
         state.status = "succeeded";
+        state.orderId = action.payload.id;
       })
       .addCase(fetchOrder.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(fetchMenu.fulfilled, (state, action) => {
+        state.orderId = action.payload.response.orders[0].id;
+      })
+      .addCase(fetchMenu.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchMenu.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       }),
 });
 
@@ -217,6 +235,7 @@ function arraysAreEqual(array1, array2, state, commnet) {
 }
 
 export const {
+  managerItems,
   setStatus,
   setPaymentMethod,
   setDelivery,

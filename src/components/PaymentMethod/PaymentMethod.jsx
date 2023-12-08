@@ -20,6 +20,7 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch}) => {
   const [heightPay, setHeight] = useState();
 
   let emailClient = (e) => {
+    if(paymentStatus) return
     setEmail(e.target.value);
   };
 
@@ -56,7 +57,7 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch}) => {
         choiceMethod  ? `${s.orderFooter__paymentBox__active}` : ""
       }`}
     >
-      <div className={s.orderFooter__payment}>
+      <div className={`${s.orderFooter__payment} ${paymentStatus ? s.waiterWait : ''}`}>
         <span
           className={`${s.orderFooter__paymentMethod} ${
             activePayment === "cash" ? s.orderFooter__paymentActive : ""

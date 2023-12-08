@@ -15,7 +15,9 @@ export default function Tips({ amount, tipsDispatch, tips }) {
 
   useEffect(() => {
     if(tips == 0) {
-      setActualTips(tips)
+      setActualTips(tips);
+      setInputValue('');
+      changeInput();
     }
   }, [tips])
 

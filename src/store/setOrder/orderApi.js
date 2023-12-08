@@ -1,10 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import api from "@/services/api";
-import axios from "axios";
-
-// const apitest = axios.create({
-//   baseURL: "https://reqres.in",
-// });
 
 export const fetchOrder = createAsyncThunk(
   "order/fetchOrder",
@@ -25,14 +20,5 @@ export const fetchOrder = createAsyncThunk(
       }
 
     }
-    // try {
-    //   const response = await apitest.post(`/api/users`, {
-    //     name: "morpheus",
-    //     job: "leader",
-    //   });
-    //   return response.data;
-    // } catch (e) {
-    //   return thunkAPI.rejectWithValue("Что-то пошло не так!");
-    // }
   }
 );

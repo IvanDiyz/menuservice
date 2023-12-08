@@ -3,15 +3,27 @@ import Link from "next/link";
 import s from "./Totaldish.module.scss";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { addBasket } from "@/store/setOrder/setOrder";
+import { useEffect, useState } from "react";
 
 export default function Totaldish({ text, closePopup }) {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
-  const { item } = selector(state => state.setOrder);
+  const { item, amount, items } = selector(state => state.setOrder);
+  const [click, changeClick] = useState(false);
+
+  useEffect(() => {
+    if(click) {
+      const itemsJSON = JSON.stringify(items);
+      localStorage.setItem('amount', amount)
+      localStorage.setItem('items', itemsJSON)
+      changeClick(false)
+    }
+  }, [click])
 
   let clickBtn = () => {
     dispatch(addBasket(text));
     closePopup();
+    changeClick(true)
   }
 
   return (

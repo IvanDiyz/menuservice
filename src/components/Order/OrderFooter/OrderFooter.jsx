@@ -65,14 +65,16 @@ export default function OrderFooter() {
 
   const postOrder = () => {
     const data = creatData();
-    dispatch(
-      fetchOrder({
-        orderId: orderId,
-        venueId: venueId,
-        tableId: tableId,
-        data: data,
-      })
-    );
+    if(items.length > 0) {
+      dispatch(
+        fetchOrder({
+          orderId: orderId,
+          venueId: venueId,
+          tableId: tableId,
+          data: data,
+        })
+      );
+    }
   };
 
   return (

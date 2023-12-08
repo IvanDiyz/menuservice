@@ -5,7 +5,7 @@ export const fetchMenu = createAsyncThunk(
   "user/fetchMenu",
   async (params, thunkAPI) => {
     try {
-      const response = await api.get(`/venue/${params.idvenue}/main-page`);
+      const response = await api.get(`/venue/${params.idvenue}/desk/${params.idtable}/main-page`);
       const data = {
         response: response.data,
         venueId: params.idvenue,

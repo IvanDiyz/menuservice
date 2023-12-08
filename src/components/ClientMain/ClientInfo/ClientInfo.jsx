@@ -30,8 +30,8 @@ const ClientInfo = ({
       ></div>
       <div className={s.clientinfo__box}>
         {types.length > 0 ? (
-          types.map(el => (
-            <p key={el.id} className={s.clientinfo__type}>{el.title}</p>
+          types.map((el, index) => (
+            <p key={index} className={s.clientinfo__type}>{el.title}</p>
           ))
         ) : (
           ""

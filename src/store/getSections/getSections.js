@@ -12,7 +12,7 @@ export const getSections = createSlice({
   initialState,
   reducers: {
     setMenuId: (state, action) => {
-      state.menuId = action.payload.id;
+      state.menuId = +action.payload.id;
       state.menuName = action.payload.name;
     },
   },
