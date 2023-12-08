@@ -4,6 +4,7 @@ import { fetchSeacrh } from "./setSearchApi";
 const initialState = {
   dishis: [],
   searchValue: '',
+  isLoading: false,
 };
 
 export const setSearch = createSlice({

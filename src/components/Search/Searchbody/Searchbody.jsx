@@ -53,6 +53,7 @@ export default function Searchbody() {
           </svg>
         </div>
       </div>
+      {}
       {
         actualSection ?
         dishis.map((el) => (
