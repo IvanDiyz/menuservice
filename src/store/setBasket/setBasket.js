@@ -95,7 +95,7 @@ export const setBasket = createSlice({
           state.items = dishes;
           state.status = "succeeded";
           state.orderId = id;
-          state.isPaid = isPaid; // не забыть поменять на isPaid
+          state.isPaid = true; // не забыть поменять на isPaid
           state.totalAmount = +totalAmount;
         }
       })
@@ -104,8 +104,8 @@ export const setBasket = createSlice({
         state.error = action.error.message;
       })
       .addCase(fetchMenu.fulfilled, (state, action) => {
-        if(action.payload.response?.orders[9]) {
-          state.orderId = action.payload.response?.orders[9]?.id;
+        if(action.payload.response?.orders[0]) {
+          state.orderId = action.payload.response?.orders[0]?.id;
         }
       })
       .addCase(fetchMenu.pending, (state) => {

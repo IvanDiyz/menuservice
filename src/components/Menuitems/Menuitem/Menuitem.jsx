@@ -80,7 +80,8 @@ export default function Menuitem({ triger, dish }) {
                 ""
               )}
             </div>
-            <div
+            {dish.weight ? (
+              <div
               className={`${s.menuitem__servesWeight} ${s.menuitem__servesItem}`}
             >
               <svg
@@ -98,8 +99,10 @@ export default function Menuitem({ triger, dish }) {
                   />
                 </g>
               </svg>
-              <p>500 г</p>
+              <p>{dish.weight} г</p>
             </div>
+            ) : '' }
+            
           </div>
           <div className={s.menuitem__alergenBox}>
             {dish.isAllergen ? (
@@ -166,6 +169,7 @@ export default function Menuitem({ triger, dish }) {
               ""
             )}
             {dish.isNew ? <span className={s.menuitem__new}>NEW</span> : ""}
+            {dish.discount ? (<span className={s.menuitem__discount}>-{dish.discount}%</span>) : ''}
           </div>
           <span className={s.menuitem__popupClose} onClick={closePopup}></span>
         </div>
@@ -289,7 +293,8 @@ export default function Menuitem({ triger, dish }) {
                 ""
               )}
             </div>
-            <div
+            {dish.weight ? (
+              <div
               className={`${s.menuitem__servesWeight} ${s.menuitem__servesItem}`}
             >
               <svg
@@ -307,8 +312,10 @@ export default function Menuitem({ triger, dish }) {
                   />
                 </g>
               </svg>
-              <p>500 г</p>
+              <p>{dish.weight} г</p>
             </div>
+            ) : '' }
+            
           </div>
         </div>
         <div className={s.menuitem__info}>
@@ -377,10 +384,12 @@ export default function Menuitem({ triger, dish }) {
               ""
             )}
             {dish.isNew ? <span className={s.menuitem__new}>NEW</span> : ""}
+            {dish.discount ? (<span className={s.menuitem__discount}>-{dish.discount}%</span>) : ''}
           </div>
           <div className={s.menuitem__info_box}>
             <p className={s.menuitem__name}>{dish.name}</p>
             <div className={s.menuitem__infoItem}>
+            {dish.cookingTime ? (
               <div>
                 <span>
                   <svg
@@ -401,7 +410,8 @@ export default function Menuitem({ triger, dish }) {
                 </span>
                 <p>{dish.cookingTime}</p>
               </div>
-              <div>
+            ) : ''}
+              {dish.weight ? (<div>
                 <span>
                   <svg
                     width="16"
@@ -419,8 +429,9 @@ export default function Menuitem({ triger, dish }) {
                     </g>
                   </svg>
                 </span>
-                <p>500 г</p>
-              </div>
+                <p>{dish.weight} г</p>
+              </div>) : ''}
+              
             </div>
             {dish.discount ? (
                   <p className={s.menuitem__price}>

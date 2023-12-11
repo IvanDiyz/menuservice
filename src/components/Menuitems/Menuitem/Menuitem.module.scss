@@ -302,6 +302,20 @@
         background: #FF5C00;
     }
 
+    &__discount {
+        display: flex;
+        align-items: center;
+        height: 6.6vw;
+        padding: 0 2.2vw;
+        color: #FFF;
+        text-align: center;
+        font-family: Roboto;
+        font-weight: 700;
+        font-size: 3.8vw;
+        border-radius: 1.1vw;
+        background: #F00;
+    }
+
     &__textareaBox {
         padding-top: 4.4vw;
     }
@@ -375,6 +389,20 @@
             line-height: 6.6vw;
             letter-spacing: -0.8px;
         }
+
+        &__discount {
+            display: flex;
+            align-items: center;
+            height: 6.6vw;
+            padding: 0 0;
+            color: #FF0000;
+            text-align: center;
+            font-family: Roboto;
+            font-weight: 700;
+            font-size: 3.8vw;
+            border-radius: 0;
+            background: transparent;
+        }
     }
 
     .menuitem__popupPhoto {
@@ -386,20 +414,24 @@
             padding-top: 4.4vw;
             padding-left: 4.4vw;
         }
+
         .menuitem__alergen {
             background: #FF5C00;
         }
+
         .menuitem__alergen,
         .menuitem__top {
             path {
                 fill: #fff;
             }
         }
+
         .menuitem__spicy {
             path {
                 fill: #fff;
             }
         }
+
         .menuitem__new {
             background: #0094FF;
             color: #fff;
@@ -432,6 +464,19 @@
             }
         }
 
+        .menuitem__discount {
+            display: flex;
+            align-items: center;
+            height: 6.6vw;
+            padding: 0 2.2vw;
+            color: #FFF;
+            text-align: center;
+            font-family: Roboto;
+            font-weight: 700;
+            font-size: 3.8vw;
+            border-radius: 1.1vw;
+            background: #F00;
+        }
     }
 }
 
