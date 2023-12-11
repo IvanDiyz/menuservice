@@ -61,8 +61,8 @@ export const menuSlice = createSlice({
         state.extraPhone = extraPhone;
         state.description = description;
         state.address = address;
-        if(action.payload.response?.orders[9]) {
-          state.orders = action.payload.response?.orders[9]?.id;
+        if(action.payload.response?.orders[0]) {
+          state.orders = action.payload.response?.orders[0]?.id;
         }
       })
       .addCase(fetchMenu.pending, (state) => {

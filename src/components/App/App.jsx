@@ -35,6 +35,7 @@ export default function App({ children }) {
           router.push(`/${venueId}/${tableId}/basket`);
         }
         if (isPaid && paymentStatusLocal == "true") {
+          debugger
           localStorage.removeItem("paymentStatus");
           localStorage.removeItem("orders");
           dispatch(setPaymentStatus(false));
