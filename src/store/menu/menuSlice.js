@@ -4,7 +4,7 @@ import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   methodOrder: false,
-  venueId: '',
+  venueId: null,
   tableId: null,
   menus: [],
   name: null,
@@ -61,7 +61,9 @@ export const menuSlice = createSlice({
         state.extraPhone = extraPhone;
         state.description = description;
         state.address = address;
-        state.orders = action.payload.response?.orders[0].id;
+        if(action.payload.response?.orders[9]) {
+          state.orders = action.payload.response?.orders[9]?.id;
+        }
       })
       .addCase(fetchMenu.pending, (state) => {
         state.isLoading = true;

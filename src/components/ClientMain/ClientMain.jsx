@@ -22,11 +22,15 @@ const ClientMain = (params) => {
   const {photoUrl, venueId, menus, address, extraPhone, phone, website, instagram, facebook, name, openingTime, closingTime, types, logoUrl, methodOrder} = selector((state)=> state.menu);
 
   useEffect(() => {   
-    const fetchData = async () => {
-      await dispatch(fetchMenu(params.params));
-      setDataLoaded(true);
-    };
-    fetchData()
+    // const fetchData = async () => {
+    //   console.log('clientmain')
+    //   await dispatch(fetchMenu(params.params));
+    //   setDataLoaded(true);
+    // };
+    // fetchData()
+    if(venueId !== null) {
+      setDataLoaded(true)
+    }
   }, [venueId])
 
   if (!dataLoaded) {

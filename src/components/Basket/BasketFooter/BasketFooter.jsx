@@ -16,31 +16,31 @@ export default function BasketFooter() {
       localPaymentStatus = localStorage.getItem('paymentStatus');
     }
   }
-  const dispath = useAppDispatch();
+  const dispatch = useAppDispatch();
   const selector = useAppSelector;
   const { totalAmount, isPaid, orderId, items, allAmount, tips, paymentStatus } = selector((state) => state.setBasket);
   const [totalItems, setTotalItems] = useState(totalAmount);
   
 
   const paymnet = () => {
-    dispath(setPaymentStatus(true))
+    dispatch(setPaymentStatus(true))
     localStorage.setItem('paymentStatus', true);
   }
 
   useEffect(() => {
     if(localPaymentStatus) {
       if(isPaid && localPaymentStatus == 'true') {
-        dispath(setPaymentStatus(false))
+        dispatch(setPaymentStatus(false))
       }
-      dispath(getPaymentStatus(localPaymentStatus))
+      dispatch(getPaymentStatus(localPaymentStatus))
     }
   }, [localPaymentStatus])
 
   useEffect(() => {
     setTotalItems(allAmount)
-    dispath(changeChoice("now"));
+    dispatch(changeChoice("now"));
     if (orderId) {
-      dispath(fetchBasket(orderId));
+      dispatch(fetchBasket(orderId));
     }
   }, [orderId]);
 

@@ -4,10 +4,15 @@ import s from "./OrderFooter.module.scss";
 import ChoiceMethods from "@/components/Order/ChoiceMethods/ChoiceMethods";
 import Total from "@/components/Total/Total";
 import PaymentMethod from "@/components/PaymentMethod/PaymentMethod";
-import { changeChoice, giveTips, setPaymentMethod } from "@/store/setOrder/setOrder";
+import {
+  changeChoice,
+  giveTips,
+  setPaymentMethod,
+} from "@/store/setOrder/setOrder";
 import OrderBtn from "@/components/OrderBtn/OrderBtn";
 import { fetchOrder } from "@/store/setOrder/orderApi";
 import { useEffect } from "react";
+import { setPaymentStatus } from "@/store/setBasket/setBasket";
 
 export default function OrderFooter() {
   const dispatch = useAppDispatch();
@@ -19,11 +24,11 @@ export default function OrderFooter() {
   const { orderId, isPaid } = selector((state) => state.setBasket);
 
   useEffect(() => {
-    dispatch(changeChoice(false))
-    if(orderId) {
-      dispatch(giveTips({inputTips: false, actualTips: 0}))
+    dispatch(changeChoice(false));
+    if (orderId) {
+      dispatch(giveTips({ inputTips: false, actualTips: 0 }));
     }
-  }, [amount])
+  }, [amount]);
 
   const creatData = () => {
     let dishList = [];
@@ -65,7 +70,7 @@ export default function OrderFooter() {
 
   const postOrder = () => {
     const data = creatData();
-    if(items.length > 0) {
+    if (items.length > 0) {
       dispatch(
         fetchOrder({
           orderId: orderId,
@@ -75,6 +80,10 @@ export default function OrderFooter() {
         })
       );
     }
+    if (choiceMethod) {
+      dispatch(setPaymentStatus(true));
+      localStorage.setItem("paymentStatus", true);
+    }
   };
 
   return (
@@ -82,15 +91,24 @@ export default function OrderFooter() {
       <Total total={allAmount} />
       {!orderId && isPaid == null ? (
         <ChoiceMethods
-        firstmethod={"Cплатити потім"}
-        lastmethod={"Сплтатити зараз"}
-        svg={false}
-      />
-      ) : ''}
+          firstmethod={"Cплатити потім"}
+          lastmethod={"Сплтатити зараз"}
+          svg={false}
+        />
+      ) : (
+        ""
+      )}
       {!orderId && isPaid == null ? (
-      <PaymentMethod tips={tips} tipsDispatch={giveTips} dispatchMethod={setPaymentMethod} amount={amount} />
-      ) : ''}
-      
+        <PaymentMethod
+          tips={tips}
+          tipsDispatch={giveTips}
+          dispatchMethod={setPaymentMethod}
+          amount={amount}
+        />
+      ) : (
+        ""
+      )}
+
       <OrderBtn
         setData={postOrder}
         title={choiceMethod ? "Замовити та сплатити" : "Замовити"}
