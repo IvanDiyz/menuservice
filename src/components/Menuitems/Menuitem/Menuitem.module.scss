@@ -191,10 +191,11 @@
             background: #2EB955;
         }
     }
-
-    &__popup_btn {
-        button {
-            background: #F5F5F5;
+    &__popupWrapper {
+        .menuitem__popup_btn {
+            button {
+                background: #F5F5F5;
+            }
         }
     }
 

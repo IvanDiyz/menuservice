@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import s from "./SuppleButton.module.scss";
 import { addAddons, addonsQuantity, deleteAddons } from "@/store/setOrder/setOrder";
 
-export default function SuppleButton({ addonsId, addonsCost, addonsName }) {
+export default function SuppleButton({ addonsId, addonsCost, addonsName, addonsQuantityOrder }) {
   const dispatch = useAppDispatch();
   const select = useAppSelector;
   const { addons } = select((state) => state.setOrder);

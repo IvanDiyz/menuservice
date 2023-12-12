@@ -20,6 +20,15 @@ export const setOrder = createSlice({
   name: "setOrder",
   initialState,
   reducers: {
+    updateItem: (state, action) => {
+      const mergedObject = {
+        ...state.items[action.payload.indexItem - 1],
+        ...action.payload.item,
+      };
+      state.items[action.payload.indexItem - 1] = mergedObject;
+      state.items[action.payload.indexItem - 1].clientCooment = action.payload.text;
+      state.items[action.payload.indexItem - 1].update = true;
+    },
     setStatus: (state, action) => {
       state.status = false;
     },
@@ -44,6 +53,7 @@ export const setOrder = createSlice({
       state.choiceMethod = action.payload;
     },
     changeQuantity: (state, action) => {
+      // debugger
       let creatDish = (obj) => {
         obj.quantity = action.payload.quantity;
         if (
@@ -58,7 +68,7 @@ export const setOrder = createSlice({
       };
       if (
         action.payload.pathName ==
-        `/${action.payload.venueId}/${action.payload.tableId}/order`
+        `/${action.payload.venueId}/${action.payload.tableId}/order` && action.payload.indexItem
       ) {
         creatDish(state.items[action.payload.indexItem - 1]);
         state.amount = 0;
@@ -141,27 +151,11 @@ export const setOrder = createSlice({
       }
     },
     addBasket: (state, action) => {
-      if (state.items.length) {
-        state.item.push = false;
-        state.items.map((el) => {
-          if (el.id == state.item.id) {
-            arraysAreEqual(state.item, el, state, action.payload);
-          }
-        });
-        if (!state.item.push) {
-          state.item.clientCooment = action.payload;
-          state.items.push(state.item);
-          state.amount = state.amount + state.item.amount;
-          state.item = {};
-          state.addons = [];
-        }
-      } else {
         state.item.clientCooment = action.payload;
         state.items.push(state.item);
         state.amount = state.amount + state.item.amount;
         state.item = {};
         state.addons = [];
-      }
     },
     clearState: (state) => {
       state.item = {};
@@ -207,34 +201,9 @@ let calculateAmout = (obj) => {
   }
 };
 
-// функция сровнения массивов
-function arraysAreEqual(array1, array2, state, commnet) {
-  if (array1.addons.length !== array2.addons?.length) {
-    // если совпадений нет
-    return false;
-  }
-
-  // Сортировка массивов по полю id перед сравнением
-  const sortedArray1 = array1.addons.slice().sort((a, b) => a.id - b.id);
-  const sortedArray2 = array2.addons.slice().sort((a, b) => a.id - b.id);
-
-  // Сравнение отсортированных массивов
-  if (JSON.stringify(sortedArray1) === JSON.stringify(sortedArray2)) {
-    //массивы равны
-    array1.push = true;
-    array2.quantity += array1.quantity;
-    array2.amountDish += array1.amountDish;
-    array2.clientCooment = commnet;
-    array2.amountAddons += array1.amountAddons;
-    array2.amount += array1.amount;
-    state.amount += array1.amount;
-    return;
-  } else {
-    //массивы не равны
-  }
-}
 
 export const {
+  updateItem,
   managerItems,
   setStatus,
   setPaymentMethod,
