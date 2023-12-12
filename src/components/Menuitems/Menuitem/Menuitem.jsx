@@ -1,5 +1,6 @@
 "use client";
 import {
+  addBasket,
   addDish,
   changeQuantity,
   clearState,
@@ -257,7 +258,7 @@ export default function Menuitem({ triger, dish }) {
               ></textarea>
             </div>
           </div>
-          <Totaldish closePopup={closePopup} text={text} />
+          <Totaldish closePopup={closePopup} text={text} dispatchMethod={addBasket}/>
         </div>
       </Popup>
       <div
