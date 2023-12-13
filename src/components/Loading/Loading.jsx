@@ -1,6 +1,6 @@
 import s from "./Loading.module.scss";
 
-export default function Loading({ loading }) {
+export default function Loading({ text }) {
   return (
     <div className={s.body}>
       <div className={s.loading}>
@@ -10,7 +10,7 @@ export default function Loading({ loading }) {
         <span />
         <span />
       </div>
-      <span className={s.text}>Зачекайте хвилинку, створюємо замовлення</span>
+      <span className={s.text}>{text ? text : 'Зачекайте хвилинку, створюємо замовлення'}</span>
     </div>
   );
 }
