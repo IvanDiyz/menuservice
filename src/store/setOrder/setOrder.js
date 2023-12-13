@@ -32,6 +32,9 @@ export const setOrder = createSlice({
     setStatus: (state, action) => {
       state.status = false;
     },
+    deleteItem: (state, action) => {
+      state.items.splice(action.payload -1, 1)
+    },
     managerItems: (state, action) => {
       state.items = action.payload.items;
       state.amount = action.payload.amount;
@@ -99,6 +102,7 @@ export const setOrder = createSlice({
           amount = el.amount + amount;
           state.amount = amount + state.amount;
         });
+        state.addons = [];
       }
       state.item = {};
       calculateAmout(state.item);
@@ -203,6 +207,7 @@ let calculateAmout = (obj) => {
 
 
 export const {
+  deleteItem,
   updateItem,
   managerItems,
   setStatus,

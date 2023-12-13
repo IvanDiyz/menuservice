@@ -8,7 +8,7 @@ import { useAppDispatch } from "@/hooks/redux";
 import { changeChoice, clearItems } from "@/store/setOrder/setOrder";
 
 export default function Header() {
-  const dispath = useAppDispatch();
+  const dispatch = useAppDispatch();
   const { venueId, tableId } = useSelector(state => state.menu);
   const [clearBox, callClearBox] = useState(false)
 
@@ -22,8 +22,8 @@ export default function Header() {
 
   const closePopup = (clear) => {
     if(clear) {
-      dispath(clearItems())
-      dispath(changeChoice('then'))
+      dispatch(clearItems())
+      dispatch(changeChoice('then'))
     } 
     callClearBox(false)
   }

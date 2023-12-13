@@ -1,4 +1,12 @@
-import { addAddons, addDish, changeQuantity, clearState, deleteDish, updateItem } from "@/store/setOrder/setOrder";
+import {
+  addAddons,
+  addDish,
+  changeQuantity,
+  clearState,
+  deleteDish,
+  deleteItem,
+  updateItem,
+} from "@/store/setOrder/setOrder";
 import Buttons from "@/components/Buttons/Buttons";
 import s from "./OrderItem.module.scss";
 import { useEffect, useRef, useState } from "react";
@@ -14,6 +22,11 @@ export default function OrderItem({ dish, indexItem }) {
   const [popup, setPopup] = useState(false);
   const [text, setComment] = useState(dish.clientCooment);
   const [comment, checkHeight] = useState(false);
+  const [clearBox, callClearBox] = useState(false)
+
+  const clearOrder = () => {
+    
+  }
   const commentSpan = useRef();
   const setHeightComment = (e) => {
     if (comment) {
@@ -27,9 +40,8 @@ export default function OrderItem({ dish, indexItem }) {
   };
 
   useEffect(() => {
-    setComment(dish.clientCooment)
-  }, [item,dish])
-
+    setComment(dish.clientCooment);
+  }, [item, dish]);
 
   const openPopup = (e) => {
     setPopup(true);
@@ -45,7 +57,7 @@ export default function OrderItem({ dish, indexItem }) {
         addons: dish.addons,
       })
     );
-    dish.addons.map(el => {
+    dish.addons.map((el) => {
       dispatch(
         addAddons({
           id: el.id,
@@ -54,21 +66,45 @@ export default function OrderItem({ dish, indexItem }) {
           isReady: false,
           name: el.name,
         })
-      )
-    })
+      );
+    });
   };
   const closePopup = (e) => {
     setPopup(false);
     dispatch(clearState());
     document.body.style.overflow = "auto";
   };
-
+  const closeBacket = (clear) => {
+    if(clear) {
+      dispatch(deleteItem(indexItem))
+    } 
+    callClearBox(false)
+  };
+  
   const changeText = (e) => {
     setComment(e.target.value);
   };
 
+  const backet = () => {
+    if(clearBox) {
+      callClearBox(false)
+    } else {
+      callClearBox(true)
+    }
+    console.log('меня пытаются убрать')
+  }
+
   return (
     <div className={s.orderItem}>
+      {clearBox ? (<Popup popup={clearBox} order='order'>
+        <div className={s.orderItem__popupBox}>
+          <h6 className={s.orderItem__popupTitle}>Ви впевнені, що хочете видалити страву?</h6>
+          <div className={s.orderItem__popupBtns}>
+            <span className={`${s.orderItem__popupBtn} ${s.orderItem__popupBtnY}`} onClick={() => closeBacket(true)}>Так</span>
+            <span className={`${s.orderItem__popupBtn} ${s.orderItem__popupBtnN}`} onClick={() => closeBacket(false)}>Ні</span>
+          </div>
+        </div>
+      </Popup>) : ''}
       <Popup popup={popup} openPopup={openPopup} closePopup={closePopup}>
         <div className={s.menuitem__popupPhoto}>
           <div className={s.menuitem__serves}>
@@ -233,20 +269,21 @@ export default function OrderItem({ dish, indexItem }) {
             </div>
             {item.quantity ? (
               <div className={s.menuitem__info_btn}>
-              <Buttons
-                orderQuantity={item?.quantity}
-                costDiscount={
-                  dish.dish.cost -
-                  Math.ceil(dish.dish.cost * dish.dish.discount) / 100
-                }
-                dish={dish.dish}
-                addDish={addDish}
-                changeQuantity={changeQuantity}
-                deleteDish={deleteDish}
-              />
-            </div>
-            ) : ''}
-            
+                <Buttons
+                  orderQuantity={item?.quantity}
+                  costDiscount={
+                    dish.dish.cost -
+                    Math.ceil(dish.dish.cost * dish.dish.discount) / 100
+                  }
+                  dish={dish.dish}
+                  addDish={addDish}
+                  changeQuantity={changeQuantity}
+                  deleteDish={deleteDish}
+                />
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           {dish.dish.ingredients != null ? (
             <div className={s.menuitem__popupWrapper}>
@@ -281,7 +318,10 @@ export default function OrderItem({ dish, indexItem }) {
                 </div>
                 <div className={s.menuitem__popup_btn}>
                   <SuppleButton
-                    addonsQuantityOrder={dish.addons.find(addon => addon.id === el.id)?.quantity || 0}
+                    addonsQuantityOrder={
+                      dish.addons.find((addon) => addon.id === el.id)
+                        ?.quantity || 0
+                    }
                     addonsId={el.id}
                     addonsCost={el.cost}
                     addonsName={el.title}
@@ -298,7 +338,13 @@ export default function OrderItem({ dish, indexItem }) {
               ></textarea>
             </div>
           </div>
-          <Totaldish indexItem={indexItem} dispatchMethod={updateItem} closePopup={closePopup} text={text} title={'Оновити замовлення'}/>
+          <Totaldish
+            indexItem={indexItem}
+            dispatchMethod={updateItem}
+            closePopup={closePopup}
+            text={text}
+            title={"Оновити замовлення"}
+          />
         </div>
       </Popup>
       <div className={s.orderItem__info}>
@@ -365,10 +411,29 @@ export default function OrderItem({ dish, indexItem }) {
         </div>
       </div>
       <div className={s.orderItem__price}>
-        <span className={s.orderItem__priceItems}>{dish.amount} ₴</span>
-        <span
-          className={s.orderItem__priceItem}
-        >{`(${dish.priceDicount}₴)`}</span>
+        <div>
+          <span className={s.orderItem__priceItems}>{dish.amount} ₴</span>
+          <span
+            className={s.orderItem__priceItem}
+          >{`(${dish.priceDicount}₴)`}</span>
+        </div>
+        <div className={s.orderItem__deleteItem} onClick={backet}>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g id="trash-can-outline">
+              <path
+                id="Vector"
+                d="M9 3V4H4V6H5V19C5 19.5304 5.21071 20.0391 5.58579 20.4142C5.96086 20.7893 6.46957 21 7 21H17C17.5304 21 18.0391 20.7893 18.4142 20.4142C18.7893 20.0391 19 19.5304 19 19V6H20V4H15V3H9ZM7 6H17V19H7V6ZM9 8V17H11V8H9ZM13 8V17H15V8H13Z"
+                fill="#EB3800"
+              />
+            </g>
+          </svg>
+        </div>
       </div>
     </div>
   );
