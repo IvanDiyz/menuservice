@@ -95,7 +95,7 @@ export const setBasket = createSlice({
           state.items = dishes;
           state.status = "succeeded";
           state.orderId = id;
-          state.isPaid = true; // не забыть поменять на isPaid
+          state.isPaid = isPaid; // не забыть поменять на isPaid
           state.totalAmount = +totalAmount;
         }
       })

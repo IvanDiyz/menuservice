@@ -19,7 +19,6 @@ const OrderBtn = ({ title, setData }) => {
   }, [click])
 
   const observer = () => {
-    console.log('popal')
     changeClick(true)
   }
 
