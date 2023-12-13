@@ -302,7 +302,19 @@
             width: 6.6vw;
         }
     }
-
+    &__commentBox {
+        display: flex;
+        align-items: flex-start;
+        column-gap: 8px;
+        svg {
+            min-width: 14px;
+        }
+    }
+    &__comment {
+        max-width: 49.4vw;
+        overflow: hidden;
+        transition: all .8s;
+    }
     &__infoValue {
         color: #27257A;
         font-size: 6.6vw;

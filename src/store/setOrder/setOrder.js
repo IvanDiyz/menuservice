@@ -62,7 +62,7 @@ export const setOrder = createSlice({
         ) {
           obj.addons = action.payload.addons;
         }
-        obj.amountDish = +obj.priceDicount * action.payload.quantity;
+        obj.amountDish = Math.round(+obj.priceDicount * action.payload.quantity * 100) / 100;
         calculateAmout(obj);
         obj.amount = obj.amountDish + obj.amountAddons;
       };
