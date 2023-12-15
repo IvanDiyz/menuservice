@@ -36,6 +36,9 @@ export const setBasket = createSlice({
       state.paymentMethod = action.payload;
       state.tips = 0;
     },
+    setIsPaid: (state, action) => {
+      state.isPaid = action.payload;
+    },
     setPaymentStatus: (state, action) => {
       state.paymentStatus = action.payload;
       
@@ -75,7 +78,7 @@ export const setBasket = createSlice({
         const {id, totalAmount, isPaid} = action.payload
         state.status = "succeeded";
         state.orderId = id;
-        state.isPaid = true;
+        state.isPaid = isPaid;
         state.totalAmount = +totalAmount;
       })
       .addCase(fetchOrder.rejected, (state, action) => {
@@ -88,6 +91,7 @@ export const setBasket = createSlice({
       .addCase(fetchBasket.fulfilled, (state, action) => {
         if(action.payload.isPaid) {
           Object.assign(state, initialState);
+          state.isPaid = action.payload.isPaid;
         } else {
           const {id, totalAmount, isPaid, dishes} = action.payload
           state.data = action.payload;
@@ -124,5 +128,5 @@ const defineItem = (obj1, obj2) => {
 }
 
 
-export const { getPaymentStatus, setPaymentStatus, giveTips, addItem, removeItem, clearItems, setItems, setPaymentMethod, setCheck, } = setBasket.actions;
+export const { setIsPaid, getPaymentStatus, setPaymentStatus, giveTips, addItem, removeItem, clearItems, setItems, setPaymentMethod, setCheck, } = setBasket.actions;
 export default setBasket.reducer;

@@ -11,7 +11,7 @@ const initialState = {
   tips: 0,
   choiceMethod: false,
   delivery: false,
-  paymentMethod: "",
+  paymentMethod: 1,
   status: false,
   orderId: false,
 };
@@ -182,7 +182,7 @@ export const setOrder = createSlice({
         state.error = action.error.message;
       })
       .addCase(fetchMenu.fulfilled, (state, action) => {
-        state.orderId = action.payload.response.orders[0].id;
+        state.orderId = action.payload.response.orders[0]?.id;
       })
       .addCase(fetchMenu.pending, (state) => {
         state.isLoading = true;

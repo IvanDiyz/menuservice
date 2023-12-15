@@ -3,8 +3,22 @@ import api from "@/services/api";
 
 export const postNotificate = createAsyncThunk("user/postNotificate", async (postData, thunkAPI) => {
   try {
-    const responsSections = await api.post(`/notification/notification-by-desk/26`, postData);
-    return responsSections.data;
+    const response = await api.post(`/notification/notification-by-desk/${postData.tableId}`, postData.request);
+    return response.data;
+  } catch (e) {
+    return thunkAPI.rejectWithValue("Что-то пошло не так!");
+  }
+});
+export const orderNotificate = createAsyncThunk("user/orderNotificate", async (postData, thunkAPI) => {
+  try {
+    // return response.data;
+    const responseOrder = await api.patch(`/order/${postData.orderId}`, postData.patchOrder);
+    const response = await api.post(`/notification/notification-by-order/${postData.orderId}`, postData.request);
+    const data = {
+      orderPatch: responseOrder.data,
+      notificate: response.data
+    }
+    return data;
   } catch (e) {
     return thunkAPI.rejectWithValue("Что-то пошло не так!");
   }
