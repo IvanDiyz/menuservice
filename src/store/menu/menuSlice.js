@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchMenu } from "./menuApi";
 import { HYDRATE } from "next-redux-wrapper";
+import { fetchOrder } from "../setOrder/orderApi";
 
 const initialState = {
   methodOrder: false,
@@ -22,6 +23,7 @@ const initialState = {
   description: null,
   address: null,
   orders: null,
+  status: null,
 };
 
 export const menuSlice = createSlice({
@@ -42,6 +44,7 @@ export const menuSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(fetchMenu.fulfilled, (state, action) => {
+        state.status = "success";
         state.isLoading = false;
         state.error = "";
         const { orders, menus, name, logoUrl, photoUrl, openingTime, closingTime, types, facebook, instagram, website, phone, extraPhone, description, address } = action.payload.response;
@@ -71,6 +74,19 @@ export const menuSlice = createSlice({
       .addCase(fetchMenu.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(fetchOrder.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchOrder.fulfilled, (state, action) => {
+        const {id, totalAmount, isPaid} = action.payload
+        state.orders = id;
+        state.isPaid = isPaid;
+        state.totalAmount = +totalAmount;
+      })
+      .addCase(fetchOrder.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
       }),
 });
 

@@ -16,7 +16,7 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch}) => {
     (state) => state.setBasket
   );
   const [email, setEmail] = useState("");
-  const [activePayment, setActivePayment] = useState("cash");
+  const [activePayment, setActivePayment] = useState(1);
   const [heightPay, setHeight] = useState();
 
   let emailClient = (e) => {
@@ -26,13 +26,13 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch}) => {
 
   useEffect(() => {
     if (!choiceMethod) {
-      setActivePayment("cash");
+      setActivePayment(1);
     }
     // setHeight((setHeightPay.current?.scrollHeight / 3.4));
     setHeight(31);
   }, [choiceMethod]);
   useEffect(() => {
-    if (activePayment == "cash") {
+    if (activePayment == 1) {
       setHeight(31);
     } else {
       setHeight(83.4);
@@ -60,25 +60,25 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch}) => {
       <div className={`${s.orderFooter__payment} ${paymentStatus ? s.waiterWait : ''}`}>
         <span
           className={`${s.orderFooter__paymentMethod} ${
-            activePayment === "cash" ? s.orderFooter__paymentActive : ""
+            activePayment === 1 ? s.orderFooter__paymentActive : ""
           }`}
-          onClick={() => handlePaymentClick("cash")}
+          onClick={() => handlePaymentClick(1)}
         >
           Готівка
         </span>
         <span
           className={`${s.orderFooter__paymentMethod} ${
-            activePayment === "terminal" ? s.orderFooter__paymentActive : ""
+            activePayment === 2 ? s.orderFooter__paymentActive : ""
           }`}
-          onClick={() => handlePaymentClick("terminal")}
+          onClick={() => handlePaymentClick(2)}
         >
           Термінал
         </span>
         <span
           className={`${s.orderFooter__paymentMethod} ${
-            activePayment === "online" ? s.orderFooter__paymentActive : ""
+            activePayment === 3 ? s.orderFooter__paymentActive : ""
           }`}
-          onClick={() => handlePaymentClick("online")}
+          onClick={() => handlePaymentClick(3)}
         >
           Онлайн
         </span>
@@ -88,7 +88,7 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch}) => {
         ref={setHeightTips}
         style={{
           height:
-            activePayment != "cash"
+            activePayment != 1
               // ? `${setHeightTips.current?.scrollHeight / 3.8}vw`
               ? `${52}vw`
               : "0",

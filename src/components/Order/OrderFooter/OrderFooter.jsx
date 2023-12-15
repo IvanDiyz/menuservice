@@ -17,7 +17,7 @@ import { setPaymentStatus } from "@/store/setBasket/setBasket";
 export default function OrderFooter() {
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
-  const { allAmount, choiceMethod, items, delivery, tips, amount } = selector(
+  const { allAmount, choiceMethod, items, delivery, tips, amount, paymentMethod } = selector(
     (state) => state.setOrder
   );
   const { venueId, tableId, methodOrder } = selector((state) => state.menu);
@@ -53,7 +53,7 @@ export default function OrderFooter() {
         dishList: dishList,
         isAllTogether: delivery,
         isToGo: methodOrder,
-        paymentMethodId: 1, // временно пока ждем инфу
+        paymentMethodId: paymentMethod, 
         tips: tips,
       };
     } else {
@@ -62,7 +62,7 @@ export default function OrderFooter() {
         deleteDishList: [],
         createDishList: dishList,
         isToGo: methodOrder,
-        paymentMethodId: 1, // временно пока ждем инфу
+        paymentMethodId: paymentMethod, 
         tips: tips,
       };
     }
@@ -77,12 +77,16 @@ export default function OrderFooter() {
           venueId: venueId,
           tableId: tableId,
           data: data,
+          request: {
+            request: "CASH"
+          },
         })
       );
     }
     if (choiceMethod) {
       dispatch(setPaymentStatus(true));
       localStorage.setItem("paymentStatus", true);
+      localStorage.setItem("orders", 'orderId');
     }
   };
 

@@ -11,6 +11,7 @@ export default function Notificate() {
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
   const { notificate } = selector((state) => state.notificate);
+  const { tableId } = selector((state) => state.menu);
   const [call, changeCall] = useState(false);
   const [callRole, changeRole] = useState(false);
 
@@ -21,7 +22,7 @@ export default function Notificate() {
         changeCall(false);        
       }, 800);
     }
-  }, [notificate])
+  }, [notificate, tableId])
 
   // close btn notificate
   let closeNotificate = () => {
@@ -30,7 +31,7 @@ export default function Notificate() {
   //object to be called by role
   let objRole = {
     'WAITER': 'Офіціант',
-    'ADMIN': 'Адміністратор',
+    'MENU': 'Меню',
     'HOOKAH': 'Кальянщік',
   }
   
@@ -38,10 +39,12 @@ export default function Notificate() {
   let callNotificate = (role) => {
     changeRole(role);
     changeCall(true);
-    setTimeout(() => {
-      dispatch(setNotificate(false));
-      dispatch(postNotificate({"request":role}));
-    }, 1000);
+    if(tableId) {
+      setTimeout(() => {
+        dispatch(setNotificate(false));
+        dispatch(postNotificate({request:{"request":role}, tableId: tableId}));
+      }, 1000);
+    }
   };
 
   if (call) {
@@ -104,8 +107,8 @@ export default function Notificate() {
             callNotificate={callNotificate}
           />
           <NotificateItem
-            role={"ADMIN"}
-            translateR={"адміністратора"}
+            role={"MENU"}
+            translateR={"меню"}
             callNotificate={callNotificate}
           />
           <NotificateItem
