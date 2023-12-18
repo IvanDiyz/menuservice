@@ -11,11 +11,16 @@
     display: flex;
     align-items: center;
     padding: 2.5vw 0;
+    column-gap: 2.2vw;
     width: 48%;
     justify-content: center;
     color: #3E3E3E;
     path {
       fill: #3E3E3E;
+    }
+    svg {
+      height: 6.6vw;
+      width: 6.6vw;
     }
   }
   &__button.active {

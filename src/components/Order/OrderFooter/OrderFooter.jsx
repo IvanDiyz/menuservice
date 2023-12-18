@@ -68,6 +68,12 @@ export default function OrderFooter() {
     }
   };
 
+  const objMethod = {
+    '1': 'CASH',
+    '2': 'TERMINAL',
+    '3': 'ONLINE',
+  }
+
   const postOrder = () => {
     const data = creatData();
     if (items.length > 0) {
@@ -78,7 +84,7 @@ export default function OrderFooter() {
           tableId: tableId,
           data: data,
           request: {
-            request: "CASH"
+            request: objMethod[paymentMethod]
           },
         })
       );

@@ -20,14 +20,16 @@ const ClientInfo = ({
           })`,
         }}
       ></div>
-      <div
-        className={s.clientinfo__logo}
-        style={{
-          backgroundImage: `url(${
-            logoUrl ? logoUrl : "/images/main/logo-partner.png"
-          })`,
-        }}
-      ></div>
+      {logoUrl ? (
+        <div
+          className={s.clientinfo__logo}
+          style={{
+            backgroundImage: `url(${
+              logoUrl ? logoUrl : ""
+            })`,
+          }}
+        ></div>
+      ) : ''}
       <div className={s.clientinfo__box}>
         {types.length > 0 ? (
           types.map((el, index) => (
