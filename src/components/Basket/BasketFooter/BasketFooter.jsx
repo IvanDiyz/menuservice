@@ -36,11 +36,17 @@ export default function BasketFooter() {
   } = selector((state) => state.setBasket);
   const [totalItems, setTotalItems] = useState(totalAmount);
 
+  const objMethod = {
+    '1': 'CASH',
+    '2': 'TERMINAL',
+    '3': 'ONLINE',
+  }
+
   const paymnet = () => {
     dispatch(
       orderNotificate({
         request: {
-          request: "CASH"
+          request: objMethod[paymentMethod]
         },
         orderId: orderId,
         patchOrder: {

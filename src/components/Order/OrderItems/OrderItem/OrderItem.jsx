@@ -106,7 +106,15 @@ export default function OrderItem({ dish, indexItem }) {
         </div>
       </Popup>) : ''}
       <Popup popup={popup} openPopup={openPopup} closePopup={closePopup}>
-        <div className={s.menuitem__popupPhoto}>
+        <div 
+        style={
+          dish.dish.img
+            ? { backgroundImage: `url(${dish.dish.img})` }
+            : {
+                backgroundImage: `url('/images/menuitem/stub.jpg')`,
+              }
+        }
+        className={s.menuitem__popupPhoto}>
           <div className={s.menuitem__serves}>
             <div>
               {dish.dish.cookingTime ? (
@@ -348,7 +356,15 @@ export default function OrderItem({ dish, indexItem }) {
         </div>
       </Popup>
       <div className={s.orderItem__info}>
-        <div className={s.orderItem__photo} onClick={openPopup}></div>
+        <div 
+        style={
+          dish.dish.img
+            ? { backgroundImage: `url(${dish.dish.img})` }
+            : {
+                backgroundImage: `url('/images/menuitem/stub.jpg')`,
+              }
+        }
+        className={s.orderItem__photo} onClick={openPopup}></div>
         <div className={s.orderItem__infoBox}>
           <h4 className={s.orderItem__infoTitle}>{dish.dish.name}</h4>
           {dish.clientCooment ? (

@@ -80,7 +80,7 @@ export default function Header() {
         className={s.header__logo}
         style={{
           backgroundImage: `url(${
-            logoUrl ? logoUrl : "/images/main/logo-partner.png" //временный url если logo нет
+            logoUrl ? logoUrl : "" //временный url если logo нет
           })`,
         }}
       ></div>)}
