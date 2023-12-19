@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { fetchMenu } from "@/store/menu/menuApi";
 
 
 // Components
@@ -14,12 +13,19 @@ import ServiceSheet from "./ServiceSheet/ServiceSheet";
 import s from "./ClientMain.module.scss";
 import Openedcontact from "../Openedmenu/Openedcontact/Openedcontact";
 import { setMethodOrder } from "@/store/menu/menuSlice";
+import { clearDishis } from "@/store/getDishis/getDishis";
 
-const ClientMain = (params) => {
+const ClientMain = ({params}) => {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
   const [dataLoaded, setDataLoaded] = useState(false);
   const {photoUrl, venueId, menus, address, extraPhone, phone, website, instagram, facebook, name, openingTime, closingTime, types, logoUrl, methodOrder} = selector((state)=> state.menu);
+
+  useEffect(() => {
+    dispatch(clearDishis())
+    localStorage.setItem("venueId", params.idvenue);
+    localStorage.setItem("tableId", params.idtable);
+  }, [])
 
   useEffect(() => {   
     // const fetchData = async () => {
