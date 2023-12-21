@@ -11,13 +11,19 @@ export default function Menuitems() {
   const selector = useAppSelector;
   const [display, setDispaly] = useState(1);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [setionName, setSetionName] = useState(false);
   const { items, total, limit, pages } = selector(
     (state) => state.getDishis.dishis
   );
-  const { stateDishis, actualSection, currentPage, isLoading } = selector((state) => state.getDishis);
+  const { sections } = selector((state) => state.getSections);
+  const { stateDishis, actualSection, currentPage, isLoading } = selector(
+    (state) => state.getDishis
+  );
   const { venueId } = selector((state) => state.menu);
   const { amount } = selector((state) => state.setOrder);
-  const { filters, stateFilters, filteredDish } = selector((state) => state.setFilter);
+  const { filters, stateFilters, filteredDish } = selector(
+    (state) => state.setFilter
+  );
 
   useEffect(() => {
     // Дождитесь, пока stateDishis станет true, прежде чем установить dataLoaded в true
@@ -27,22 +33,22 @@ export default function Menuitems() {
     const handleScroll = () => {
       // Проверка, достиг ли пользователь конца страницы
       if (
-       window.innerHeight + document.documentElement.scrollTop >=
-        document.documentElement.offsetHeight - 10 &&
+        window.innerHeight + document.documentElement.scrollTop >=
+          document.documentElement.offsetHeight - 10 &&
         currentPage < pages &&
         !isLoading
       ) {
         // Загрузка следующей порции блюд из API
-        dispatch(setCurrentPage(currentPage + 1))
+        dispatch(setCurrentPage(currentPage + 1));
       }
     };
-  
+
     // Добавление обработчика события прокрутки
-    window.addEventListener('scroll', handleScroll);
-  
+    window.addEventListener("scroll", handleScroll);
+
     // Очистка обработчика события при размонтировании компонента
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [stateDishis]);
 
@@ -57,8 +63,20 @@ export default function Menuitems() {
   useEffect(() => {
     if (stateFilters) {
       setDataLoaded(false);
-      dispatch(fetchFiltres({filters: filters, sectionId: actualSection, venueId: venueId}))
+      dispatch(
+        fetchFiltres({
+          filters: filters,
+          sectionId: actualSection,
+          venueId: venueId,
+        })
+      );
       setDataLoaded(true);
+    }
+    if (actualSection) {
+      let setion = sections.find((section) => section.id === actualSection);
+      setSetionName(setion.name);
+    } else {
+      setSetionName(false);
     }
   }, [stateFilters, filters, actualSection]);
 
@@ -67,19 +85,29 @@ export default function Menuitems() {
   } else {
     return (
       <>
-        <section className={`${s.menuitems} ${amount > 0 ? `${s.menuitems__amount}` : ''}`}>
-          <div className={s.menuitems__change}>
-            <p>Відображення</p>
-            <div
-              className={`${s.menuitems__boxChange} ${
-                display === 0 ? `${s.menuitems__min}` : ""
-              }`}
-              onClick={changeDispaly}
-            >
-              <span className={s.menuitems__changebtn}></span>
+        <section
+          className={`${s.menuitems} ${
+            amount > 0 ? `${s.menuitems__amount}` : ""}`}
+        >
+          <div className={`${s.menuitems__boxTitle} ${
+            !setionName ? `${s.menuitems__boxTitleLeft}` : ""}`}>
+            {setionName ? (
+              <h4 className={s.menuitems__title}>{setionName}</h4>
+            ) : (
+              ''
+            )}
+            <div className={s.menuitems__change}>
+              <p>Відображення</p>
+              <div
+                className={`${s.menuitems__boxChange} ${
+                  display === 0 ? `${s.menuitems__min}` : ""
+                }`}
+                onClick={changeDispaly}
+              >
+                <span className={s.menuitems__changebtn}></span>
+              </div>
             </div>
           </div>
-          <h4 className={s.menuitems__title}>Піца</h4>
           {stateFilters ? (
             filteredDish.map((el) => (
               <Menuitem triger={display} dish={el} key={el.id} />

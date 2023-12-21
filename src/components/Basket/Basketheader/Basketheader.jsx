@@ -13,6 +13,10 @@ export default function Basketheader() {
   const { venueId, tableId } = useSelector((state) => state.menu);
   const { paymentStatus } = useSelector((state) => state.setBasket);
 
+  const handleGoBack = () => {
+    router.back();
+  };
+
   return (
     <header className={s.header}>
       <div className={s.header__wrapper}>
@@ -33,7 +37,7 @@ export default function Basketheader() {
             </g>
           </svg>
         ) : (
-          <Link href={`/${venueId}/${tableId}/menu`}>
+          <span onClick={handleGoBack}>
             <svg
               width="24"
               height="24"
@@ -49,7 +53,7 @@ export default function Basketheader() {
                 />
               </g>
             </svg>
-          </Link>
+          </span>
         )}
       </div>
       <div className={s.header__wrapper}>

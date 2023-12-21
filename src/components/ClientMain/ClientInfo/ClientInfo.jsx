@@ -16,7 +16,7 @@ const ClientInfo = ({
         className={s.clientinfo__background}
         style={{
           backgroundImage: `url(${
-            photoUrl ? photoUrl : "/images/services/background.jpg"
+            photoUrl ? photoUrl : ""
           })`,
         }}
       ></div>
