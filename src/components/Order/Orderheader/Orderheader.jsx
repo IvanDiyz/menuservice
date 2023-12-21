@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Link from "next/link";
 import s from "./Orderheader.module.scss";
 import { useSelector } from "react-redux";
@@ -6,42 +6,64 @@ import { useState } from "react";
 import Popup from "@/components/Popup/Popup";
 import { useAppDispatch } from "@/hooks/redux";
 import { changeChoice, clearItems } from "@/store/setOrder/setOrder";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+  const router = useRouter();
   const dispatch = useAppDispatch();
-  const { venueId, tableId } = useSelector(state => state.menu);
-  const [clearBox, callClearBox] = useState(false)
+  const { venueId, tableId } = useSelector((state) => state.menu);
+  const [clearBox, callClearBox] = useState(false);
 
   const clearOrder = () => {
-    if(clearBox) {
-      callClearBox(false)
+    if (clearBox) {
+      callClearBox(false);
     } else {
-      callClearBox(true)
+      callClearBox(true);
     }
-  }
+  };
 
   const closePopup = (clear) => {
-    if(clear) {
-      dispatch(clearItems())
-      dispatch(changeChoice('then'))
-    } 
-    callClearBox(false)
-  }
+    if (clear) {
+      dispatch(clearItems());
+      dispatch(changeChoice("then"));
+    }
+    callClearBox(false);
+  };
+
+  const handleGoBack = () => {
+    router.back();
+  };
 
   return (
     <header className={s.header}>
-      {clearBox ? (<Popup popup={clearBox} order='order'>
-        <div className={s.header__popupBox}>
-          <h6 className={s.header__popupTitle}>Ви впевнені, що хочете очистити кошик?</h6>
-          <div className={s.header__popupBtns}>
-            <span className={`${s.header__popupBtn} ${s.header__popupBtnY}`} onClick={() => closePopup(true)}>Так</span>
-            <span className={`${s.header__popupBtn} ${s.header__popupBtnN}`} onClick={() => closePopup(false)}>Ні</span>
+      {clearBox ? (
+        <Popup popup={clearBox} order="order">
+          <div className={s.header__popupBox}>
+            <h6 className={s.header__popupTitle}>
+              Ви впевнені, що хочете очистити кошик?
+            </h6>
+            <div className={s.header__popupBtns}>
+              <span
+                className={`${s.header__popupBtn} ${s.header__popupBtnY}`}
+                onClick={() => closePopup(true)}
+              >
+                Так
+              </span>
+              <span
+                className={`${s.header__popupBtn} ${s.header__popupBtnN}`}
+                onClick={() => closePopup(false)}
+              >
+                Ні
+              </span>
+            </div>
           </div>
-        </div>
-      </Popup>) : ''}
-      
+        </Popup>
+      ) : (
+        ""
+      )}
+
       <div className={s.header__wrapper}>
-        <Link href={`/${venueId}/${tableId}/menu`}>
+        <span onClick={handleGoBack}>
           <svg
             width="24"
             height="24"
@@ -57,7 +79,7 @@ export default function Header() {
               />
             </g>
           </svg>
-        </Link>
+        </span>
       </div>
       <div className={s.header__wrapper}>
         <div className={s.header__wrapperBox}>

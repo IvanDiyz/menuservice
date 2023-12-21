@@ -57,7 +57,7 @@ const Openedcontact = ({address, extraPhone, phone, website, instagram, facebook
       </div>
       <div className={s.contact__box}>
         {website ? (
-          <p className={s.contact__boxText}>{website}</p>
+          <Link href={`${website}`} className={s.contact__boxText}>{website}</Link>
         ) : ''}
       </div>
     </div>

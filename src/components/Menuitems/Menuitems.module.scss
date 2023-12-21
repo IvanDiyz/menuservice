@@ -1,18 +1,26 @@
 .menuitems {
   margin-top: 16px;
-  padding: 0 16px;
+  padding: 0 16px 0;
   position: relative;
+  &__boxTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 2.2vw;
+  }
+  &__boxTitleLeft {
+    justify-content: flex-end;
+  }
   &__title {
+    display: inline-block;
     color: #000;
     font-size: 32px;
     font-weight: 600;
     line-height: 44px;
     letter-spacing: -1.6px;
-    padding-bottom: 2.2vw;
     padding-left: 4.4vw;
 }
   &__change {
-    position: absolute;
     right: 8.4vw;
     display: flex;
     column-gap: 8px;
