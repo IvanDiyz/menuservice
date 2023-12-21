@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: menu-admin-panel-ui
+  name: menu-service-ui
   namespace: "main"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: menu-admin-panel-ui
+      app: menu-service-ui
   template:
     metadata:
       namespace: "main"
       labels:
-        app: menu-admin-panel-ui
+        app: menu-service-ui
     spec:
       containers:
-        - name: menu-admin-panel-ui
-          image: northamerica-northeast1-docker.pkg.dev/enuatv/containers/menu-admin-panel-ui:${GIT_SHA}
+        - name: menu-service-ui
+          image: northamerica-northeast1-docker.pkg.dev/enuatv/containers/menu-service-ui:${GIT_SHA}
           ports:
             - containerPort: 3000
 #          volumeMounts:
