@@ -22,18 +22,20 @@ const ClientMain = ({params}) => {
   const {photoUrl, venueId, menus, address, extraPhone, phone, website, instagram, facebook, name, openingTime, closingTime, types, logoUrl, methodOrder} = selector((state)=> state.menu);
 
   useEffect(() => {
+      const venueIdLocal = localStorage.getItem("venueId");
+      const tableIdLocal = localStorage.getItem("tableId");
+      if (params.idtable !== tableIdLocal || params.idvenue !== venueIdLocal) {
+        localStorage.removeItem("paymentStatus");
+        localStorage.removeItem("orders");
+        localStorage.removeItem("tableId");
+        localStorage.removeItem("venueId");
+      }
     dispatch(clearDishis())
     localStorage.setItem("venueId", params.idvenue);
     localStorage.setItem("tableId", params.idtable);
   }, [])
 
   useEffect(() => {   
-    // const fetchData = async () => {
-    //   console.log('clientmain')
-    //   await dispatch(fetchMenu(params.params));
-    //   setDataLoaded(true);
-    // };
-    // fetchData()
     if(venueId !== null) {
       setDataLoaded(true)
     }

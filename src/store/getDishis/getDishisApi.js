@@ -12,6 +12,6 @@ export const fetchDishis = createAsyncThunk("user/fetchDishis", async (params, t
       return {data: responsSections.data};
     }
   } catch (e) {
-    return thunkAPI.rejectWithValue("Что-то пошло не так!");
+    return thunkAPI.rejectWithValue("щось пішло не так!");
   }
 });

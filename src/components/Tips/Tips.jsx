@@ -17,7 +17,6 @@ export default function Tips({ amount, tipsDispatch, tips }) {
     if(tips == 0) {
       setActualTips(tips);
       setInputValue('');
-      changeInput();
     }
   }, [tips])
 

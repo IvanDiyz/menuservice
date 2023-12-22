@@ -69,7 +69,8 @@ export default function Notificate() {
         </svg>
         <h6 className={s.notificate__title}>Дякуємо</h6>
         <span className={s.notificate__note}>
-          {`${objRole[callRole]} підійде до вас за хвилину`}
+          {`${objRole[callRole]}` === 'Меню' ? `Офіціант підійде до вас за хвилину`
+          : `${objRole[callRole]} підійде до вас за хвилину`}
         </span>
         <div className={s.notificate__wrapper}>
           
@@ -103,17 +104,17 @@ export default function Notificate() {
         <div className={s.notificate__wrapper}>
           <NotificateItem
             role={"WAITER"}
-            translateR={"офіціанта"}
+            translateR={"Покликати офіціанта"}
             callNotificate={callNotificate}
           />
           <NotificateItem
             role={"MENU"}
-            translateR={"меню"}
+            translateR={"Попросити паперове меню"}
             callNotificate={callNotificate}
           />
           <NotificateItem
             role={"HOOKAH"}
-            translateR={"кальянщика"}
+            translateR={"Покликати кальянщика"}
             callNotificate={callNotificate}
           />
         </div>

@@ -13,7 +13,7 @@ export const fetchMenu = createAsyncThunk(
       }
       return data;
     } catch (e) {
-      return thunkAPI.rejectWithValue("Что-то пошло не так!");
+      return thunkAPI.rejectWithValue("щось пішло не так!");
     }
   }
 );

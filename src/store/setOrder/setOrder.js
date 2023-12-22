@@ -28,12 +28,20 @@ export const setOrder = createSlice({
       state.items[action.payload.indexItem - 1] = mergedObject;
       state.items[action.payload.indexItem - 1].clientCooment = action.payload.text;
       state.items[action.payload.indexItem - 1].update = true;
+      state.amount = 0
+      state.items.map(el => {
+        state.amount = state.amount + el.amount;
+      })
     },
     setStatus: (state, action) => {
       state.status = false;
     },
     deleteItem: (state, action) => {
-      state.items.splice(action.payload -1, 1)
+      state.items.splice(action.payload -1, 1);
+      state.amount = 0
+      state.items.map(el => {
+        state.amount = state.amount + el.amount;
+      })
     },
     managerItems: (state, action) => {
       state.items = action.payload.items;
@@ -67,7 +75,7 @@ export const setOrder = createSlice({
         }
         obj.amountDish = Math.round(+obj.priceDicount * action.payload.quantity * 100) / 100;
         calculateAmout(obj);
-        obj.amount = obj.amountDish + obj.amountAddons;
+        obj.amount = Math.ceil((obj.amountDish + obj.amountAddons) * 100) / 100;
       };
       if (
         action.payload.pathName ==
@@ -78,7 +86,7 @@ export const setOrder = createSlice({
         state.items.map((el) => {
           let amount = 0;
           amount = el.amount + amount;
-          state.amount = amount + state.amount;
+          state.amount = Math.ceil((amount + state.amount) * 100) / 100;
         });
       }
       if (!action.payload.indexItem) {
@@ -88,7 +96,7 @@ export const setOrder = createSlice({
     addDish: (state, action) => {
       state.item = action.payload;
       calculateAmout(state.item);
-      state.item.amount = state.item.amountDish + state.item.amountAddons;
+      state.item.amount = Math.ceil((state.item.amountDish + state.item.amountAddons) * 100) / 100;
     },
     deleteDish: (state, action) => {
       if (
@@ -157,7 +165,7 @@ export const setOrder = createSlice({
     addBasket: (state, action) => {
         state.item.clientCooment = action.payload;
         state.items.push(state.item);
-        state.amount = state.amount + state.item.amount;
+        state.amount = Math.ceil((state.amount + state.item.amount) * 100) / 100;
         state.item = {};
         state.addons = [];
     },
@@ -172,7 +180,6 @@ export const setOrder = createSlice({
         state.status = "loading";
       })
       .addCase(fetchOrder.fulfilled, (state, action) => {
-        console.log(action.payload)
         Object.assign(state, initialState);
         state.status = "succeeded";
         state.orderId = action.payload.id;

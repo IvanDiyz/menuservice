@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchFiltres } from "./setFiltresApi";
 
 const initialState = {
+  filterPage: false,
   stateFilters: false,
   filters: {
     'alergen': false,
@@ -22,6 +23,9 @@ export const setFilter = createSlice({
     },
     hasTrueFilter: (state, action) => {
       state.stateFilters = action.payload;
+    },
+    movePage: (state, action) => {
+      state.filterPage = action.payload;
     }
   },
   extraReducers: (builder) =>
@@ -40,5 +44,5 @@ export const setFilter = createSlice({
       }),
 });
 
-export const { changeFilter, hasTrueFilter } = setFilter.actions;
+export const { movePage, changeFilter, hasTrueFilter } = setFilter.actions;
 export default setFilter.reducer;

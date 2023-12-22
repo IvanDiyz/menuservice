@@ -5,6 +5,9 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
+  &__homeLink {
+    padding-right: 16px;
+  }
   &__logo {
     border-radius: 12px;
     background-position: center;
@@ -65,13 +68,15 @@
     transition: transform .8s;
     position: absolute;
     width: 100%;
-    background: #fff;
     right: 0;
     z-index: 5;
   }
+  &__menu {
+    background: #fff;
+  }
   
   &__search {
-    height: 100vh;
+    // height: 100vh;
     top: 0;
     width: 0;
   }
@@ -84,7 +89,6 @@
     transition: width .8s;
     overflow: hidden;
     position: absolute;
-    background: #fff;
     right: 0;
     z-index: 5;
   }

@@ -18,15 +18,13 @@ import Totaldish from "@/components/Menuitems/Totaldish/Totaldish";
 export default function OrderItem({ dish, indexItem }) {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
-  const { items, item } = selector((state) => state.setOrder);
+  const { items, item, allAmount } = selector((state) => state.setOrder);
   const [popup, setPopup] = useState(false);
   const [text, setComment] = useState(dish.clientCooment);
   const [comment, checkHeight] = useState(false);
-  const [clearBox, callClearBox] = useState(false)
+  const [clearBox, callClearBox] = useState(false);
+  const [click, setClick] = useState(false);
 
-  const clearOrder = () => {
-    
-  }
   const commentSpan = useRef();
   const setHeightComment = (e) => {
     if (comment) {
@@ -40,8 +38,11 @@ export default function OrderItem({ dish, indexItem }) {
   };
 
   useEffect(() => {
+    if (clearBox) {
+      localStorage.setItem("amount", allAmount);
+    }
     setComment(dish.clientCooment);
-  }, [item, dish]);
+  }, [item, dish, clearBox]);
 
   const openPopup = (e) => {
     setPopup(true);
@@ -75,46 +76,62 @@ export default function OrderItem({ dish, indexItem }) {
     document.body.style.overflow = "auto";
   };
   const closeBacket = (clear) => {
-    if(clear) {
-      dispatch(deleteItem(indexItem))
-    } 
-    callClearBox(false)
+    if (clear) {
+      dispatch(deleteItem(indexItem));
+    }
+    callClearBox(false);
   };
-  
+
   const changeText = (e) => {
     setComment(e.target.value);
   };
 
   const backet = () => {
-    if(clearBox) {
-      callClearBox(false)
+    if (clearBox) {
+      callClearBox(false);
     } else {
-      callClearBox(true)
+      callClearBox(true);
     }
-    console.log('меня пытаются убрать')
-  }
+  };
 
   return (
     <div className={s.orderItem}>
-      {clearBox ? (<Popup popup={clearBox} order='order'>
-        <div className={s.orderItem__popupBox}>
-          <h6 className={s.orderItem__popupTitle}>Ви впевнені, що хочете видалити страву?</h6>
-          <div className={s.orderItem__popupBtns}>
-            <span className={`${s.orderItem__popupBtn} ${s.orderItem__popupBtnY}`} onClick={() => closeBacket(true)}>Так</span>
-            <span className={`${s.orderItem__popupBtn} ${s.orderItem__popupBtnN}`} onClick={() => closeBacket(false)}>Ні</span>
+      {clearBox ? (
+        <Popup popup={clearBox} order="order">
+          <div className={s.orderItem__popupBox}>
+            <h6 className={s.orderItem__popupTitle}>
+              Ви впевнені, що хочете видалити страву?
+            </h6>
+            <div className={s.orderItem__popupBtns}>
+              <span
+                className={`${s.orderItem__popupBtn} ${s.orderItem__popupBtnY}`}
+                onClick={() => closeBacket(true)}
+              >
+                Так
+              </span>
+              <span
+                className={`${s.orderItem__popupBtn} ${s.orderItem__popupBtnN}`}
+                onClick={() => closeBacket(false)}
+              >
+                Ні
+              </span>
+            </div>
           </div>
-        </div>
-      </Popup>) : ''}
+        </Popup>
+      ) : (
+        ""
+      )}
       <Popup popup={popup} openPopup={openPopup} closePopup={closePopup}>
-        <div 
-        style={
-          dish.dish.img
-            ? { backgroundImage: `url(${dish.dish.img})` }
-            : {
-                backgroundImage: `url('/images/menuitem/stub.jpg')`,
-              }
-        }
-        className={s.menuitem__popupPhoto}>
+        <div
+          style={
+            dish.dish.img
+              ? { backgroundImage: `url(${dish.dish.img})` }
+              : {
+                  backgroundImage: `url('/images/menuitem/stub.jpg')`,
+                }
+          }
+          className={s.menuitem__popupPhoto}
+        >
           <div className={s.menuitem__serves}>
             <div>
               {dish.dish.cookingTime ? (
@@ -314,29 +331,35 @@ export default function OrderItem({ dish, indexItem }) {
             ""
           )}
           <div className={s.menuitem__additives}>
-            <h4 className={s.menuitem__popupTitle}>Додатки:</h4>
-            {dish.dish.addons.map((el) => (
-              <div
-                className={`${s.menuitem__popupWrapper} ${s.menuitem__popupName}`}
-                key={el.id}
-              >
-                <div className={s.menuitem__info_box}>
-                  <p className={s.menuitem__additiveName}>{el.title}</p>
-                  <p className={s.menuitem__additivePrice}>{el.cost} ₴</p>
-                </div>
-                <div className={s.menuitem__popup_btn}>
-                  <SuppleButton
-                    addonsQuantityOrder={
-                      dish.addons.find((addon) => addon.id === el.id)
-                        ?.quantity || 0
-                    }
-                    addonsId={el.id}
-                    addonsCost={el.cost}
-                    addonsName={el.title}
-                  />
-                </div>
+            {dish.dish.addons.length > 0 ? (
+              <div>
+                <h4 className={s.menuitem__popupTitle}>Додатки:</h4>
+                {dish.dish.addons.map((el) => (
+                  <div
+                    className={`${s.menuitem__popupWrapper} ${s.menuitem__popupName}`}
+                    key={el.id}
+                  >
+                    <div className={s.menuitem__info_box}>
+                      <p className={s.menuitem__additiveName}>{el.title}</p>
+                      <p className={s.menuitem__additivePrice}>{el.cost} ₴</p>
+                    </div>
+                    <div className={s.menuitem__popup_btn}>
+                      <SuppleButton
+                        addonsQuantityOrder={
+                          dish.addons.find((addon) => addon.id === el.id)
+                            ?.quantity || 0
+                        }
+                        addonsId={el.id}
+                        addonsCost={el.cost}
+                        addonsName={el.title}
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            ) : (
+              ""
+            )}
             <div className={s.menuitem__textareaBox}>
               <textarea
                 className={s.textarea}
@@ -356,17 +379,30 @@ export default function OrderItem({ dish, indexItem }) {
         </div>
       </Popup>
       <div className={s.orderItem__info}>
-        <div 
-        style={
-          dish.dish.img
-            ? { backgroundImage: `url(${dish.dish.img})` }
-            : {
-                backgroundImage: `url('/images/menuitem/stub.jpg')`,
-              }
-        }
-        className={s.orderItem__photo} onClick={openPopup}></div>
+        <div
+          style={
+            dish.dish.img
+              ? { backgroundImage: `url(${dish.dish.img})` }
+              : {
+                  backgroundImage: `url('/images/menuitem/stub.jpg')`,
+                }
+          }
+          className={s.orderItem__photo}
+          onClick={openPopup}
+        ></div>
         <div className={s.orderItem__infoBox}>
           <h4 className={s.orderItem__infoTitle}>{dish.dish.name}</h4>
+          <div className={s.orderItem__infoBoxBtn}>
+            <Buttons
+              costDiscount={dish.cost - (dish.cost * dish.discount) / 100}
+              dish={dish}
+              orderQuantity={dish.quantity}
+              indexItem={indexItem}
+              addDish={addDish}
+              changeQuantity={changeQuantity}
+              deleteDish={deleteDish}
+            />
+          </div>
           {dish.clientCooment ? (
             <div className={s.orderItem__commentBox}>
               <svg
@@ -406,17 +442,6 @@ export default function OrderItem({ dish, indexItem }) {
           ) : (
             ""
           )}
-          <div className={s.orderItem__infoBoxBtn}>
-            <Buttons
-              costDiscount={dish.cost - (dish.cost * dish.discount) / 100}
-              dish={dish}
-              orderQuantity={dish.quantity}
-              indexItem={indexItem}
-              addDish={addDish}
-              changeQuantity={changeQuantity}
-              deleteDish={deleteDish}
-            />
-          </div>
           <div className={s.orderItem__infoAdditives}>
             {dish.addons.map((el) => (
               <p key={el.id} className={s.orderItem__infoAdditive}>

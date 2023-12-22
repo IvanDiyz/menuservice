@@ -8,7 +8,7 @@ export const fetchBasket = createAsyncThunk(
       const response = await api.get(`/order/${orderId}`);
       return response.data;
     } catch (e) {
-      return thunkAPI.rejectWithValue("Что-то пошло не так!");
+      return thunkAPI.rejectWithValue("щось пішло не так!");
     }
   }
 );

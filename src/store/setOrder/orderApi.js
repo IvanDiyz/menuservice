@@ -10,14 +10,14 @@ export const fetchOrder = createAsyncThunk(
         await nitificateCall(response.data.id, params.request)
         return response.data;
       } catch (e) {
-        return thunkAPI.rejectWithValue("Что-то пошло не так!");
+        return thunkAPI.rejectWithValue("щось пішло не так!");
       }
     } else {
       try {
         const response = await api.patch(`/order/${params.orderId}`, params.data);
         return response.data;
       } catch (e) {
-        return thunkAPI.rejectWithValue("Что-то пошло не так!");
+        return thunkAPI.rejectWithValue("щось пішло не так!");
       }
 
     }

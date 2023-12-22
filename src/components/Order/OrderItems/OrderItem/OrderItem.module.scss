@@ -276,7 +276,6 @@
             padding: 0 2.2vw;
             color: #FFF;
             text-align: center;
-            font-family: Roboto;
             font-weight: 700;
             font-size: 3.8vw;
             border-radius: 1.1vw;
@@ -404,6 +403,7 @@
     overflow: hidden;
 }
 
-.textarea:focus-visible {
-    border: #000;
+.textarea:focus {
+    outline: none;
+    border-color: #26B657;
 }

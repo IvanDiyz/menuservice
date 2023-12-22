@@ -11,6 +11,6 @@ export const fetchSection = createAsyncThunk("user/fetchSection", async () => {
     };
     return data;
   } catch (e) {
-    return thunkAPI.rejectWithValue("Что-то пошло не так!");
+    return thunkAPI.rejectWithValue("щось пішло не так!");
   }
 });

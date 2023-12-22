@@ -81,7 +81,7 @@ export default function BasketFooter() {
     items.map((el) => {
       if (el.dishStatusId != 6) total += +el.amount;
     });
-    setTotalItems(total + tips);
+    setTotalItems(Math.ceil((total + tips) * 100) / 100);
   }, [items, tips]);
 
   if (orderId) {
