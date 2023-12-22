@@ -10,7 +10,7 @@ export const fetchSeacrh = createAsyncThunk("user/fetchSeacrh", async (data, thu
     });
     return result;
   } catch (e) {
-    return thunkAPI.rejectWithValue("Что-то пошло не так!");
+    return thunkAPI.rejectWithValue("щось пішло не так!");
   }
 });
 
@@ -30,6 +30,11 @@ const debounce = (func, delay) => {
 
 const debouncedFetchSearch = debounce(async (data) => {
   const { actualSection, searchValue } = data;
-  const response = await api.get(`/menu/dish/search?query=${searchValue}&sectionId=${actualSection}`);
-  return response.data;
+  if(actualSection) {
+    const response = await api.get(`/menu/dish/search?query=${searchValue}&sectionId=${actualSection}`);
+    return response.data;
+  } else {
+    const response = await api.get(`/menu/dish/search?query=${searchValue}`);
+    return response.data;
+  }
 }, 1000);

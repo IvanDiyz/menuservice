@@ -24,12 +24,12 @@ export const setBasket = createSlice({
     giveTips: (state, action) => {
       if (action.payload.inputTips) {
         state.tips = +action.payload.inputValue;
-        state.allAmount = state.totalAmount + state.tips;
+        state.allAmount = Math.ceil((state.totalAmount + state.tips) * 100) / 100;
       } else {
         state.tips = Math.floor(
           state.totalAmount * (action.payload.actualTips / 100)
         );
-        state.allAmount = state.totalAmount + state.tips;
+        state.allAmount = Math.ceil((state.totalAmount + state.tips) * 100) / 100;
       }
     },
     setPaymentMethod: (state, action) => {

@@ -11,7 +11,7 @@ export const fetchFiltres = createAsyncThunk(
       const response = await api.get(`/menu/${params.venueId}/dish/filter?${sectionIdUrl}isAllergen=${params.filters.alergen}&isSpicy=${params.filters.spicy}&${sectionCookingUrl}${sectionCostUrl}`);
       return response.data;
     } catch (e) {
-      return thunkAPI.rejectWithValue("Что-то пошло не так!");
+      return thunkAPI.rejectWithValue("щось пішло не так!");
     }
   }
 );

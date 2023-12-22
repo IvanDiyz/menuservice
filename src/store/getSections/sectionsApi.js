@@ -6,6 +6,6 @@ export const fetchSections = createAsyncThunk("user/fetchSections", async (menuI
     const responsSections = await api.get(`/menu/${menuId}/section`);
     return responsSections.data;
   } catch (e) {
-    return thunkAPI.rejectWithValue("Что-то пошло не так!");
+    return thunkAPI.rejectWithValue("щось пішло не так!");
   }
 });

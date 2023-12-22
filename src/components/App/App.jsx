@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import NavigationEvents from "@/components/NavigationEvents/NavigationEvents";
 import { Suspense, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { setIsPaid, setPaymentStatus } from "@/store/setBasket/setBasket";
 import { managerOrderId, managerVenueId } from "@/store/menu/menuSlice";
 import { fetchMenu } from "@/store/menu/menuApi";
@@ -15,6 +15,7 @@ import { fetchMenu } from "@/store/menu/menuApi";
 export default function App({ children }) {
   const [redirectStatus, setRedirect] = useState(true);
   const router = useRouter();
+  const params = useParams();
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
   const { paymentStatus, isPaid, orderId } = selector(
@@ -22,8 +23,10 @@ export default function App({ children }) {
   );
   const { tableId, venueId, orders } = selector((state) => state.menu);
   useEffect(() => {
-    const venueId = localStorage.getItem("venueId");
-    const tableId = localStorage.getItem("tableId");
+    const venueId = params.idvenue;
+    const tableId = params.idtable;
+    localStorage.setItem("venueId", venueId);
+    localStorage.setItem("tableId", tableId);
     const paymentStatusLocal = localStorage.getItem("paymentStatus");
     if (orders == null && venueId !== null) {
       dispatch(fetchMenu({ idvenue: venueId, idtable: tableId })).then(() => {
@@ -43,34 +46,40 @@ export default function App({ children }) {
   }, [orders]);
   useEffect(() => {
     const paymentStatusLocal = localStorage.getItem("paymentStatus");
-    const venueId = localStorage.getItem("venueId");
-    const tableId = localStorage.getItem("tableId");
+    const venueIdLocal = localStorage.getItem("venueId");
+    const tableIdLocal = localStorage.getItem("tableId");
+
     if (!paymentStatus && paymentStatusLocal === "true") {
       dispatch(setPaymentStatus(true));
       return;
     }
-    if (
-      paymentStatusLocal == "true" &&
-      typeof orders === 'number'
-    ) {
+    if (paymentStatusLocal == "true" && typeof orders === "number") {
+      const { isPaid } = store.getState().setBasket;
 
-        const { isPaid } = store.getState().setBasket;
-
-        if (isPaid && paymentStatusLocal == "true") {
-          localStorage.removeItem("paymentStatus");
-          localStorage.removeItem("orders");
-          dispatch(setPaymentStatus(false));
-          dispatch(setIsPaid(null));
-        }
-        if (!isPaid && paymentStatusLocal == "true" && paymentStatus) {
-          router.push(`/${venueId}/${tableId}/basket`);
-        }
+      if (isPaid && paymentStatusLocal == "true") {
+        localStorage.removeItem("paymentStatus");
+        localStorage.removeItem("orders");
+        dispatch(setPaymentStatus(false));
+        dispatch(setIsPaid(null));
+      }
+      if (!isPaid && paymentStatusLocal == "true" && paymentStatus) {
+        router.push(`/${venueIdLocal}/${tableIdLocal}/basket`);
+      }
     }
-    
-
   }, [isPaid, paymentStatus, orders, redirectStatus]);
 
   useEffect(() => {
+    const venueIdLocal = localStorage.getItem("venueId");
+    const tableIdLocal = localStorage.getItem("tableId");
+    if (params.idtable !== tableIdLocal || params.idvenue !== venueIdLocal) {
+      let venueId = params.idvenue;
+      let tableId = params.idtable;
+      dispatch(managerVenueId({ venueId, tableId }));
+      localStorage.removeItem("paymentStatus");
+      localStorage.removeItem("orders");
+      localStorage.removeItem("tableId");
+      localStorage.removeItem("venueId");
+    }
     if (venueId == null || tableId == null) {
       const venueId = localStorage.getItem("venueId");
       const tableId = localStorage.getItem("tableId");

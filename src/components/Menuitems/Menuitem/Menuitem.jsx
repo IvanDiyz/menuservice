@@ -246,25 +246,29 @@ export default function Menuitem({ triger, dish }) {
             ""
           )}
           <div className={s.menuitem__additives}>
-            <h4 className={s.menuitem__popupTitle}>Додатки:</h4>
-            {dish.addons.map((el) => (
-              <div
-                className={`${s.menuitem__popupWrapper} ${s.menuitem__popupName}`}
-                key={el.id}
-              >
-                <div className={s.menuitem__info_box}>
-                  <p className={s.menuitem__additiveName}>{el.title}</p>
-                  <p className={s.menuitem__additivePrice}>{el.cost} ₴</p>
-                </div>
-                <div className={s.menuitem__popup_btn}>
-                  <SuppleButton
-                    addonsId={el.id}
-                    addonsCost={el.cost}
-                    addonsName={el.title}
-                  />
-                </div>
+            {dish.addons.length > 0 ? (
+              <div>
+                <h4 className={s.menuitem__popupTitle}>Додатки:</h4>
+                {dish.addons.map((el) => (
+                  <div
+                    className={`${s.menuitem__popupWrapper} ${s.menuitem__popupName}`}
+                    key={el.id}
+                  >
+                    <div className={s.menuitem__info_box}>
+                      <p className={s.menuitem__additiveName}>{el.title}</p>
+                      <p className={s.menuitem__additivePrice}>{el.cost} ₴</p>
+                    </div>
+                    <div className={s.menuitem__popup_btn}>
+                      <SuppleButton
+                        addonsId={el.id}
+                        addonsCost={el.cost}
+                        addonsName={el.title}
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            ) : ''}
             <div className={s.menuitem__textareaBox}>
               <textarea
                 className={s.textarea}

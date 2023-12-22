@@ -13,6 +13,9 @@ export const setSearch = createSlice({
   reducers: {
     changeValue: (state, action) => {
       state.searchValue = action.payload;
+    },
+    clearDishis: (state, action) => {
+      state.dishis = [];
     }
   },
   extraReducers: (builder) =>
@@ -31,5 +34,5 @@ export const setSearch = createSlice({
       }),
 });
 
-export const { changeValue } = setSearch.actions;
+export const { clearDishis, changeValue } = setSearch.actions;
 export default setSearch.reducer;

@@ -6,7 +6,7 @@ export const postNotificate = createAsyncThunk("user/postNotificate", async (pos
     const response = await api.post(`/notification/notification-by-desk/${postData.tableId}`, postData.request);
     return response.data;
   } catch (e) {
-    return thunkAPI.rejectWithValue("Что-то пошло не так!");
+    return thunkAPI.rejectWithValue("щось пішло не так!");
   }
 });
 export const orderNotificate = createAsyncThunk("user/orderNotificate", async (postData, thunkAPI) => {
@@ -20,6 +20,6 @@ export const orderNotificate = createAsyncThunk("user/orderNotificate", async (p
     }
     return data;
   } catch (e) {
-    return thunkAPI.rejectWithValue("Что-то пошло не так!");
+    return thunkAPI.rejectWithValue("щось пішло не так!");
   }
 });

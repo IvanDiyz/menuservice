@@ -13,7 +13,6 @@ export default function Basket() {
   const [status, setStatus] = useState(false);
   
   useEffect(() => {
-    console.log('монтируем');
     if(paymentStatus) {
       setStatus(true);
     }

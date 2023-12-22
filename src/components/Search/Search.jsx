@@ -4,9 +4,9 @@ import Searchbody from "./Searchbody/Searchbody";
 
 export default function Search({changState}) {
   return (
-    <>
+    <div className={s.search}>
       <Searchheader result={'Пошук'} changState={changState}/>
       <Searchbody />
-    </>
+    </div>
   );
 }

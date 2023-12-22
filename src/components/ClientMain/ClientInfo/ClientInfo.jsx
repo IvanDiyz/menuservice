@@ -11,7 +11,7 @@ const ClientInfo = ({
   photoUrl
 }) => {
   return (
-    <div className={`${s.clientinfo} ${image ? `${s.clientInfo__bcg}` : ""}`}>
+    <div className={`${s.clientinfo} ${photoUrl ? `${s.clientInfo__bcg}` : ""} ${!logoUrl ? `${s.clientInfo__nLogo}` : ""}`}>
       <div
         className={s.clientinfo__background}
         style={{
@@ -34,9 +34,9 @@ const ClientInfo = ({
         {types.length > 0 ? (
           types.map((el, index) => (
             <p key={index} className={s.clientinfo__type}>{el.title}</p>
-          ))
-        ) : (
-          ""
+            ))
+            ) : (
+              ''
         )}
         <h1 className={s.clientinfo__name}>{name}</h1>
         {openingTime && closingTime ? (
