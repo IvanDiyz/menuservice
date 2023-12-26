@@ -391,7 +391,7 @@ export default function OrderItem({ dish, indexItem }) {
           onClick={openPopup}
         ></div>
         <div className={s.orderItem__infoBox}>
-          <h4 className={s.orderItem__infoTitle}>{dish.dish.name}</h4>
+          <h4 className={s.orderItem__infoTitle} onClick={openPopup}>{dish.dish.name}</h4>
           <div className={s.orderItem__infoBoxBtn}>
             <Buttons
               costDiscount={dish.cost - (dish.cost * dish.discount) / 100}

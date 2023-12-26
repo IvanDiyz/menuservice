@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { changeFilter } from "@/store/setFilter/setFilter";
 
-const Multiselect = ({ id, label, name, paramsClient }) =>{
+const Multiselect = ({ id, label, paramsClient }) =>{
 	const dispatch = useAppDispatch();
 	const [isOpen, setOpen] = useState(false);
 	const [chips, setChips] = useState([]);
@@ -13,14 +13,22 @@ const Multiselect = ({ id, label, name, paramsClient }) =>{
 	const handleSelectChange=(e)=>{
 		let values = [...e.target.selectedOptions].map(paramsClient => paramsClient.value);
 		let atricle = [...e.target.selectedOptions].map(paramsClient => paramsClient.attributes);
+		if(atricle[0][0].value === 'default') {
+			dispatch(changeFilter({name: atricle[0][0].value, type: 'multiselect'}))
+			setChips([]);
+			handleCloseSelect();
+			return
+		}
 		if(!chips.includes(values[0])) {
+			const point = paramsClient.find(item => item.title === values[0]);
 			const newChips = [values];
 			setChips([...newChips]);
-			dispatch(changeFilter({name: name, value: atricle[0][0].value}))
+			dispatch(changeFilter({name: point.point, value: atricle[0][0].value, type: 'multiselect'}))
 		}
 		handleCloseSelect();
 	}
 	const handleRemoveChip =(chipToRemove)=>{
+		const point = paramsClient.find(item => item.title === chipToRemove[0]);
 		let indexOption = multiselect.current.options.selectedIndex;
 		multiselect.current.options[indexOption].selected = false;
 		let index = chips.indexOf(chipToRemove);
@@ -28,7 +36,7 @@ const Multiselect = ({ id, label, name, paramsClient }) =>{
 			chips.splice(index, 1)
 		}
 		setChips([...chips]);
-		dispatch(changeFilter({name: name, value: false}))
+		dispatch(changeFilter({name: point.point, value: false, type: 'multiselect'}))
 	}
 	const handleCloseSelect =()=>{
 		setOpen(false)
@@ -56,7 +64,7 @@ const Multiselect = ({ id, label, name, paramsClient }) =>{
 						(chips.map(chip=>{
 							
 						return(
-							<div className={s.Chip} key={chip}><p>{chip}</p> <span onClick={()=>{handleRemoveChip(chip)}}>&#215;</span></div>
+							<div className={s.Chip} key={chip}><p>{chip}</p></div>
 						)
 					}))
 					}

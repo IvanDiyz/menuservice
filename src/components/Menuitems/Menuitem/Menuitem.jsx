@@ -47,9 +47,16 @@ export default function Menuitem({ triger, dish }) {
     setComment(e.target.value);
   };
 
+  const clikedMinbox = () => {
+    if(triger === 0) {
+      openPopup()
+    }
+  }
+
   return (
     <div
       className={`${s.menuitem} ${triger === 0 ? `${s.menuitem__min}` : ""}`}
+      onClick={clikedMinbox}
     >
       <Popup popup={popup} openPopup={openPopup} closePopup={closePopup}>
         <div
