@@ -15,7 +15,7 @@ const NavigationEvents = () => {
 
   return (
     <LoadingBar
-      color="#FF8A00"
+      color="#2EB955"
       progress={progress}
       onLoaderFinished={() => setProgress(0)}
       waitingTime={800}

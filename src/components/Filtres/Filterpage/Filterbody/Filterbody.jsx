@@ -11,7 +11,7 @@ export default function Filterbody() {
   const dispatch = useAppDispatch();
   const { filters } = selector(state => state.setFilter)
   let statelocalFiltres;
-  const params = [{title: 'за зростанням', article: 'ASC'}, {title: 'за зменшенням', article: 'DESC'}];
+  const params = [{title: '', article: 'default', point: 'default'},{title: 'за збільшенням ціни', article: 'ASC', point: 'cost'}, {title: 'за зменшенням ціни', article: 'DESC', point: 'cost'}, {title: 'за зростанням', article: 'ASC', point: 'cookingTime'}, {title: 'за зменшенням', article: 'DESC', point: 'cookingTime'}];
 
   useEffect(() => {
     hasBoolFilter(filters);
@@ -32,11 +32,11 @@ export default function Filterbody() {
 
   return (
     <div className={s.filter}>
-      <Checkbox id={'alergen'} name={'Алергени'}/>
+      <Multiselect label={'Упорядкувати'} paramsClient={params}/>
+      {/* <Multiselect label={'Ціна'} name={'cost'} paramsClient={params}/> */}
+      <Checkbox id={'alergen'} name={'Без алергенів'}/>
       <Checkbox id={'vegan'} name={'Вегетаріанське'}/>
       <Checkbox id={'spicy'} name={'Гостре'}/>
-      <Multiselect label={'Час приготування'} name={'cookingTime'} paramsClient={params}/>
-      <Multiselect label={'Ціна'} name={'cost'} paramsClient={params}/>
     </div>
   );
 }

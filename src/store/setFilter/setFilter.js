@@ -19,7 +19,16 @@ export const setFilter = createSlice({
   initialState,
   reducers: {
     changeFilter: (state, action) => {
-      state.filters[action.payload.name] = action.payload.value;
+      if(action.payload?.name === 'default') {
+        state.filters['cookingTime'] = false;
+        state.filters['cost'] = false;
+        return
+      }
+      if(action.payload?.type === 'multiselect') {
+        state.filters['cookingTime'] = false;
+        state.filters['cost'] = false
+      }
+      state.filters[action.payload.name] = action.payload?.value;
     },
     hasTrueFilter: (state, action) => {
       state.stateFilters = action.payload;
