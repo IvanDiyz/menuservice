@@ -5,6 +5,7 @@ import { fetchOrder } from "../setOrder/orderApi";
 
 const initialState = {
   methodOrder: false,
+  isDelivery: false,
   venueId: null,
   tableId: null,
   menus: [],

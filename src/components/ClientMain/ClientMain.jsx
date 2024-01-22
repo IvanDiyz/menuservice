@@ -47,7 +47,7 @@ const ClientMain = ({params}) => {
     return (
       <Container>
         <ClientInfo photoUrl={photoUrl} name={name} logoUrl={logoUrl} openingTime={openingTime} closingTime={closingTime} types={types}/>
-        <OrderMethods keySlice={methodOrder} firstDescription={false} lastDescription={true} dispatchMethod={setMethodOrder} firstmethod={'В закладі'} lastmethod={'Із собою'} svg={true}/>
+        <OrderMethods deliveryProp={true} hide={true} keySlice={methodOrder} deliveryDescription={false} firstDescription={false} lastDescription={true} dispatchMethod={setMethodOrder} deliveryMethod={'Доставка'} firstmethod={'В закладі'} lastmethod={'Із собою'} svg={true}/>
         <ServiceSheet menus={menus}/>
         <Openedcontact address={address} extraPhone={extraPhone} phone={phone} website={website} instagram={instagram} facebook={facebook}/>
       </Container>
