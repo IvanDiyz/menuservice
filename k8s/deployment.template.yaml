@@ -7,12 +7,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: menu-service-ui
+      app: menu-api
   template:
     metadata:
       namespace: "main"
       labels:
-        app: menu-service-ui
+        app: menu-api
     spec:
       containers:
         - name: menu-service-ui
