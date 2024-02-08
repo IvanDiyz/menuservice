@@ -19,6 +19,11 @@ spec:
           image: northamerica-northeast1-docker.pkg.dev/enuatv/containers/menu-service-ui:${GIT_SHA}
           ports:
             - containerPort: 3000
+          resources:
+            requests:
+              memory: "128M"
+            limits:
+              memory: "160M"
 #          volumeMounts:
 #            - name: artifact-registry-service-account
 #              mountPath: /secrets/artifact-registry
