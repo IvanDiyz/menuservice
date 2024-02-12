@@ -2,28 +2,28 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: menu-service-ui
-  namespace: "main"
+  namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: menu-api
+      app: same-ip-services
   template:
     metadata:
-      namespace: "main"
+      namespace: default
       labels:
-        app: menu-api
+        app: same-ip-services
     spec:
       containers:
         - name: menu-service-ui
           image: northamerica-northeast1-docker.pkg.dev/enuatv/containers/menu-service-ui:${GIT_SHA}
           ports:
-            - containerPort: 3000
+            - containerPort: 3001
           resources:
             requests:
-              memory: "128M"
+              memory: "264M"
             limits:
-              memory: "160M"
+              memory: "300M"
 #          volumeMounts:
 #            - name: artifact-registry-service-account
 #              mountPath: /secrets/artifact-registry
