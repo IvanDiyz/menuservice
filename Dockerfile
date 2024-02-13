@@ -37,7 +37,7 @@ ENV HOSTNAME "0.0.0.0"
 
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
-CMD ["node", "server.js"]
+#CMD ["node", "server.js"]
 
 #FROM node:16
 #
@@ -48,4 +48,4 @@ CMD ["node", "server.js"]
 #RUN npm run build
 #
 #EXPOSE 3001
-#CMD ["npm", "run", "start"]
+CMD ["npm", "run", "start"]
