@@ -22,7 +22,7 @@ RUN chown nextjs:nodejs .next
 RUN npm install
 RUN npm run build
 
-RUN chmod -R 777 /.next
+#RUN chmod -R 777 /.next
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
