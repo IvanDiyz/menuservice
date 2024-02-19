@@ -188,7 +188,7 @@ export default function Menuitem({ triger, dish }) {
             )}
             {dish.isNew ? <span className={s.menuitem__new}>NEW</span> : ""}
             {dish.discount ? (
-              <span className={s.menuitem__discount}>-{dish.discount}%</span>
+              <span className={s.menuitem__discount}>-{Math.floor((1 - dish.discount/dish.cost )*100)}%</span>
             ) : (
               ""
             )}
@@ -426,7 +426,7 @@ export default function Menuitem({ triger, dish }) {
             )}
             {dish.isNew ? <span className={s.menuitem__new}>NEW</span> : ""}
             {dish.discount ? (
-              <span className={s.menuitem__discount}>-{dish.discount}%</span>
+              <span className={s.menuitem__discount}>-{Math.floor((1 - dish.discount/dish.cost )*100)}%</span>
             ) : (
               ""
             )}
