@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchSeacrh } from "./setSearchApi";
+import { fetchSearch } from "./setSearchApi";
 
 const initialState = {
   dishis: [],
@@ -13,6 +13,10 @@ export const setSearch = createSlice({
   reducers: {
     changeValue: (state, action) => {
       state.searchValue = action.payload;
+      console.log(action.payload.length)
+      if(action.payload.length == 0) {
+        state.dishis = [];
+      }
     },
     clearDishis: (state, action) => {
       state.dishis = [];
@@ -20,15 +24,15 @@ export const setSearch = createSlice({
   },
   extraReducers: (builder) =>
     builder
-      .addCase(fetchSeacrh.fulfilled, (state, action) => {
+      .addCase(fetchSearch.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = "";
         state.dishis = action.payload;
       })
-      .addCase(fetchSeacrh.pending, (state) => {
+      .addCase(fetchSearch.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchSeacrh.rejected, (state, action) => {
+      .addCase(fetchSearch.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       }),

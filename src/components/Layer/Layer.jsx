@@ -5,12 +5,12 @@ import s from "./Layer.module.scss";
 import Header from "../Header/Header";
 import Content from "../Content/Content";
 
-const Layer = ({ children }) => {
+const Layer = ({ children, params }) => {
   return (
     <>
 
       <div className={s.container}>
-        <Header />
+        <Header params={params} />
         <Content children={children} />
       </div>
     </>

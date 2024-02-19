@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import api from "@/services/api";
 
-export const fetchSeacrh = createAsyncThunk("user/fetchSeacrh", async (data, thunkAPI) => {
+export const fetchSearch = createAsyncThunk("user/fetchSearch", async (data, thunkAPI) => {
   try {
     const result = await new Promise((resolve) => {
       debouncedFetchSearch(data).then((data) => {
@@ -29,12 +29,12 @@ const debounce = (func, delay) => {
 };
 
 const debouncedFetchSearch = debounce(async (data) => {
-  const { actualSection, searchValue } = data;
+  const { actualSection, searchValue, venueUId } = data;
   if(actualSection) {
-    const response = await api.get(`/menu/dish/search?query=${searchValue}&sectionId=${actualSection}`);
+    const response = await api.get(`/menu/${venueUId}/dish/search-by-venue?query=${searchValue}&sectionId=${actualSection}`);
     return response.data;
   } else {
-    const response = await api.get(`/menu/dish/search?query=${searchValue}`);
+    const response = await api.get(`/menu/${venueUId}/dish/search-by-venue?query=${searchValue}`);
     return response.data;
   }
 }, 1000);

@@ -8,7 +8,7 @@ import { setNotificate } from "@/store/notificate/notificate";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Header() {
+export default function Header({params}) {
   const selector = useAppSelector;
   const pathName = usePathname();
   const dispatch = useAppDispatch();
@@ -164,7 +164,7 @@ export default function Header() {
           search ? `${s.header__searchOpen}` : ""
         }`}
       >
-        <Search changState={changSearch} />
+        <Search changState={changSearch} params={params} />
       </div>
       <div
         className={`${s.header__menu} ${menu ? `${s.header__menuhOpen}` : ""}`}

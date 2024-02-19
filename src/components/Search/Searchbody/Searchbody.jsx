@@ -3,10 +3,10 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import s from "./Searchbody.module.scss";
 import { createRef, useEffect } from "react";
 import { changeValue } from "@/store/setSearch/setSearch";
-import { fetchSeacrh } from "@/store/setSearch/setSearchApi";
+import { fetchSearch } from "@/store/setSearch/setSearchApi";
 import Menuitem from "@/components/Menuitems/Menuitem/Menuitem";
 
-export default function Searchbody() {
+export default function Searchbody({params}) {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
   const { searchValue, dishis } = selector((state) => state.setSearch);
@@ -15,9 +15,9 @@ export default function Searchbody() {
   useEffect(() => {
     if (searchValue) {
       if(actualSection) {
-        dispatch(fetchSeacrh({ actualSection, searchValue }));
+        dispatch(fetchSearch({ actualSection, searchValue, venueUId: params.idvenue }));
       } else {
-        dispatch(fetchSeacrh({ searchValue }));
+        dispatch(fetchSearch({ searchValue, venueUId: params.idvenue  }));
       }
     }
   }, [searchValue]);
