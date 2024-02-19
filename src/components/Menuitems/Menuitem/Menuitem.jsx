@@ -212,7 +212,7 @@ export default function Menuitem({ triger, dish }) {
                       {dish.cost} ₴
                     </span>
                     <span>
-                      {dish.cost - Math.ceil(dish.cost * dish.discount) / 100} ₴
+                      {dish.discount} ₴
                     </span>
                   </p>
                 ) : (
@@ -222,9 +222,7 @@ export default function Menuitem({ triger, dish }) {
             </div>
             <div className={s.menuitem__info_btn}>
               <Buttons
-                costDiscount={
-                  dish.cost - Math.ceil(dish.cost * dish.discount) / 100
-                }
+                costDiscount={dish.discount}
                 dish={dish}
                 addDish={addDish}
                 changeQuantity={changeQuantity}
@@ -489,7 +487,7 @@ export default function Menuitem({ triger, dish }) {
               <p className={s.menuitem__price}>
                 <span className={s.menuitem__priceDiscount}>{dish.cost} ₴</span>
                 <span>
-                  {dish.cost - Math.ceil(dish.cost * dish.discount) / 100} ₴
+                  {dish.discount} ₴
                 </span>
               </p>
             ) : (
