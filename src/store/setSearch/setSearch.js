@@ -13,7 +13,6 @@ export const setSearch = createSlice({
   reducers: {
     changeValue: (state, action) => {
       state.searchValue = action.payload;
-      console.log(action.payload.length)
       if(action.payload.length == 0) {
         state.dishis = [];
       }
