@@ -49,7 +49,7 @@ const menu = () => {
   }, [])
 
   if (!dataLoaded || error != '') {
-    return <Container>{error == '' ? 'Loading...' : error}</Container>;
+    return <Container>{error && error}</Container>;
   } else {
     return (
       <>
