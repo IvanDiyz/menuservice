@@ -81,7 +81,7 @@ export default function Menuitems() {
   }, [stateFilters, filters, actualSection]);
 
   if (!dataLoaded) {
-    return <>Loading...</>;
+    return <></>;
   } else {
     return (
       <>

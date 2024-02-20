@@ -222,7 +222,7 @@ export default function Menuitem({ triger, dish }) {
             </div>
             <div className={s.menuitem__info_btn}>
               <Buttons
-                costDiscount={dish.discount}
+                costDiscount={dish.discount ? dish.discount : dish.cost}
                 dish={dish}
                 addDish={addDish}
                 changeQuantity={changeQuantity}

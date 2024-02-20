@@ -218,8 +218,8 @@
     }
 
     &__info_quantity {
-        width: 12vw;
-        height: 12vw;
+        min-width: 12vw;
+        min-height: 12vw;
         border-radius: 50%;
         background-color: #2EB955;
         color: #FFF;
@@ -352,7 +352,7 @@
         }
 
         &__alergenBox {
-            left: 0;
+            left: 4.4vw;
             top: 0;
             padding-top: 0;
         }
