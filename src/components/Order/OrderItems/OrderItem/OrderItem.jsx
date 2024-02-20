@@ -286,7 +286,7 @@ export default function OrderItem({ dish, indexItem }) {
                     </span>
                   </p>
                 ) : (
-                  <p className={s.menuitem__price}>{dish.dish.cost}</p>
+                  <p className={s.menuitem__price}>{dish.dish.cost} ₴</p>
                 )}
               </div>
             </div>
@@ -454,7 +454,7 @@ export default function OrderItem({ dish, indexItem }) {
           <span className={s.orderItem__priceItems}>{dish.amount} ₴</span>
           <span
             className={s.orderItem__priceItem}
-          >{`(${dish.priceDicount}₴)`}</span>
+          >{`(${dish.priceDicount ? dish.priceDicount : dish.amountDish}₴)`}</span>
         </div>
         <div className={s.orderItem__deleteItem} onClick={backet}>
           <svg

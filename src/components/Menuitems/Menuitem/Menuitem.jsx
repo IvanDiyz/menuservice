@@ -216,7 +216,7 @@ export default function Menuitem({ triger, dish }) {
                     </span>
                   </p>
                 ) : (
-                  <p className={s.menuitem__price}>{dish.cost}</p>
+                  <p className={s.menuitem__price}>{dish.cost} ₴</p>
                 )}
               </div>
             </div>
@@ -491,7 +491,7 @@ export default function Menuitem({ triger, dish }) {
                 </span>
               </p>
             ) : (
-              <p className={s.menuitem__price}>{dish.cost}</p>
+              <p className={s.menuitem__price}>{dish.cost} ₴</p>
             )}
           </div>
           {quantity > 0 ? (
