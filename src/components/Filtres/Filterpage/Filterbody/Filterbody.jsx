@@ -11,7 +11,7 @@ export default function Filterbody() {
   const dispatch = useAppDispatch();
   const { filters } = selector(state => state.setFilter)
   let statelocalFiltres;
-  const params = [{title: '', article: 'default', point: 'default'},{title: 'за збільшенням ціни', article: 'ASC', point: 'cost'}, {title: 'за зменшенням ціни', article: 'DESC', point: 'cost'}, {title: 'за зростанням', article: 'ASC', point: 'cookingTime'}, {title: 'за зменшенням', article: 'DESC', point: 'cookingTime'}];
+  const params = [{title: '', article: 'default', point: 'default'},{title: 'за збільшенням ціни', article: 'ASC', point: 'cost'}, {title: 'за зменшенням ціни', article: 'DESC', point: 'cost'}, {title: 'за збільшенням часу', article: 'ASC', point: 'cookingTime'}, {title: 'за зменшенням часу', article: 'DESC', point: 'cookingTime'}];
 
   useEffect(() => {
     hasBoolFilter(filters);
