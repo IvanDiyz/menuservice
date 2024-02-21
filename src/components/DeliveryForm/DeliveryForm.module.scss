@@ -5,11 +5,17 @@
   border: 2px solid #0085ff;
 }
 
+.deliveryFormTitleWrapper {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .deliveryFormTitle {
   font-size: 20px;
   font-weight: 600;
   color: #000000;
-  margin-bottom: 8px;
 }
 
 .deliveryForm {

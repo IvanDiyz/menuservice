@@ -1,38 +1,42 @@
+import DeliveryTimeButtons from "@/components/DeliveryForm/DeliveryTimeButtons/DeliveryTimeButtons";
 import s from "./DeliveryInput.module.scss";
 
-const DeliveryInput = ({ register, label, name, type }) => {
+const DeliveryInput = ({
+  register,
+  label,
+  name,
+  type,
+  setSpecifiedDeliveryTime,
+  specifiedDeliveryTime,
+  defaultValue,
+  setValue,
+}) => {
   return (
     <div className={s.deliveryInputWrapper}>
       <label htmlFor={name} className={s.deliveryInputLabel}>
         {label}
       </label>
-      <input {...register(name)} className={s.deliveryInput} type={type} />
-      {type === "time" ? (
-        <div className={s.deliveryTimeButtonWrapper}>
-          <button className={s.deliveryTimeButton} type="button">
-            Як умога швидше
-          </button>
-          <button className={s.deliveryTimeButton} type="button">
-            У вказаний час
-          </button>
-        </div>
+
+      {name === "deliveryTime" ? (
+        <DeliveryTimeButtons
+          specifiedDeliveryTime={specifiedDeliveryTime}
+          setSpecifiedDeliveryTime={setSpecifiedDeliveryTime}
+          setValue={setValue}
+        />
       ) : null}
+
+      <input
+        defaultValue={defaultValue}
+        className={`${s.deliveryInput} ${
+          !specifiedDeliveryTime && name === "deliveryTime"
+            ? `${s.deliveryInputHidden}`
+            : null
+        }`}
+        {...register(name)}
+        type={type}
+      />
     </div>
   );
 };
 
 export default DeliveryInput;
-
-//  <label className={s.registrationFormLabel} htmlFor={name}>
-//         {label}
-//       </label>
-//       <input
-//         className={`${s.registrationFormInput} ${error ? s.inputError : ""}`}
-//         type={type}
-//         placeholder={placeholder}
-//         id={id}
-//         name={name}
-//         onChange={onChange}
-//         defaultValue={defaultValue}
-//         {...register(name)}
-//       />
