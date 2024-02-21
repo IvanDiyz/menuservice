@@ -1,5 +1,19 @@
 .deliveryFormWrapper {
+  border-radius: 32px;
   padding: 16px;
   background-color: #fffcf8;
   border: 2px solid #0085ff;
+}
+
+.deliveryFormTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 8px;
+}
+
+.deliveryForm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }

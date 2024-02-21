@@ -13,32 +13,49 @@ const DeliveryForm = () => {
 
   return (
     <div className={s.deliveryFormWrapper}>
-      <h2>Інформація для доставки</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <DeliveryInput register={register} id="name" label="Ім’я" name="name" />
+      <h2 className={s.deliveryFormTitle}>Інформація для доставки</h2>
+      <form className={s.deliveryForm} onSubmit={handleSubmit(onSubmit)}>
+        <DeliveryInput
+          register={register}
+          id="name"
+          label="Ім’я"
+          name="name"
+          type="text"
+        />
         <DeliveryInput
           register={register}
           id="phone"
           label="Номер телефону"
           name="phone"
+          type="tel"
         />
         <DeliveryInput
           register={register}
           id="address"
           label="Адреса доставки"
           name="address"
+          type="text"
+        />
+        <DeliveryInput
+          register={register}
+          id="address_details"
+          label="Номер квартири, поверх, офіс"
+          name="address_details"
+          type="text"
         />
         <DeliveryInput
           register={register}
           id="deliveryTime"
           label="Час доставки"
           name="deliveryTime"
+          type="time"
         />
         <DeliveryInput
           register={register}
           id="commentToDelivery"
           label="Коментар для кур’єра"
           name="commentToDelivery"
+          type="text"
         />
         <button type="submit">Send</button>
       </form>
