@@ -22,7 +22,46 @@ export default function App({ children }) {
     (state) => state.setBasket
   );
   const { tableId, venueId, orders } = selector((state) => state.menu);
+
   useEffect(() => {
+    if (venueId == null || tableId == null) {
+      dispatch(managerVenueId({ venueId: params.idvenue, tableId: params.idtable }));
+    }
+  }, [venueId, tableId]);
+  
+  useEffect(() => {
+    //setting the date in the local store
+    const currentDate = new Date();
+    const storedDateString = localStorage.getItem('currentDate');
+    if(storedDateString != null) {
+      const storedDate = new Date(storedDateString);
+      //calculate the difference in milliseconds
+      const timeDifference = currentDate - storedDate;
+      //determine if the difference is greater than 24 hours
+      const isMoreThan24Hours = timeDifference > 24 * 60 * 60 * 1000;
+      if (isMoreThan24Hours) {
+        localStorage.clear();
+        //converting a date to a string
+        const dateString = currentDate.toISOString();
+        localStorage.setItem('currentDate', dateString);
+      }
+    } else {
+      //converting a date to a string
+      const dateString = currentDate.toISOString();
+      localStorage.setItem('currentDate', dateString);
+    }
+
+
+    //checking the establishment and table
+    const venueIdLocal = localStorage.getItem("venueId");
+    const tableIdLocal = localStorage.getItem("tableId");
+    if (params.idtable !== tableIdLocal || params.idvenue !== venueIdLocal) {
+      localStorage.clear();
+      //converting a date to a string
+      const dateString = currentDate.toISOString();
+      localStorage.setItem('currentDate', dateString);
+    }
+
     const venueId = params.idvenue;
     const tableId = params.idtable;
     localStorage.setItem("venueId", venueId);
@@ -46,9 +85,6 @@ export default function App({ children }) {
   }, [orders]);
   useEffect(() => {
     const paymentStatusLocal = localStorage.getItem("paymentStatus");
-    const venueIdLocal = localStorage.getItem("venueId");
-    const tableIdLocal = localStorage.getItem("tableId");
-
     if (!paymentStatus && paymentStatusLocal === "true") {
       dispatch(setPaymentStatus(true));
       return;
@@ -63,29 +99,10 @@ export default function App({ children }) {
         dispatch(setIsPaid(null));
       }
       if (!isPaid && paymentStatusLocal == "true" && paymentStatus) {
-        router.push(`/${venueIdLocal}/${tableIdLocal}/basket`);
+        router.push(`/${params.idvenue}/${params.idtable}/basket`);
       }
     }
   }, [isPaid, paymentStatus, orders, redirectStatus]);
-
-  useEffect(() => {
-    const venueIdLocal = localStorage.getItem("venueId");
-    const tableIdLocal = localStorage.getItem("tableId");
-    if (params.idtable !== tableIdLocal || params.idvenue !== venueIdLocal) {
-      let venueId = params.idvenue;
-      let tableId = params.idtable;
-      dispatch(managerVenueId({ venueId, tableId }));
-      localStorage.removeItem("paymentStatus");
-      localStorage.removeItem("orders");
-      localStorage.removeItem("tableId");
-      localStorage.removeItem("venueId");
-    }
-    if (venueId == null || tableId == null) {
-      const venueId = localStorage.getItem("venueId");
-      const tableId = localStorage.getItem("tableId");
-      dispatch(managerVenueId({ venueId, tableId }));
-    }
-  }, [venueId, tableId]);
 
   return (
     <html lang="en">
