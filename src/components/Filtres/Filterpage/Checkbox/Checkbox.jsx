@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useState } from "react";
 import s from "./Checkbox.module.scss";
 import { useAppDispatch } from "@/hooks/redux";
