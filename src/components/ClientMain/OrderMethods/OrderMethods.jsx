@@ -31,7 +31,6 @@ const OrderMethods = ({
     }
     setIsActive(order);
     dispatch(dispatchMethod(order));
-    console.log(firstDescription)
   };
 
   return (

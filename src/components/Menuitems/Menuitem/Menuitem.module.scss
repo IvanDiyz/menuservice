@@ -272,6 +272,7 @@
         left: 4.4vw;
     }
 
+    &__vegan,
     &__alergen,
     &__new,
     &__spicy,
@@ -291,6 +292,9 @@
 
     &__alergen {
         background: #FF5C00;
+    }
+    &__vegan {
+        background: #2eb855;
     }
 
     &__new {
@@ -363,6 +367,7 @@
         }
 
         &__alergen,
+        &__vegan,
         &__new,
         &__spicy,
         &__top {
@@ -376,6 +381,11 @@
         &__top {
             path {
                 fill: #FF5C00;
+            }
+        }
+        &__vegan {
+            path {
+                fill: #26B657;
             }
         }
 
@@ -422,9 +432,13 @@
         .menuitem__alergen {
             background: #FF5C00;
         }
+        .menuitem__vegan {
+            background: #26B657;
+        }
 
         .menuitem__alergen,
-        .menuitem__top {
+        .menuitem__top,
+        .menuitem__vegan {
             path {
                 fill: #fff;
             }
@@ -452,6 +466,7 @@
         }
 
         .menuitem__alergen,
+        .menuitem__vegan,
         .menuitem__new,
         .menuitem__spicy,
         .menuitem__top {
