@@ -24,6 +24,18 @@ export default function Basket() {
       }, 2000)
     }
   }, [status])
+
+  const styleMethod = {
+    active : {
+      paddingLeft: '20px',
+      paddingRight: '20px',
+    },
+    disable : {
+      paddingLeft: '6vw',
+      paddingRight: '6vw',
+    }
+  }
+
   if(status) {
     return (
       <Loading text={'Зачекайте хвилинку, офіціант зараз підійде'}/>
@@ -31,7 +43,7 @@ export default function Basket() {
   } else {
     return (
       <div className={s.order}>
-       <OrderMethods keySlice={check} dispatchMethod={setCheck} firstDescription={'payAll'} lastDescription={'splitPay'} firstmethod={'Сплатити за все'} lastmethod={'Розділити чек'} svg={false}/>
+       <OrderMethods style={styleMethod} keySlice={check} dispatchMethod={setCheck} firstDescription={'payAll'} lastDescription={'splitPay'} firstmethod={'Сплатити за все'} lastmethod={'Розділити чек'} svg={false}/>
        <h4 className={s.title}>Відвідувач №1</h4>
        <BasketItems />
       </div>

@@ -256,7 +256,7 @@ export default function OrderItem({ dish, indexItem }) {
             )}
             {dish.dish.discount ? (
               <span className={s.menuitem__discount}>
-                -{Math.floor((1 - dish.dish.discount/dish.dish.cost )*100)}%
+                -{Math.floor(100-(dish.dish.discount/dish.dish.cost * 100))}%
               </span>
             ) : (
               ""

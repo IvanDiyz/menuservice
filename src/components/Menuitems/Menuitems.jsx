@@ -15,7 +15,7 @@ export default function Menuitems() {
   const { items, total, limit, pages } = selector(
     (state) => state.getDishis.dishis
   );
-  const { sections } = selector((state) => state.getSections);
+  const { sections, menuId } = selector((state) => state.getSections);
   const { stateDishis, actualSection, currentPage, isLoading } = selector(
     (state) => state.getDishis
   );
@@ -65,6 +65,7 @@ export default function Menuitems() {
       setDataLoaded(false);
       dispatch(
         fetchFiltres({
+          menuId: menuId,
           filters: filters,
           sectionId: actualSection,
           venueId: venueId,
@@ -117,7 +118,7 @@ export default function Menuitems() {
               <Menuitem triger={display} dish={el} key={el.id} />
             ))
           ) : (
-            <>Страви ще не додані</>
+            <div className={s.menuitems__dishNotFound}>Страви ще не додані</div>
           )}
         </section>
       </>
