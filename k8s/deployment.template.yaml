@@ -22,12 +22,12 @@ spec:
           resources:
             requests:
               cpu: "0.01"
-              memory: "100M"
-#              ephemeral-storage: "1M"
+              memory: "128M"
+              ephemeral-storage: "1M"
             limits:
-              cpu: "0.03"
-              memory: "115M"
-#              ephemeral-storage: "8M"
+              cpu: "0.05"
+              memory: "164M"
+              ephemeral-storage: "8M"
 #          volumeMounts:
 #            - name: artifact-registry-service-account
 #              mountPath: /secrets/artifact-registry
