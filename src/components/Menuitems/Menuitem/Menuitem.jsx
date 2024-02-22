@@ -22,7 +22,6 @@ export default function Menuitem({ triger, dish }) {
   const [text, setComment] = useState("");
 
   useEffect(() => {
-    console.log("asd", 100 - (dish.discount / dish.cost) * 100);
     items.reduce((sum, item) => {
       if (item.id === dish.id) {
         setQuantity(sum + item.quantity);
