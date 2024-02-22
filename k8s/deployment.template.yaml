@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: menu-service-ui
-  namespace: main
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -10,7 +10,7 @@ spec:
       app: menu-service-ui
   template:
     metadata:
-      namespace: main
+      namespace: default
       labels:
         app: menu-service-ui
     spec:
@@ -21,13 +21,13 @@ spec:
             - containerPort: 3001
           resources:
             requests:
-              cpu: "0.1"
-              memory: "164M"
-              ephemeral-storage: "1M"
+              cpu: "0.01"
+              memory: "100M"
+#              ephemeral-storage: "1M"
             limits:
-              cpu: "0.15"
-              memory: "256M"
-              ephemeral-storage: "8M"
+              cpu: "0.03"
+              memory: "115M"
+#              ephemeral-storage: "8M"
 #          volumeMounts:
 #            - name: artifact-registry-service-account
 #              mountPath: /secrets/artifact-registry

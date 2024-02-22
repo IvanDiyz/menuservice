@@ -3,7 +3,7 @@ apiVersion: "v1"
 kind: "Service"
 metadata:
   name: "menu-service-ui"
-  namespace: main
+  namespace: default
 spec:
   ports:
     - protocol: "TCP"

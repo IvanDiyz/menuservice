@@ -72,4 +72,4 @@ jobs:
           envsubst < deployment.template.yaml > deployment.yaml
           kubectl apply -f deployment.yaml
           kubectl apply -f service.yaml
-          kubectl rollout status deployment/menu-merchant-api --namespace main
+          kubectl rollout status deployment/menu-merchant-api --namespace default
