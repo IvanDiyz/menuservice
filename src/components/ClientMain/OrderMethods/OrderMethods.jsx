@@ -18,6 +18,7 @@ const OrderMethods = ({
   deliveryProp,
   deliveryDescription,
   deliveryMethod,
+  style
 }) => {
   const selector = useAppSelector;
   const { paymentStatus } = selector((state) => state.setBasket);
@@ -36,6 +37,7 @@ const OrderMethods = ({
   return (
     <div className={`${s.orderMethods} ${paymentStatus ? s.waiterWait : ""}`}>
       <div
+        style={isActive === firstDescription ? style?.active : style.disable}
         className={`${s.orderMethods__button} ${
           isActive == firstDescription ? s.active : ""
         }`}
@@ -65,6 +67,7 @@ const OrderMethods = ({
       </div>
       {deliveryProp && (
         <div
+          style={isActive == 'Із собою' ? style?.active : style.disable}
           className={`${s.orderMethods__button} ${
             isActive == lastmethod ? s.active : ""
           }`}
@@ -107,6 +110,7 @@ const OrderMethods = ({
         </div>
       )}
       <div
+        style={isActive === lastDescription ? style?.active : style.disable}
         className={`${s.orderMethods__button} ${
           isActive == lastDescription ? s.active : ""
         }`}

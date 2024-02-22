@@ -191,6 +191,7 @@
             background: #2EB955;
         }
     }
+
     &__popupWrapper {
         .menuitem__popup_btn {
             button {
@@ -218,18 +219,22 @@
     }
 
     &__info_quantity {
+        position: relative;
         min-width: 12vw;
         min-height: 12vw;
         border-radius: 50%;
         background-color: #2EB955;
         color: #FFF;
-        font-size: 6.6vw;
-        font-weight: 700;
-        line-height: 6vw;
-        letter-spacing: -1.2px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        span {
+            font-size: 6.6vw;
+            font-weight: 700;
+            line-height: 6vw;
+            letter-spacing: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-51%, -50%);
+        }
     }
 
     &__name {

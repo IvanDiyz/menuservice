@@ -22,6 +22,7 @@ export default function Menuitem({ triger, dish }) {
   const [text, setComment] = useState("");
 
   useEffect(() => {
+    console.log('asd',100- (dish.discount/dish.cost * 100))
     items.reduce((sum, item) => {
       if (item.id === dish.id) {
         setQuantity(sum + item.quantity);
@@ -188,7 +189,7 @@ export default function Menuitem({ triger, dish }) {
             )}
             {dish.isNew ? <span className={s.menuitem__new}>NEW</span> : ""}
             {dish.discount ? (
-              <span className={s.menuitem__discount}>-{Math.floor((1 - dish.discount/dish.cost )*100)}%</span>
+              <span className={s.menuitem__discount}>-{Math.floor(100-(dish.discount/dish.cost * 100))}%</span>
             ) : (
               ""
             )}
@@ -230,7 +231,7 @@ export default function Menuitem({ triger, dish }) {
               />
             </div>
           </div>
-          {dish.ingredients != null ? (
+          {dish.ingredients?.length > 0 ? (
             <div className={s.menuitem__popupWrapper}>
               <h4 className={s.menuitem__popupTitle}>Склад страви:</h4>
               <p className={s.menuitem__popupText}>{dish.ingredients}</p>
@@ -426,7 +427,7 @@ export default function Menuitem({ triger, dish }) {
             )}
             {dish.isNew ? <span className={s.menuitem__new}>NEW</span> : ""}
             {dish.discount ? (
-              <span className={s.menuitem__discount}>-{Math.floor((1 - dish.discount/dish.cost )*100)}%</span>
+              <span className={s.menuitem__discount}>-{Math.floor(100-(dish.discount/dish.cost * 100))}%</span>
             ) : (
               ""
             )}

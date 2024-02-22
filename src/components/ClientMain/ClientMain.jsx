@@ -32,13 +32,25 @@ const ClientMain = ({params}) => {
     }
   }, [venueId])
 
+  const styleMethod = {
+    active : {
+      paddingLeft: '29.5px',
+      paddingRight: '29.5px',
+      columnGap: '8px',
+    },
+    disable : {
+      paddingLeft: '6vw',
+      paddingRight: '6vw',
+    }
+  }
+
   if (!dataLoaded) {
     return <Loading text={' '}></Loading>;
   }else {
     return (
       <Container>
         <ClientInfo photoUrl={photoUrl} name={name} logoUrl={logoUrl} openingTime={openingTime} closingTime={closingTime} types={types}/>
-        <OrderMethods deliveryProp={true} hide={true} keySlice={methodOrder} deliveryDescription={false} firstDescription={false} lastDescription={true} dispatchMethod={setMethodOrder} deliveryMethod={'Доставка'} firstmethod={'В закладі'} lastmethod={'Із собою'} svg={true}/>
+        <OrderMethods style={styleMethod} deliveryProp={true} hide={true} keySlice={methodOrder} deliveryDescription={false} firstDescription={false} lastDescription={true} dispatchMethod={setMethodOrder} deliveryMethod={'Доставка'} firstmethod={'В закладі'} lastmethod={'Із собою'} svg={true}/>
         <ServiceSheet menus={menus}/>
         <Openedcontact address={address} extraPhone={extraPhone} phone={phone} website={website} instagram={instagram} facebook={facebook}/>
       </Container>
