@@ -23,6 +23,9 @@
     opacity: 1;
     z-index: 100;
   }
+  &__popupActive__height {
+    justify-content: flex-start;
+  }
   &__popupContent {
     display: flex;
     justify-content: center;

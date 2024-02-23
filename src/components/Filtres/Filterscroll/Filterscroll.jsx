@@ -12,8 +12,8 @@ export default function Filterscroll() {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
   const { sections, menuId } = selector((state) => state.getSections);
-  const { currentPage, dishis } = selector((state) => state.getDishis);
-  const [selectedSection, setSelectedSection] = useState(null);
+  const { currentPage, dishis, actualSection } = selector((state) => state.getDishis);
+  const [selectedSection, setSelectedSection] = useState(actualSection || null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,8 +23,9 @@ export default function Filterscroll() {
           dispatch(setActualSection(null))
         }
       }else {
-        await dispatch(fetchDishis({selectedSection, menuId, currentPage}));
+        dispatch(setCurrentPage(1))
         dispatch(setActualSection(selectedSection))
+        await dispatch(fetchDishis({selectedSection, menuId, currentPage}));
       }
     };
     fetchData();

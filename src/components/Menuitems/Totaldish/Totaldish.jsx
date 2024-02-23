@@ -10,15 +10,19 @@ export default function Totaldish({ text, closePopup, title, dispatchMethod, ind
   const dispatch = useAppDispatch();
   const { item, amount, items } = selector(state => state.setOrder);
   const [click, changeClick] = useState(false);
+  const [amountDish, setAmount] = useState(0);
 
   useEffect(() => {
+    if(item?.amount) {
+      setAmount(item.amount)
+    }
     if(click) {
       const itemsJSON = JSON.stringify(items);
       localStorage.setItem('amount', amount)
       localStorage.setItem('items', itemsJSON)
       changeClick(false)
     }
-  }, [click])
+  }, [click, item.amount])
 
   let clickBtn = () => {
     if(indexItem) {
@@ -34,7 +38,7 @@ export default function Totaldish({ text, closePopup, title, dispatchMethod, ind
     <div className={`${s.total} ${item.amount ? `${s.total__active}` : ''}`}>
       <div className={s.total__chek}>
         <span className={s.total__title}>Разом</span>
-        <span className={s.total__score}>{item.amount ? item.amount : 0} ₴</span>
+        <span className={s.total__score}>{amountDish} ₴</span>
       </div>
       <div className={s.total__boxBtn}>
         

@@ -296,7 +296,7 @@
         column-gap: 8px;
     }
     &__photo {
-        width: 17.7vw;
+        min-width: 17.7vw;
         height: 17.7vw;
         border-radius: 3.3vw;
         background: url("/images/menuitem/pizza.png");
