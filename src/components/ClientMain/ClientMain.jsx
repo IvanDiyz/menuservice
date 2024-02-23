@@ -14,7 +14,7 @@ import Loading from "@/components/Loading/Loading";
 // Styles
 import s from "./ClientMain.module.scss";
 import { setMethodOrder } from "@/store/menu/menuSlice";
-import { clearDishis } from "@/store/getDishis/getDishis";
+import { clearDishis, setCurrentPage } from "@/store/getDishis/getDishis";
 
 const ClientMain = ({params}) => {
   const selector = useAppSelector;
@@ -23,6 +23,7 @@ const ClientMain = ({params}) => {
   const {photoUrl, venueId, menus, address, extraPhone, phone, website, instagram, facebook, name, openingTime, closingTime, types, logoUrl, methodOrder} = selector((state)=> state.menu);
 
   useEffect(() => {
+    dispatch(setCurrentPage(1))
     dispatch(clearDishis())
   }, [])
 
