@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import s from "./DeliveryTimeButtons.module.scss";
 
 const DeliveryTimeButtons = ({
@@ -5,14 +6,14 @@ const DeliveryTimeButtons = ({
   setSpecifiedDeliveryTime,
   setValue,
 }) => {
-  const handleDeliveryTimeChange = (specified) => {
-    if (specified) {
-      setSpecifiedDeliveryTime(true);
-    } else {
-      setValue("deliveryTime", "Якомога швидше");
-      setSpecifiedDeliveryTime(false);
-    }
-  };
+  const handleDeliveryTimeChange = () =>
+    setSpecifiedDeliveryTime((prevState) => !prevState);
+
+  useEffect(() => {
+    !specifiedDeliveryTime
+      ? setValue("deliveryTime", "Якомога шивдше")
+      : setValue("deliveryTime", "");
+  }, [specifiedDeliveryTime]);
 
   return (
     <div className={`${s.deliveryTimeButtonWrapper}`}>
@@ -20,17 +21,19 @@ const DeliveryTimeButtons = ({
         className={`${s.deliveryTimeButton} ${
           specifiedDeliveryTime ? null : `${s.active}`
         }`}
-        onClick={() => handleDeliveryTimeChange(false)}
+        onClick={handleDeliveryTimeChange}
         type="button"
+        disabled={!specifiedDeliveryTime}
       >
-        Як умога швидше
+        Якомога швидше
       </button>
       <button
         className={`${s.deliveryTimeButton} ${
           specifiedDeliveryTime ? `${s.active}` : null
         }`}
-        onClick={() => handleDeliveryTimeChange(true)}
+        onClick={handleDeliveryTimeChange}
         type="button"
+        disabled={specifiedDeliveryTime}
       >
         У вказаний час
       </button>

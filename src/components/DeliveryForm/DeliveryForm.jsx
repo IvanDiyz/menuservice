@@ -4,6 +4,7 @@ import s from "./DeliveryForm.module.scss";
 import { useForm } from "react-hook-form";
 import DeliveryInput from "../DeliveryForm/DeliveryInput/DeliveryInput";
 import { useState } from "react";
+
 const DeliveryForm = () => {
   const [specifiedDeliveryTime, setSpecifiedDeliveryTime] = useState(false);
 
@@ -84,7 +85,6 @@ const DeliveryForm = () => {
           label="Час доставки"
           name="deliveryTime"
           type={!specifiedDeliveryTime ? "text" : "time"}
-          defaultValue="Якомога швидше"
         />
         <DeliveryInput
           register={register}
