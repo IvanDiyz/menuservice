@@ -26,18 +26,21 @@ export default function Order() {
     localStorage.setItem("amount", amount);
   }, [items]);
 
+  const styleMethod = {
+    active : {
+      paddingLeft: '30px',
+      paddingRight: '30px',
+    },
+    disable : {
+      paddingLeft: '11.6vw',
+      paddingRight: '11.6vw',
+    }
+  }
+
   return (
     <div className={s.order}>
-      <OrderMethods
-        keySlice={delivery}
-        dispatchMethod={setDelivery}
-        firstDescription={false}
-        lastDescription={true}
-        firstmethod={"По готовності"}
-        lastmethod={"Все разом"}
-        svg={false}
-      />
-      <OrderItems />
+     <OrderMethods style={styleMethod} keySlice={delivery} dispatchMethod={setDelivery} firstDescription={false} lastDescription={true} firstmethod={'По готовності'} lastmethod={'Все разом'} svg={false}/>
+     <OrderItems />
     </div>
   );
 }

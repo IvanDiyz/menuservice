@@ -4,16 +4,17 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 
 // Components
-import Container from "../Container/Container";
-import ClientInfo from "./ClientInfo/ClientInfo";
-import OrderMethods from "./OrderMethods/OrderMethods";
-import ServiceSheet from "./ServiceSheet/ServiceSheet";
+import Container from "@/components/Container/Container";
+import ClientInfo from "@/components/ClientMain/ClientInfo/ClientInfo";
+import OrderMethods from "@/components/ClientMain/OrderMethods/OrderMethods";
+import ServiceSheet from "@/components/ClientMain/ServiceSheet/ServiceSheet";
+import Openedcontact from "@/components/Openedmenu/Openedcontact/Openedcontact";
+import Loading from "@/components/Loading/Loading";
 
 // Styles
 import s from "./ClientMain.module.scss";
-import Openedcontact from "../Openedmenu/Openedcontact/Openedcontact";
 import { setMethodOrder } from "@/store/menu/menuSlice";
-import { clearDishis } from "@/store/getDishis/getDishis";
+import { clearDishis, setCurrentPage } from "@/store/getDishis/getDishis";
 
 const ClientMain = ({params}) => {
   const selector = useAppSelector;
@@ -22,17 +23,8 @@ const ClientMain = ({params}) => {
   const {photoUrl, venueId, menus, address, extraPhone, phone, website, instagram, facebook, name, openingTime, closingTime, types, logoUrl, methodOrder} = selector((state)=> state.menu);
 
   useEffect(() => {
-      const venueIdLocal = localStorage.getItem("venueId");
-      const tableIdLocal = localStorage.getItem("tableId");
-      if (params.idtable !== tableIdLocal || params.idvenue !== venueIdLocal) {
-        localStorage.removeItem("paymentStatus");
-        localStorage.removeItem("orders");
-        localStorage.removeItem("tableId");
-        localStorage.removeItem("venueId");
-      }
+    dispatch(setCurrentPage(1))
     dispatch(clearDishis())
-    localStorage.setItem("venueId", params.idvenue);
-    localStorage.setItem("tableId", params.idtable);
   }, [])
 
   useEffect(() => {   
@@ -41,13 +33,25 @@ const ClientMain = ({params}) => {
     }
   }, [venueId])
 
+  const styleMethod = {
+    active : {
+      paddingLeft: '29.5px',
+      paddingRight: '29.5px',
+      columnGap: '8px',
+    },
+    disable : {
+      paddingLeft: '6vw',
+      paddingRight: '6vw',
+    }
+  }
+
   if (!dataLoaded) {
-    return <Container>Loading...</Container>;
+    return <Loading text={' '}></Loading>;
   }else {
     return (
       <Container>
         <ClientInfo photoUrl={photoUrl} name={name} logoUrl={logoUrl} openingTime={openingTime} closingTime={closingTime} types={types}/>
-        <OrderMethods deliveryProp={true} hide={true} keySlice={methodOrder} deliveryDescription={false} firstDescription={false} lastDescription={true} dispatchMethod={setMethodOrder} deliveryMethod={'Доставка'} firstmethod={'В закладі'} lastmethod={'Із собою'} svg={true}/>
+        <OrderMethods style={styleMethod} deliveryProp={true} hide={true} keySlice={methodOrder} deliveryDescription={false} firstDescription={false} lastDescription={true} dispatchMethod={setMethodOrder} deliveryMethod={'Доставка'} firstmethod={'В закладі'} lastmethod={'Із собою'} svg={true}/>
         <ServiceSheet menus={menus}/>
         <Openedcontact address={address} extraPhone={extraPhone} phone={phone} website={website} instagram={instagram} facebook={facebook}/>
       </Container>

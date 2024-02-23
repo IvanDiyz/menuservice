@@ -13,12 +13,18 @@
     background: #00000099;
     transition: 0.5s;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
   }
 
   &__popupActive {
     pointer-events: all;
     opacity: 1;
     z-index: 100;
+  }
+  &__popupActive__height {
+    justify-content: flex-start;
   }
   &__popupContent {
     display: flex;

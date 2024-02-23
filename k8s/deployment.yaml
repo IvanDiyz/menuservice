@@ -21,13 +21,13 @@ spec:
             - containerPort: 3001
           resources:
             requests:
-              cpu: "100m"
-              ephemeral-storage: "128M"
-              memory: "264M"
+              cpu: "0.01"
+              memory: "128M"
+              ephemeral-storage: "1M"
             limits:
-              cpu: "200m"
-              ephemeral-storage: "256M"
-              memory: "300M"
+              cpu: "0.05"
+              memory: "164M"
+              ephemeral-storage: "8M"
 #          volumeMounts:
 #            - name: artifact-registry-service-account
 #              mountPath: /secrets/artifact-registry

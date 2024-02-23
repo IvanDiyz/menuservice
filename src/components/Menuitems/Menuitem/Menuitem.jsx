@@ -48,10 +48,10 @@ export default function Menuitem({ triger, dish }) {
   };
 
   const clikedMinbox = () => {
-    if(triger === 0) {
-      openPopup()
+    if (triger === 0) {
+      openPopup();
     }
-  }
+  };
 
   return (
     <div
@@ -144,6 +144,25 @@ export default function Menuitem({ triger, dish }) {
             ) : (
               ""
             )}
+            {dish.allergens.map( i => i.id === 1 && (
+              <span key={i.id} className={s.menuitem__vegan}>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="leaf">
+                    <path
+                      id="Vector"
+                      d="M11.3333 5.33333C5.33331 6.66667 3.93331 10.78 2.54665 14.2267L3.80665 14.6667L4.43998 13.1333C4.75998 13.2467 5.09331 13.3333 5.33331 13.3333C12.6666 13.3333 14.6666 2 14.6666 2C14 3.33333 9.33331 3.5 5.99998 4.16667C2.66665 4.83333 1.33331 7.66667 1.33331 9C1.33331 10.3333 2.49998 11.5 2.49998 11.5C4.66665 5.33333 11.3333 5.33333 11.3333 5.33333Z"
+                      fill="white"
+                    />
+                  </g>
+                </svg>
+              </span>
+            ))}
             {dish.isSpicy ? (
               <span className={s.menuitem__spicy}>
                 <svg
@@ -188,7 +207,9 @@ export default function Menuitem({ triger, dish }) {
             )}
             {dish.isNew ? <span className={s.menuitem__new}>NEW</span> : ""}
             {dish.discount ? (
-              <span className={s.menuitem__discount}>-{Math.floor((1 - dish.discount/dish.cost )*100)}%</span>
+              <span className={s.menuitem__discount}>
+                -{Math.floor(100 - (dish.discount / dish.cost) * 100)}%
+              </span>
             ) : (
               ""
             )}
@@ -211,9 +232,7 @@ export default function Menuitem({ triger, dish }) {
                     <span className={s.menuitem__priceDiscount}>
                       {dish.cost} ₴
                     </span>
-                    <span>
-                      {dish.discount} ₴
-                    </span>
+                    <span>{dish.discount} ₴</span>
                   </p>
                 ) : (
                   <p className={s.menuitem__price}>{dish.cost} ₴</p>
@@ -230,7 +249,7 @@ export default function Menuitem({ triger, dish }) {
               />
             </div>
           </div>
-          {dish.ingredients != null ? (
+          {dish.ingredients?.length > 0 ? (
             <div className={s.menuitem__popupWrapper}>
               <h4 className={s.menuitem__popupTitle}>Склад страви:</h4>
               <p className={s.menuitem__popupText}>{dish.ingredients}</p>
@@ -273,7 +292,9 @@ export default function Menuitem({ triger, dish }) {
                   </div>
                 ))}
               </div>
-            ) : ''}
+            ) : (
+              ""
+            )}
             <div className={s.menuitem__textareaBox}>
               <textarea
                 className={s.textarea}
@@ -382,6 +403,25 @@ export default function Menuitem({ triger, dish }) {
             ) : (
               ""
             )}
+            {dish.allergens.map( i => i.id === 1 && (
+              <span key={i.id} className={s.menuitem__vegan}>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="leaf">
+                    <path
+                      id="Vector"
+                      d="M11.3333 5.33333C5.33331 6.66667 3.93331 10.78 2.54665 14.2267L3.80665 14.6667L4.43998 13.1333C4.75998 13.2467 5.09331 13.3333 5.33331 13.3333C12.6666 13.3333 14.6666 2 14.6666 2C14 3.33333 9.33331 3.5 5.99998 4.16667C2.66665 4.83333 1.33331 7.66667 1.33331 9C1.33331 10.3333 2.49998 11.5 2.49998 11.5C4.66665 5.33333 11.3333 5.33333 11.3333 5.33333Z"
+                      fill="white"
+                    />
+                  </g>
+                </svg>
+              </span>
+            ))}
             {dish.isSpicy ? (
               <span className={s.menuitem__spicy}>
                 <svg
@@ -426,7 +466,9 @@ export default function Menuitem({ triger, dish }) {
             )}
             {dish.isNew ? <span className={s.menuitem__new}>NEW</span> : ""}
             {dish.discount ? (
-              <span className={s.menuitem__discount}>-{Math.floor((1 - dish.discount/dish.cost )*100)}%</span>
+              <span className={s.menuitem__discount}>
+                -{Math.floor(100 - (dish.discount / dish.cost) * 100)}%
+              </span>
             ) : (
               ""
             )}
@@ -486,9 +528,7 @@ export default function Menuitem({ triger, dish }) {
             {dish.discount ? (
               <p className={s.menuitem__price}>
                 <span className={s.menuitem__priceDiscount}>{dish.cost} ₴</span>
-                <span>
-                  {dish.discount} ₴
-                </span>
+                <span>{dish.discount} ₴</span>
               </p>
             ) : (
               <p className={s.menuitem__price}>{dish.cost} ₴</p>
