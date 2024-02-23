@@ -4,6 +4,7 @@ import s from "./OrderFooter.module.scss";
 import ChoiceMethods from "@/components/Order/ChoiceMethods/ChoiceMethods";
 import Total from "@/components/Total/Total";
 import PaymentMethod from "@/components/PaymentMethod/PaymentMethod";
+import DeliveryForm from "@/components/DeliveryForm/DeliveryForm";
 import {
   changeChoice,
   giveTips,
@@ -17,9 +18,15 @@ import { setPaymentStatus } from "@/store/setBasket/setBasket";
 export default function OrderFooter() {
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
-  const { allAmount, choiceMethod, items, delivery, tips, amount, paymentMethod } = selector(
-    (state) => state.setOrder
-  );
+  const {
+    allAmount,
+    choiceMethod,
+    items,
+    delivery,
+    tips,
+    amount,
+    paymentMethod,
+  } = selector((state) => state.setOrder);
   const { venueId, tableId, methodOrder } = selector((state) => state.menu);
   const { orderId, isPaid } = selector((state) => state.setBasket);
 
@@ -53,7 +60,7 @@ export default function OrderFooter() {
         dishList: dishList,
         isAllTogether: delivery,
         isToGo: methodOrder,
-        paymentMethodId: paymentMethod, 
+        paymentMethodId: paymentMethod,
         tips: tips,
       };
     } else {
@@ -62,17 +69,17 @@ export default function OrderFooter() {
         deleteDishList: [],
         createDishList: dishList,
         isToGo: methodOrder,
-        paymentMethodId: paymentMethod, 
+        paymentMethodId: paymentMethod,
         tips: tips,
       };
     }
   };
 
   const objMethod = {
-    '1': 'CASH',
-    '2': 'TERMINAL',
-    '3': 'ONLINE',
-  }
+    1: "CASH",
+    2: "TERMINAL",
+    3: "ONLINE",
+  };
 
   const postOrder = () => {
     const data = creatData();
@@ -84,7 +91,7 @@ export default function OrderFooter() {
           tableId: tableId,
           data: data,
           request: {
-            request: objMethod[paymentMethod]
+            request: objMethod[paymentMethod],
           },
         })
       );
@@ -92,7 +99,7 @@ export default function OrderFooter() {
     if (choiceMethod) {
       dispatch(setPaymentStatus(true));
       localStorage.setItem("paymentStatus", true);
-      localStorage.setItem("orders", 'orderId');
+      localStorage.setItem("orders", "orderId");
     }
   };
 
@@ -118,6 +125,8 @@ export default function OrderFooter() {
       ) : (
         ""
       )}
+
+      <DeliveryForm />
 
       <OrderBtn
         setData={postOrder}

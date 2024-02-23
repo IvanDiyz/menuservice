@@ -1,0 +1,19 @@
+.deliveryTimeButtonWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.deliveryTimeButton {
+  cursor: pointer;
+  width: 45%;
+  font-size: 12px;
+
+  border-radius: 15px;
+}
+
+.active {
+  background-color: #26b657;
+  color: white;
+}

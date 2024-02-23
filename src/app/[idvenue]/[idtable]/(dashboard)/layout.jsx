@@ -6,7 +6,6 @@ export default function DashboardLayout({ children, params }) {
   return (
     <div>
       <Layer children={children} params={params} />
-
       <ToastContainer position="top-center" autoClose={3000} pauseOnHover />
     </div>
   );
