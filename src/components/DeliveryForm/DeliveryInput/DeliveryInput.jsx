@@ -10,9 +10,10 @@ const DeliveryInput = ({
   specifiedDeliveryTime,
   defaultValue,
   setValue,
+  error,
 }) => {
   return (
-    <div className={s.deliveryInputWrapper}>
+    <div className={`${s.deliveryInputWrapper} ${error && `${s.error}`}`}>
       <label htmlFor={name} className={s.deliveryInputLabel}>
         {label}
       </label>

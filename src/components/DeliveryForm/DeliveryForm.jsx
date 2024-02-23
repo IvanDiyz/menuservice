@@ -2,8 +2,10 @@
 
 import s from "./DeliveryForm.module.scss";
 import { useForm } from "react-hook-form";
-import DeliveryInput from "../DeliveryForm/DeliveryInput/DeliveryInput";
 import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import DeliveryInput from "../DeliveryForm/DeliveryInput/DeliveryInput";
+import { deliveryFormSchema } from "@/utils/yupSchemas";
 
 const DeliveryForm = () => {
   const [specifiedDeliveryTime, setSpecifiedDeliveryTime] = useState(false);
@@ -13,7 +15,9 @@ const DeliveryForm = () => {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(deliveryFormSchema),
+  });
 
   const onSubmit = (data) => console.log(data);
 
@@ -54,6 +58,8 @@ const DeliveryForm = () => {
           label="Ім’я"
           name="name"
           type="text"
+          error={errors.name?.message}
+          required="required"
         />
         <DeliveryInput
           register={register}
@@ -61,6 +67,8 @@ const DeliveryForm = () => {
           label="Номер телефону"
           name="phone"
           type="tel"
+          error={errors.phone?.message}
+          required="required"
         />
         <DeliveryInput
           register={register}
@@ -68,6 +76,8 @@ const DeliveryForm = () => {
           label="Адреса доставки"
           name="address"
           type="text"
+          error={errors.address?.message}
+          required="required"
         />
         <DeliveryInput
           register={register}
@@ -75,6 +85,8 @@ const DeliveryForm = () => {
           label="Номер квартири, поверх, офіс"
           name="address_details"
           type="text"
+          error={errors.address_details?.message}
+          required="required"
         />
         <DeliveryInput
           setValue={setValue}
@@ -85,6 +97,8 @@ const DeliveryForm = () => {
           label="Час доставки"
           name="deliveryTime"
           type={!specifiedDeliveryTime ? "text" : "time"}
+          error={errors.deliveryTime?.message}
+          required="required"
         />
         <DeliveryInput
           register={register}
