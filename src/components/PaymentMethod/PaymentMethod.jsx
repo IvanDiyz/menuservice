@@ -3,12 +3,16 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useEffect, useRef, useState } from "react";
 import s from "./PaymentMethod.module.scss";
 import Tips from "../Tips/Tips";
+import DeliveryForm from "../DeliveryForm/DeliveryForm";
 
 const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch}) => {
   const setHeightPay = useRef(null);
   const setHeightTips = useRef(null);
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
+  const { isDelivery } = selector(
+    (state) => state.menu
+  );
   const { choiceMethod } = selector(
     (state) => state.setOrder
   );
@@ -51,7 +55,7 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch}) => {
     <div
       ref={setHeightPay}
       style={{
-        height: choiceMethod ? `${heightPay}vw` : "0",
+        minHeight: choiceMethod ? `${heightPay}vw` : "0",
       }}
       className={`${s.orderFooter__paymentBox} ${
         choiceMethod  ? `${s.orderFooter__paymentBox__active}` : ""
@@ -87,7 +91,7 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch}) => {
         className={s.orderFooter__tips}
         ref={setHeightTips}
         style={{
-          height:
+          minHeight:
             activePayment != 1
               // ? `${setHeightTips.current?.scrollHeight / 3.8}vw`
               ? `${52}vw`
@@ -96,6 +100,7 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch}) => {
       >
         <Tips tips={tips} tipsDispatch={tipsDispatch} amount={amount}/>
       </div>
+      {isDelivery && <DeliveryForm />}
       <input
         className={s.orderFooter__emailInput}
         type="email"

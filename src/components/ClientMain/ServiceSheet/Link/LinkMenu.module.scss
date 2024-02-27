@@ -14,10 +14,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-radius: 16px;
+    border-radius: 4.4vw;
     border: 2px solid #DDD;
-    padding: 12px 16px;
-    min-height: 74px;
+    padding: 10px 16px;
+    height: 17.7vw;
   }
   &__row {
     display: flex;
@@ -26,17 +26,16 @@
   &__nameService {
     display: flex;
     flex-direction: column;
-    row-gap: 1.25vw;
   }
   &__name {
     color: #000000;
     font-weight: 600;
-    font-size: 5vw;
-    line-height: 7.5vw;
+    font-size: 4.4vw;
+    line-height: 6.6vw;
   }
   &__timeService {
     color: #696969;
-    font-size: 3.75vw;
-    line-height: 5vw;
+    font-size: 3.3vw;
+    line-height: 4.4vw;
   }
 }
