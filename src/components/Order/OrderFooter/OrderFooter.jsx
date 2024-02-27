@@ -4,7 +4,6 @@ import s from "./OrderFooter.module.scss";
 import ChoiceMethods from "@/components/Order/ChoiceMethods/ChoiceMethods";
 import Total from "@/components/Total/Total";
 import PaymentMethod from "@/components/PaymentMethod/PaymentMethod";
-import DeliveryForm from "@/components/DeliveryForm/DeliveryForm";
 import {
   changeChoice,
   giveTips,
@@ -27,11 +26,14 @@ export default function OrderFooter() {
     amount,
     paymentMethod,
   } = selector((state) => state.setOrder);
-  const { venueId, tableId, methodOrder } = selector((state) => state.menu);
+  const { venueId, tableId, methodOrder, isDelivery } = selector((state) => state.menu);
   const { orderId, isPaid } = selector((state) => state.setBasket);
+  const clientInfo = selector((state) => state.getClientInfo);
 
   useEffect(() => {
-    dispatch(changeChoice(false));
+    if(!isDelivery) {
+      dispatch(changeChoice(false));
+    }
     if (orderId) {
       dispatch(giveTips({ inputTips: false, actualTips: 0 }));
     }
@@ -57,6 +59,7 @@ export default function OrderFooter() {
     });
     if (!orderId) {
       return {
+        isDelivery: isDelivery,
         dishList: dishList,
         isAllTogether: delivery,
         isToGo: methodOrder,
@@ -83,6 +86,13 @@ export default function OrderFooter() {
 
   const postOrder = () => {
     const data = creatData();
+    if(isDelivery) {
+      for (const key in clientInfo) {
+        if (clientInfo.hasOwnProperty(key)) {
+          data[key] = clientInfo[key];
+        }
+      }
+    }
     if (items.length > 0) {
       dispatch(
         fetchOrder({
@@ -106,7 +116,7 @@ export default function OrderFooter() {
   return (
     <div className={s.orderFooter}>
       <Total total={allAmount} />
-      {!orderId && isPaid == null ? (
+      {!orderId && isPaid == null && !isDelivery ? (
         <ChoiceMethods
           firstmethod={"Cплатити потім"}
           lastmethod={"Сплтатити зараз"}
@@ -125,8 +135,7 @@ export default function OrderFooter() {
       ) : (
         ""
       )}
-
-      <DeliveryForm />
+      
 
       <OrderBtn
         setData={postOrder}

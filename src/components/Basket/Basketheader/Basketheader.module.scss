@@ -61,7 +61,10 @@
     align-items: center;
     display: flex;
     column-gap: 16px;
-
+    span {
+      display: inline-block;
+      line-height: 0;
+    }
     a {
       height: 24px;
     }

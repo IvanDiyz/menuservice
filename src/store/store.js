@@ -12,6 +12,7 @@ import setFilter from "./setFilter/setFilter";
 import setOrder from "./setOrder/setOrder";
 import setBasket from "./setBasket/setBasket";
 import notificate from "./notificate/notificate";
+import getClientInfo from "./getClientInfo/getClientInfo";
 
 
 
@@ -27,6 +28,7 @@ export const store = configureStore({
     setOrder: setOrder,
     setBasket: setBasket,
     notificate: notificate,
+    getClientInfo: getClientInfo,
   },
 });
 

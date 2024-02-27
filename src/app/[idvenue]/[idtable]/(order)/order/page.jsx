@@ -11,6 +11,7 @@ export default function Order() {
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
   const { delivery, items, amount } = selector((store) => store.setOrder);
+  const { isDelivery } = selector((store) => store.menu);
 
   useEffect(() => {
     const localItems = JSON.parse(localStorage.getItem("items"));
@@ -28,18 +29,20 @@ export default function Order() {
 
   const styleMethod = {
     active : {
-      paddingLeft: '30px',
-      paddingRight: '30px',
+      paddingLeft: '8.3vw',
+      paddingRight: '8.3vw',
     },
     disable : {
-      paddingLeft: '11.6vw',
-      paddingRight: '11.6vw',
+      paddingLeft: '8.3vw',
+      paddingRight: '8.3vw',
     }
   }
 
   return (
     <div className={s.order}>
-     <OrderMethods style={styleMethod} keySlice={delivery} dispatchMethod={setDelivery} firstDescription={false} lastDescription={true} firstmethod={'По готовності'} lastmethod={'Все разом'} svg={false}/>
+      {!isDelivery && 
+      <OrderMethods style={styleMethod} keySlice={delivery} dispatchMethod={setDelivery} firstDescription={false} lastDescription={true} firstmethod={'По готовності'} lastmethod={'Все разом'} svg={false}/>
+      }
      <OrderItems />
     </div>
   );

@@ -5,6 +5,7 @@ import { useState } from "react";
 import s from "./OrderMethods.module.scss";
 import { setMethodOrder } from "@/store/menu/menuSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { changeChoice } from "@/store/setOrder/setOrder";
 
 const OrderMethods = ({
   keySlice,
@@ -66,11 +67,11 @@ const OrderMethods = ({
       </div>
       {deliveryProp && (
         <div
-          style={isActive == 'Із собою' ? style?.active : style.disable}
+          style={isActive == deliveryDescription ? style?.active : style.disable}
           className={`${s.orderMethods__button} ${
-            isActive == lastmethod ? s.active : ""
+            isActive == deliveryDescription ? s.active : ""
           }`}
-          onClick={() => toggleOrder(lastmethod)} // ставим lastmethod поскольку, у нас сейчас с собой, на вынос и доставка принимает bool что не может быть.
+          onClick={() => toggleOrder(deliveryDescription)} // ставим lastmethod поскольку, у нас сейчас с собой, на вынос и доставка принимает bool что не может быть.
         >
           {svg ? (
             <svg
@@ -103,7 +104,7 @@ const OrderMethods = ({
           )}
           <button className={`${s.orderMethods__btn}`}>
             {hide
-              ? `${isActive == lastmethod ? deliveryMethod : ""}`
+              ? `${isActive == deliveryDescription ? deliveryMethod : ""}`
               : deliveryMethod}
           </button>
         </div>

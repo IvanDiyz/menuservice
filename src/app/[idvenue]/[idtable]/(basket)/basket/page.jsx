@@ -27,8 +27,8 @@ export default function Basket() {
 
   const styleMethod = {
     active : {
-      paddingLeft: '20px',
-      paddingRight: '20px',
+      paddingLeft: '6vw',
+      paddingRight: '6vw',
     },
     disable : {
       paddingLeft: '6vw',

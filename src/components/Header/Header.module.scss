@@ -7,19 +7,25 @@
   position: relative;
   &__homeLink {
     padding-right: 16px;
+    display: inline-block;
+    line-height: 0;
   }
   &__logo {
     border-radius: 12px;
     background-position: center;
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
-    width: 80px;
-    height: 64px;
+    width: 69px;
+    height: 48px;
 }
   &__wrapper {
     align-items: center;
     display: flex;
     column-gap: 16px;
+    a {
+      display: inline-block;
+      line-height: 0;
+    }
   }
   &__burgerBox {
     display: flex;
@@ -27,6 +33,10 @@
     align-items: center;
     width: 64px;
     height: 24px;
+    span {
+      display: inline-block;
+      line-height: 0;
+    }
   }
   &__burger {
     display: inline-block;

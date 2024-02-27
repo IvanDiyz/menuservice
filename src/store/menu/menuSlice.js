@@ -33,6 +33,11 @@ export const menuSlice = createSlice({
   reducers: {
     setMethodOrder: (state, action) => {
       state.methodOrder = action.payload;
+      if(action.payload === 'delivery') {
+        state.isDelivery = true;
+      } else {
+        state.isDelivery = false;
+      } 
     },
     managerVenueId: (state, action) => {
       state.venueId = action.payload.venueId;
