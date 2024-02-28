@@ -106,7 +106,7 @@ export default function App({ children }) {
 
   useEffect(() => {
     const methodOrderLocal = localStorage.getItem("methodOrder");
-    if(methodOrderLocal !== methodOrder) {
+    if(methodOrderLocal !== methodOrder && methodOrderLocal != null) {
       dispatch(setMethodOrder(methodOrderLocal === 'delivery' ? methodOrderLocal: JSON.parse(methodOrderLocal)))
     }
   }, [])

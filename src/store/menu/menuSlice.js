@@ -4,6 +4,7 @@ import { HYDRATE } from "next-redux-wrapper";
 import { fetchOrder } from "../setOrder/orderApi";
 
 const initialState = {
+  titleTable: null,
   methodOrder: false,
   isDelivery: false,
   venueId: null,
@@ -53,8 +54,9 @@ export const menuSlice = createSlice({
         state.status = "success";
         state.isLoading = false;
         state.error = "";
-        const { orders, menus, name, logoUrl, photoUrl, openingTime, closingTime, types, facebook, instagram, website, phone, extraPhone, description, address } = action.payload.response;
+        const { desk, orders, menus, name, logoUrl, photoUrl, openingTime, closingTime, types, facebook, instagram, website, phone, extraPhone, description, address } = action.payload.response;
         state.menus = menus;
+        state.titleTable = desk.title;
         state.name = name;
         state.logoUrl = logoUrl;
         state.photoUrl = photoUrl;

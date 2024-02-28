@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 export default function Header() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { venueId, tableId } = useSelector((state) => state.menu);
+  const { venueId, tableId, titleTable } = useSelector((state) => state.menu);
   const [clearBox, callClearBox] = useState(false);
 
   const clearOrder = () => {
@@ -84,7 +84,7 @@ export default function Header() {
       <div className={s.header__wrapper}>
         <div className={s.header__wrapperBox}>
           <span className={s.header__wrapperSubtitle}>Моє замовлення</span>
-          <h4 className={s.header__wrappertitle}>Стіл №{tableId}</h4>
+          <h4 className={s.header__wrappertitle}>Стіл №{titleTable}</h4>
         </div>
       </div>
       <div className={s.header__wrapper} onClick={clearOrder}>
