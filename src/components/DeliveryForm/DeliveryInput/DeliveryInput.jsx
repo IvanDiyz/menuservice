@@ -28,14 +28,12 @@ const DeliveryInput = ({
   }, [])
 
   useEffect(() => {
-    console.log('error change')
     if(error == null && name != 'deliveryTime') {
       dispatch(chageFrom({name, value, keysValids}));
     }
     if(error) {
       dispatch(chageFrom({name, value: null, keysValids}));
     }
-    console.log('error', error)
   }, [error])
   
   useEffect(() => {
@@ -54,7 +52,6 @@ const DeliveryInput = ({
   };
   
   const chekingTime = () => {
-    console.log('cheking')
     if(specifiedDeliveryTime && value) {
       dispatch(chageFrom({name, value, keysValids}));
     } else {

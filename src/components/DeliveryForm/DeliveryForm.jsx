@@ -19,7 +19,6 @@ const DeliveryForm = () => {
     resolver: yupResolver(deliveryFormSchema),
   });
 
-  const onSubmit = (data) => console.log(data);
 
   return (
     <div className={s.deliveryFormWrapper}>
@@ -51,7 +50,7 @@ const DeliveryForm = () => {
         </svg>
         <h2 className={s.deliveryFormTitle}>Інформація для доставки</h2>
       </div>
-      <form className={s.deliveryForm} onSubmit={handleSubmit(onSubmit)}>
+      <form className={s.deliveryForm}>
         <DeliveryInput
           deliveryFormSchema={deliveryFormSchema}
           register={register}
@@ -113,7 +112,6 @@ const DeliveryForm = () => {
           name="commentToDelivery"
           type="text"
           />
-        <button type="submit">Send</button>
       </form>
     </div>
   );
