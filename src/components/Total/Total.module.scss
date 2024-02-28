@@ -1,11 +1,16 @@
 .total {
-    padding-bottom: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     color: #000;
     font-size: 5.5vw;
     font-weight: 600;
     line-height: 7.7vw;
     letter-spacing: -1px;
+    &__wrapper {
+        padding-bottom: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__declined {
+        color: #e63152;
+    }
 }
