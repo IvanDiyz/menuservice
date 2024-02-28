@@ -9,7 +9,7 @@ import { Suspense, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useParams, useRouter } from "next/navigation";
 import { setIsPaid, setPaymentStatus } from "@/store/setBasket/setBasket";
-import { managerOrderId, managerVenueId } from "@/store/menu/menuSlice";
+import { managerOrderId, managerVenueId, setMethodOrder } from "@/store/menu/menuSlice";
 import { fetchMenu } from "@/store/menu/menuApi";
 
 export default function App({ children }) {
@@ -21,7 +21,7 @@ export default function App({ children }) {
   const { paymentStatus, isPaid, orderId } = selector(
     (state) => state.setBasket
   );
-  const { tableId, venueId, orders } = selector((state) => state.menu);
+  const { tableId, venueId, orders, methodOrder } = selector((state) => state.menu);
 
   useEffect(() => {
     if (venueId == null || tableId == null) {
@@ -103,6 +103,13 @@ export default function App({ children }) {
       }
     }
   }, [isPaid, paymentStatus, orders, redirectStatus]);
+
+  useEffect(() => {
+    const methodOrderLocal = localStorage.getItem("methodOrder");
+    if(methodOrderLocal !== methodOrder) {
+      dispatch(setMethodOrder(methodOrderLocal === 'delivery' ? methodOrderLocal: JSON.parse(methodOrderLocal)))
+    }
+  }, [])
 
   return (
     <html lang="en">

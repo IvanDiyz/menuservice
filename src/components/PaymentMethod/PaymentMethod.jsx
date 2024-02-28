@@ -5,7 +5,7 @@ import s from "./PaymentMethod.module.scss";
 import Tips from "../Tips/Tips";
 import DeliveryForm from "../DeliveryForm/DeliveryForm";
 
-const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch}) => {
+const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch, form}) => {
   const setHeightPay = useRef(null);
   const setHeightTips = useRef(null);
   const dispatch = useAppDispatch();
@@ -100,7 +100,7 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch}) => {
       >
         <Tips tips={tips} tipsDispatch={tipsDispatch} amount={amount}/>
       </div>
-      {isDelivery && <DeliveryForm />}
+      {isDelivery && form && <DeliveryForm />}
       <input
         className={s.orderFooter__emailInput}
         type="email"

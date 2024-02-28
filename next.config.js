@@ -2,7 +2,13 @@
 const path = require('path');
 const nextConfig = {
   images: {
-    domains: ['cdn.logo.com'],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "storage.googleapis.com",
+        pathname: "**",
+      },
+    ],
   },
   // webpack: (config) => {
   //   config.resolve.alias['@'] = path.join(__dirname, 'src');

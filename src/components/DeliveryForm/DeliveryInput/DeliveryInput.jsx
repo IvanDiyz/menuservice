@@ -2,10 +2,11 @@
 import DeliveryTimeButtons from "@/components/DeliveryForm/DeliveryTimeButtons/DeliveryTimeButtons";
 import s from "./DeliveryInput.module.scss";
 import { useAppDispatch } from "@/hooks/redux";
-import { chageFrom } from "@/store/getClientInfo/getClientInfo";
+import { chageFrom, resetState } from "@/store/getClientInfo/getClientInfo";
 import { useEffect, useState } from "react";
 
 const DeliveryInput = ({
+  deliveryFormSchema,
   register,
   label,
   name,
@@ -14,32 +15,68 @@ const DeliveryInput = ({
   specifiedDeliveryTime,
   defaultValue,
   setValue,
-  error,
 }) => {
-
+  const keysValids = ['name', 'phone', 'address', 'address_details'];
   const dispatch = useAppDispatch();
-  const [phone, setPhone] = useState('');
+  const [value, setValues] = useState(name === "phone" ? '+38' : '');
+  const [error, setError] = useState(false);
+
   useEffect(() => {
-    if(!specifiedDeliveryTime && name === "deliveryTime") {
-      dispatch(chageFrom({name, value: null}));
+    return () => {
+     dispatch(resetState());
     }
-  }, [specifiedDeliveryTime])
+  }, [])
+
+  useEffect(() => {
+    console.log('error change')
+    if(error == null && name != 'deliveryTime') {
+      dispatch(chageFrom({name, value, keysValids}));
+    }
+    if(error) {
+      dispatch(chageFrom({name, value: null, keysValids}));
+    }
+    console.log('error', error)
+  }, [error])
+  
+  useEffect(() => {
+    if(name === 'deliveryTime') chekingTime();
+  }, [specifiedDeliveryTime, value])
+  
   const handleInputChange = (event) => {
-    let velueInput = event.target.value;
+    let velueInput = event.target?.value;
     if(name === "phone") {
       velueInput = velueInput.replace(/\s/g, '');
-      console.log(velueInput)
+      if (!velueInput.startsWith('+38')) {
+        velueInput = '+38';
+      }
     }
-    dispatch(chageFrom({name, value: velueInput}));
-    setPhone(velueInput)
+    setValues(velueInput)
   };
-
+  
+  const chekingTime = () => {
+    console.log('cheking')
+    if(specifiedDeliveryTime && value) {
+      dispatch(chageFrom({name, value, keysValids}));
+    } else {
+      dispatch(chageFrom({name, value: '', keysValids}));
+      setError(false)
+      setValues('')
+    }
+  }
+  
+  const onBlurValidation = async (fieldName, value) => {
+    try {
+      await deliveryFormSchema.fields[fieldName]?.validate(value);
+      setError(null)
+    } catch (error) {
+      setError(error.message)
+    }
+  };
 
   return (
     <div className={`${s.deliveryInputWrapper} ${error && `${s.error}`}`}>
       <label htmlFor={name} className={s.deliveryInputLabel}>
         {label}
-        {error && <p>{error}</p>}
       </label>
 
       {name === "deliveryTime" ? (
@@ -51,7 +88,7 @@ const DeliveryInput = ({
       ) : null}
 
       <input
-      value={phone}
+        value={value}
         defaultValue={defaultValue}
         className={`${s.deliveryInput} ${
           !specifiedDeliveryTime && name === "deliveryTime"
@@ -61,6 +98,7 @@ const DeliveryInput = ({
         {...register(name)}
         type={type}
         onChange={handleInputChange}
+        onBlur={() => onBlurValidation(name, value)}
       />
     </div>
   );

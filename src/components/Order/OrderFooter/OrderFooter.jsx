@@ -28,7 +28,7 @@ export default function OrderFooter() {
   } = selector((state) => state.setOrder);
   const { venueId, tableId, methodOrder, isDelivery } = selector((state) => state.menu);
   const { orderId, isPaid } = selector((state) => state.setBasket);
-  const clientInfo = selector((state) => state.getClientInfo);
+  const { name, phone, address, address_details, deliveryTime, commentToDelivery} = selector((state) => state.getClientInfo);
 
   useEffect(() => {
     if(!isDelivery) {
@@ -38,6 +38,8 @@ export default function OrderFooter() {
       dispatch(giveTips({ inputTips: false, actualTips: 0 }));
     }
   }, [amount]);
+
+  
 
   const creatData = () => {
     let dishList = [];
@@ -87,9 +89,10 @@ export default function OrderFooter() {
   const postOrder = () => {
     const data = creatData();
     if(isDelivery) {
-      for (const key in clientInfo) {
-        if (clientInfo.hasOwnProperty(key)) {
-          data[key] = clientInfo[key];
+      let dataClient = {name, phone, address, address_details, deliveryTime, commentToDelivery}
+      for (const key in dataClient) {
+        if (dataClient.hasOwnProperty(key)) {
+          data[key] = dataClient[key];
         }
       }
     }
@@ -131,6 +134,7 @@ export default function OrderFooter() {
           tipsDispatch={giveTips}
           dispatchMethod={setPaymentMethod}
           amount={amount}
+          form={true}
         />
       ) : (
         ""

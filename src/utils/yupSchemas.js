@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const deliveryFormSchema = yup.object({
+export const deliveryFormSchema = yup.object().shape({
   name: yup.string().required(),
   phone: yup
     .string()
