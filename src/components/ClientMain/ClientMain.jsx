@@ -20,7 +20,7 @@ const ClientMain = ({params}) => {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
   const [dataLoaded, setDataLoaded] = useState(false);
-  const {photoUrl, venueId, menus, address, extraPhone, phone, website, instagram, facebook, name, openingTime, closingTime, types, logoUrl, methodOrder} = selector((state)=> state.menu);
+  const {photoUrl, venueId, menus, address, extraPhone, phone, website, instagram, facebook, name, openingTime, closingTime, types, logoUrl, methodOrder, isDelivery} = selector((state)=> state.menu);
 
   useEffect(() => {
     dispatch(setCurrentPage(1))
@@ -44,6 +44,11 @@ const ClientMain = ({params}) => {
       paddingRight: '6vw',
     }
   }
+
+  useEffect(() => {
+    localStorage.setItem("methodOrder", methodOrder);
+    localStorage.setItem("isDelivery", isDelivery);
+  }, [methodOrder])
 
   if (!dataLoaded) {
     return <Loading text={' '}></Loading>;

@@ -93,6 +93,7 @@ export default function BasketFooter() {
           tipsDispatch={giveTips}
           dispatchMethod={setPaymentMethod}
           amount={totalAmount}
+          form={false}
         />
         <OrderBtn
           title={`${
