@@ -33,6 +33,7 @@ export default function BasketFooter() {
     tips,
     paymentStatus,
     paymentMethod,
+    totalDeclined,
   } = selector((state) => state.setBasket);
   const [totalItems, setTotalItems] = useState(totalAmount);
 
@@ -87,7 +88,7 @@ export default function BasketFooter() {
   if (orderId) {
     return (
       <div className={s.orderFooter}>
-        <Total total={totalItems} />
+        <Total totalDeclined={totalDeclined} total={totalItems} />
         <PaymentMethod
           tips={tips}
           tipsDispatch={giveTips}

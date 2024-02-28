@@ -15,6 +15,7 @@ const initialState = {
   totalAmount: 0,
   responsDish: [],
   paymentStatus: false,
+  totalDeclined: false,
 };
 
 export const setBasket = createSlice({
@@ -101,6 +102,15 @@ export const setBasket = createSlice({
           state.orderId = id;
           state.isPaid = isPaid; // не забыть поменять на isPaid
           state.totalAmount = +totalAmount;
+          const sumDeclined = dishes.reduce((acc, obj) => {
+            if (obj.dishStatusId === 6) {
+              acc += +obj.amount;
+            }
+            console.log(acc)
+            return acc;
+          }, 0);
+          
+          state.totalDeclined = sumDeclined;
         }
       })
       .addCase(fetchBasket.rejected, (state, action) => {
