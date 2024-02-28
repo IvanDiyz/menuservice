@@ -12,7 +12,6 @@ const DeliveryTimeButtons = ({
   const dispatch = useAppDispatch();
   const handleDeliveryTimeChange = () => {
     setSpecifiedDeliveryTime((prevState) => !prevState);
-    console.log('prevState', specifiedDeliveryTime)
     dispatch(setFastPossible(specifiedDeliveryTime));
   }
 
