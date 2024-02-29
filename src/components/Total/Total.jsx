@@ -4,7 +4,7 @@ export default function Total({total, totalDeclined}) {
 
   return (
     <div className={s.total}>
-      {totalDeclined && (
+      {totalDeclined > 0 && (
       <div className={s.total__wrapper}>
         <span className={s.total__title}>Знижка:</span>
         <span className={s.total__declined}>{totalDeclined} ₴</span>
