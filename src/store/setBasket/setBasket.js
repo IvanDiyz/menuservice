@@ -106,7 +106,6 @@ export const setBasket = createSlice({
             if (obj.dishStatusId === 6) {
               acc += +obj.amount;
             }
-            console.log(acc)
             return acc;
           }, 0);
           

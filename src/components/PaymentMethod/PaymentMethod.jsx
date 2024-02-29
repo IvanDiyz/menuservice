@@ -33,13 +33,13 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch, form}) => {
       setActivePayment(1);
     }
     // setHeight((setHeightPay.current?.scrollHeight / 3.4));
-    setHeight(31);
+    setHeight(17); // 31
   }, [choiceMethod]);
   useEffect(() => {
     if (activePayment == 1) {
-      setHeight(31);
+      setHeight(17); // 31
     } else {
-      setHeight(83.4);
+      setHeight(64.4); // 83.4
     }
     dispatch(dispatchMethod(activePayment))
   }, [activePayment]);
@@ -94,20 +94,20 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch, form}) => {
           minHeight:
             activePayment != 1
               // ? `${setHeightTips.current?.scrollHeight / 3.8}vw`
-              ? `${52}vw`
+              ? `${49}vw` // 52
               : "0",
         }}
       >
         <Tips tips={tips} tipsDispatch={tipsDispatch} amount={amount}/>
       </div>
       {isDelivery && form && <DeliveryForm />}
-      <input
+      {/* <input
         className={s.orderFooter__emailInput}
         type="email"
         value={email}
         onChange={emailClient}
         placeholder="Введіть свій E-mail... Фіскальний чек"
-      />
+      /> */}
     </div>
   );
 };

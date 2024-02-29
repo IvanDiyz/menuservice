@@ -7,7 +7,7 @@ export const fetchOrder = createAsyncThunk(
     if(!params.orderId) {
       try {
         const response = await api.post(`/order/${params.venueId}/${params.tableId}/9b60da07-c77e-479f-82fa-d19238cb5eb0`, params.data)
-        await nitificateCall(response.data.id, params.request)
+        // await nitificateCall(response.data.id, params.request)
         return response.data;
       } catch (e) {
         return thunkAPI.rejectWithValue("щось пішло не так!");
