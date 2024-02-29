@@ -15,6 +15,7 @@ export default function Tips({ amount, tipsDispatch, tips }) {
 
   useEffect(() => {
     if(tips == 0) {
+      console.log('reset tips')
       setActualTips(tips);
       setInputValue('');
     }
@@ -102,8 +103,7 @@ export default function Tips({ amount, tipsDispatch, tips }) {
       <div className={s.tips__items}>
         <span
           className={`${s.tips__item} ${
-            Math.floor((amount * actualTips) / 100) ==
-              Math.floor(amount * 0.05) && amount * 0.05 != 0
+            actualTips === "5" && tips > 0
               ? `${s.tips__activeItem}`
               : ""
           }`}
@@ -115,8 +115,7 @@ export default function Tips({ amount, tipsDispatch, tips }) {
         </span>
         <span
           className={`${s.tips__item} ${
-            Math.floor((amount * actualTips) / 100) ==
-              Math.floor(amount * 0.1) && amount * 0.05 != 0
+            actualTips === "10" && tips > 0
               ? `${s.tips__activeItem}`
               : ""
           }`}
@@ -128,8 +127,7 @@ export default function Tips({ amount, tipsDispatch, tips }) {
         </span>
         <span
           className={`${s.tips__item} ${
-            Math.floor((amount * actualTips) / 100) ==
-              Math.floor(amount * 0.15) && amount * 0.05 != 0
+            actualTips === "15" && tips > 0
               ? `${s.tips__activeItem}`
               : ""
           }`}
