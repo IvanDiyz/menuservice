@@ -109,8 +109,9 @@
     }
 
     &__btn__close {
-        top: -8px;
+        top: 50%;
         right: 0;
+        transform: translate(-50%, -50%);
         position: absolute;
         width: 5.5vw;
         height: 5.5vw;
@@ -129,6 +130,9 @@
     &__input::placeholder {
         font-size: 3.3vw;
     }
+    &__input:focus {
+        outline: none;
+    }
 
     &__btn__close {
         display: none;
@@ -141,8 +145,8 @@
         width: 4.6vw;
         height: 2px;
         background: #FFC700;
-        top: 8px;
-        right: 0;
+        top: 49%;
+        right: 9%;
     }
 
     &__btn__close::after {
