@@ -278,10 +278,10 @@ export default function OrderItem({ dish, indexItem }) {
                 {dish.dish.discount ? (
                   <p className={s.menuitem__price}>
                     <span className={s.menuitem__priceDiscount}>
-                      {dish.dish.cost} ₴
+                      {+dish.dish.cost} ₴
                     </span>
                     <span>
-                      {dish.dish.discount}{" "}
+                      {+dish.dish.discount}{" "}
                       ₴
                     </span>
                   </p>
@@ -339,7 +339,7 @@ export default function OrderItem({ dish, indexItem }) {
                   >
                     <div className={s.menuitem__info_box}>
                       <p className={s.menuitem__additiveName}>{el.title}</p>
-                      <p className={s.menuitem__additivePrice}>{el.cost} ₴</p>
+                      <p className={s.menuitem__additivePrice}>{+el.cost} ₴</p>
                     </div>
                     <div className={s.menuitem__popup_btn}>
                       <SuppleButton

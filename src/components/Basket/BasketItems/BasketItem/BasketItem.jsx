@@ -102,15 +102,15 @@ export default function BasketItem({ dish, indexItem, check }) {
           <div className={s.basketItem__infoAdditives}>
             {dish.orderDishAddons?.map((el) => (
               <p key={el.id} className={s.basketItem__infoAdditive}>
-                {el.addon.title} ({el.addon.cost}₴) - {el.addonQuantity}шт.
+                {el.addon.title} ({+el.addon.cost}₴) - {el.addonQuantity}шт.
               </p>
             ))}
           </div>
         </div>
       </div>
       <div className={s.basketItem__price}>
-        <span className={s.basketItem__priceItems}>{dish.amount} ₴</span>
-        <span className={s.basketItem__priceItem}>({dish.dish.discount ? dish.dish.discount : dish.dish.cost}₴)</span>
+        <span className={s.basketItem__priceItems}>{+dish.amount} ₴</span>
+        <span className={s.basketItem__priceItem}>({dish.dish.discount ? +dish.dish.discount : +dish.dish.cost} ₴)</span>
         {check != "payAll" ? (
           <div className={s.basketItem__checkBox} onClick={clickCheckbox}>
             <span
