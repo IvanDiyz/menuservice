@@ -230,12 +230,12 @@ export default function Menuitem({ triger, dish }) {
                 {dish.discount ? (
                   <p className={s.menuitem__price}>
                     <span className={s.menuitem__priceDiscount}>
-                      {dish.cost} ₴
+                      {+dish.cost} ₴
                     </span>
-                    <span>{dish.discount} ₴</span>
+                    <span>{+dish.discount} ₴</span>
                   </p>
                 ) : (
-                  <p className={s.menuitem__price}>{dish.cost} ₴</p>
+                  <p className={s.menuitem__price}>{+dish.cost} ₴</p>
                 )}
               </div>
             </div>
@@ -280,7 +280,7 @@ export default function Menuitem({ triger, dish }) {
                   >
                     <div className={s.menuitem__info_box}>
                       <p className={s.menuitem__additiveName}>{el.title}</p>
-                      <p className={s.menuitem__additivePrice}>{el.cost} ₴</p>
+                      <p className={s.menuitem__additivePrice}>{+el.cost} ₴</p>
                     </div>
                     <div className={s.menuitem__popup_btn}>
                       <SuppleButton
@@ -527,11 +527,11 @@ export default function Menuitem({ triger, dish }) {
             </div>
             {dish.discount ? (
               <p className={s.menuitem__price}>
-                <span className={s.menuitem__priceDiscount}>{dish.cost} ₴</span>
+                <span className={s.menuitem__priceDiscount}>{+dish.cost} ₴</span>
                 <span>{dish.discount} ₴</span>
               </p>
             ) : (
-              <p className={s.menuitem__price}>{dish.cost} ₴</p>
+              <p className={s.menuitem__price}>{+dish.cost} ₴</p>
             )}
           </div>
           {quantity > 0 ? (
