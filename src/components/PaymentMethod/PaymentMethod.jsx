@@ -13,7 +13,7 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch, form}) => {
   const { isDelivery } = selector(
     (state) => state.menu
   );
-  const { choiceMethod } = selector(
+  const { choiceMethod, paymentMethod } = selector(
     (state) => state.setOrder
   );
   const { paymentStatus } = selector(
@@ -31,15 +31,22 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch, form}) => {
   useEffect(() => {
     if (!choiceMethod) {
       setActivePayment(1);
+    } else {
+      console.log('current', setHeightPay.current.scrollHeight)
+    }
+    if(paymentMethod > 1) {
+      setHeight(67);
+    } else {
+      setHeight(13); // 31
     }
     // setHeight((setHeightPay.current?.scrollHeight / 3.4));
-    setHeight(17); // 31
-  }, [choiceMethod]);
+  }, [choiceMethod, paymentMethod]);
+
   useEffect(() => {
     if (activePayment == 1) {
-      setHeight(17); // 31
+      setHeight(13); // 31
     } else {
-      setHeight(64.4); // 83.4
+      setHeight(67); // 83.4
     }
     dispatch(dispatchMethod(activePayment))
   }, [activePayment]);
@@ -55,7 +62,7 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch, form}) => {
     <div
       ref={setHeightPay}
       style={{
-        minHeight: choiceMethod ? `${heightPay}vw` : "0",
+        height: choiceMethod ? `${heightPay}vw` : "0",
       }}
       className={`${s.orderFooter__paymentBox} ${
         choiceMethod  ? `${s.orderFooter__paymentBox__active}` : ""
@@ -94,7 +101,7 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch, form}) => {
           minHeight:
             activePayment != 1
               // ? `${setHeightTips.current?.scrollHeight / 3.8}vw`
-              ? `${49}vw` // 52
+              ? `${51}vw` // 52
               : "0",
         }}
       >
