@@ -24,7 +24,7 @@ const ChoiceMethods = ({firstmethod, lastmethod, svg}) => {
   }, [choiceMethod])
 
   return (
-    <div className={s.orderMethods}>
+    <div className={`${s.orderMethods} ${choiceMethod && (s.orderMethods__active)}`}>
       <div className={`${s.orderMethods__button} ${isActive == false ? s.active : ''}`} onClick={() => toggleOrder(false)}>
           {svg ? <svg
             width="24"

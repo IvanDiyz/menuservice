@@ -120,16 +120,14 @@ export default function OrderFooter() {
   return (
     <div className={s.orderFooter}>
       <Total total={allAmount} />
-      {!orderId && isPaid == null && !isDelivery ? (
+      {!orderId && isPaid == null && !isDelivery && (
         <ChoiceMethods
           firstmethod={"Cплатити потім"}
           lastmethod={"Сплатити зараз"}
           svg={false}
         />
-      ) : (
-        ""
       )}
-      {!orderId && isPaid == null ? (
+      {!orderId && isPaid == null && (
         <PaymentMethod
           tips={tips}
           tipsDispatch={giveTips}
@@ -137,8 +135,6 @@ export default function OrderFooter() {
           amount={amount}
           form={true}
         />
-      ) : (
-        ""
       )}
       
 
