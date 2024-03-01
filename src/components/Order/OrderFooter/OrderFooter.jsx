@@ -99,6 +99,7 @@ export default function OrderFooter() {
     if (items.length > 0) {
       dispatch(
         fetchOrder({
+          choiceMethod: choiceMethod,
           orderId: orderId,
           venueId: venueId,
           tableId: tableId,
@@ -122,7 +123,7 @@ export default function OrderFooter() {
       {!orderId && isPaid == null && !isDelivery ? (
         <ChoiceMethods
           firstmethod={"Cплатити потім"}
-          lastmethod={"Сплтатити зараз"}
+          lastmethod={"Сплатити зараз"}
           svg={false}
         />
       ) : (
