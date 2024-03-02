@@ -8,7 +8,6 @@ import Content from "../Content/Content";
 const Layer = ({ children, params }) => {
   return (
     <>
-
       <div className={s.container}>
         <Header params={params} />
         <Content children={children} />
