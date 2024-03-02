@@ -13,13 +13,19 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useEffect, useState } from "react";
 import { setMenuId } from "@/store/getSections/getSections";
 import { managerItems } from "@/store/setOrder/setOrder";
+import Search from "@/components/Search/Search";
 
-const menu = () => {
+const menu = ({params}) => {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
   const [dataLoaded, setDataLoaded] = useState(false);
   const { menuId, error } = selector((state) => state.getSections);
   const { amount, items } = selector((state) => state.setOrder);
+  const [search, setSearch] = useState(false);
+
+  const changSearch = () => {
+    !search ? setSearch(true) : setSearch(false);
+  };
   
 
   useEffect(() => {
@@ -53,6 +59,7 @@ const menu = () => {
   } else {
     return (
       <>
+        {/* <Search changState={changSearch} params={params} /> */}
         <Filtres />
         <Menuitems />
         <Totalscore />

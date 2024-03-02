@@ -22,6 +22,7 @@ export default function App({ children }) {
     (state) => state.setBasket
   );
   const { tableId, venueId, orders, methodOrder } = selector((state) => state.menu);
+  const { stateSeatch } = selector((state) => state.setSearch);
 
   useEffect(() => {
     if (venueId == null || tableId == null) {
@@ -111,9 +112,18 @@ export default function App({ children }) {
     }
   }, [])
 
+  const styleBody = {
+    open: {
+      overflowY: 'hidden'
+    },
+    close: {
+      overflowY: 'auto'
+    },
+  }
+
   return (
     <html lang="en">
-      <body>
+      <body style={stateSeatch ? styleBody.open : styleBody.close}>
         <ToastContainer position="top-center" autoClose={3000} pauseOnHover />
         {children}
         <Suspense fallback={null}>

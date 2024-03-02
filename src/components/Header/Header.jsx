@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
 import s from "./Header.module.scss";
-import Openedmenu from "../Openedmenu/Openedmenu";
 import Search from "@/components/Search/Search";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setNotificate } from "@/store/notificate/notificate";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { setOpenedSearch } from "@/store/setSearch/setSearch";
 
 export default function Header({params}) {
   const selector = useAppSelector;
@@ -15,15 +15,16 @@ export default function Header({params}) {
   const { venueId, tableId, logoUrl } = selector((state) => state.menu);
   const { orderId } = selector((state) => state.setBasket);
   const [search, setSearch] = useState(false);
-  const [menu, setMenu] = useState(false);
 
   const changSearch = () => {
+    if(!search) {
+      setSearch(true)
+      dispatch(setOpenedSearch(true))
+    } else {
+      setSearch(false)
+      dispatch(setOpenedSearch(false))
+    }
     !search ? setSearch(true) : setSearch(false);
-    setMenu(false);
-  };
-  const changMenu = () => {
-    !menu ? setMenu(true) : setMenu(false);
-    setSearch(false);
   };
   //function for open Notificate
   const openNotificate = () => {
@@ -165,11 +166,6 @@ export default function Header({params}) {
         }`}
       >
         <Search changState={changSearch} params={params} />
-      </div>
-      <div
-        className={`${s.header__menu} ${menu ? `${s.header__menuhOpen}` : ""}`}
-      >
-        <Openedmenu changState={changMenu} />
       </div>
     </header>
   );
