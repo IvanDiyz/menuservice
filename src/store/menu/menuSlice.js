@@ -26,6 +26,7 @@ const initialState = {
   address: null,
   orders: null,
   status: null,
+  popup: false,
 };
 
 export const menuSlice = createSlice({
@@ -46,6 +47,9 @@ export const menuSlice = createSlice({
     },
     managerOrderId: (state, action) => {
       state.orders = action.payload;
+    },
+    popupState: (state, action) => {
+      state.popup = action.payload;
     },
   },
   extraReducers: (builder) =>
@@ -98,5 +102,5 @@ export const menuSlice = createSlice({
       }),
 });
 
-export const { managerOrderId, managerVenueId, setMethodOrder } = menuSlice.actions;
+export const { popupState, managerOrderId, managerVenueId, setMethodOrder } = menuSlice.actions;
 export default menuSlice.reducer;

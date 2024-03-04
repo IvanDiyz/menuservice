@@ -13,6 +13,7 @@ import Totaldish from "@/components/Menuitems/Totaldish/Totaldish";
 import { useEffect, useState } from "react";
 import s from "./Menuitem.module.scss";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { popupState } from "@/store/menu/menuSlice";
 
 export default function Menuitem({ triger, dish }) {
   const dispatch = useAppDispatch();
@@ -35,13 +36,15 @@ export default function Menuitem({ triger, dish }) {
 
   const openPopup = (e) => {
     setPopup(true);
-    document.body.style.overflowY = "hidden";
+    dispatch(popupState(true));
+    // document.body.style.overflowY = "hidden";
   };
   const closePopup = (e) => {
     setComment("");
     setPopup(false);
     dispatch(clearState());
-    document.body.style.overflowY = stateSeatch ? "hidden" : "auto";
+    dispatch(popupState(false));
+    // document.body.style.overflowY = stateSeatch ? "hidden" : "auto";
   };
 
   const changeText = (e) => {
@@ -316,6 +319,7 @@ export default function Menuitem({ triger, dish }) {
         className={`${s.menuitem__wrapper} ${
           quantity ? `${s.menuitem__wrapper__active}` : ""
         }`}
+        onClick={openPopup}
       >
         <div
           style={
@@ -326,7 +330,7 @@ export default function Menuitem({ triger, dish }) {
                 }
           }
           className={s.menuitem__photo}
-          onClick={openPopup}
+          
         >
           <div className={s.menuitem__serves}>
             <div>

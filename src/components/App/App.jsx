@@ -21,7 +21,7 @@ export default function App({ children }) {
   const { paymentStatus, isPaid, orderId } = selector(
     (state) => state.setBasket
   );
-  const { tableId, venueId, orders, methodOrder } = selector((state) => state.menu);
+  const { tableId, venueId, orders, methodOrder, popup } = selector((state) => state.menu);
   const { stateSeatch } = selector((state) => state.setSearch);
 
   useEffect(() => {
@@ -123,7 +123,7 @@ export default function App({ children }) {
 
   return (
     <html lang="en">
-      <body style={stateSeatch ? styleBody.open : styleBody.close}>
+      <body  className={`${s.app} ${stateSeatch || popup ? s.app__open : s.app__close}`}>
         <ToastContainer position="top-center" autoClose={3000} pauseOnHover />
         {children}
         <Suspense fallback={null}>
