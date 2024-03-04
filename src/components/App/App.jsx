@@ -22,7 +22,7 @@ export default function App({ children }) {
     (state) => state.setBasket
   );
   const { tableId, venueId, orders, methodOrder, popup } = selector((state) => state.menu);
-  const { stateSeatch } = selector((state) => state.setSearch);
+  const { stateSearch } = selector((state) => state.setSearch);
 
   useEffect(() => {
     if (venueId == null || tableId == null) {
@@ -112,18 +112,10 @@ export default function App({ children }) {
     }
   }, [])
 
-  const styleBody = {
-    open: {
-      overflowY: 'hidden'
-    },
-    close: {
-      overflowY: 'auto'
-    },
-  }
 
   return (
     <html lang="en">
-      <body  className={`${s.app} ${stateSeatch || popup ? s.app__open : s.app__close}`}>
+      <body  className={`${s.app} ${stateSearch || popup ? s.app__open : s.app__close}`}>
         <ToastContainer position="top-center" autoClose={3000} pauseOnHover />
         {children}
         <Suspense fallback={null}>

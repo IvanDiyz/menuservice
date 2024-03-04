@@ -88,6 +88,7 @@ export default function OrderFooter() {
 
   const postOrder = () => {
     const data = creatData();
+    !choiceMethod && delete data.paymentMethodId;
     if(isDelivery) {
       let dataClient = {name, phone, address, address_details, deliveryTime, commentToDelivery}
       for (const key in dataClient) {
