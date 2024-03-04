@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import s from "./Tips.module.scss";
 import { useEffect, useState } from "react";
 
-export default function Tips({ amount, tipsDispatch, tips }) {
+export default function Tips({ amount, tipsDispatch, tips, payment }) {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
   const { paymentStatus } = selector((state) => state.setBasket);
@@ -14,20 +14,21 @@ export default function Tips({ amount, tipsDispatch, tips }) {
   const [actualTips, setActualTips] = useState(0);
 
   useEffect(() => {
-    if(tips == 0) {
-      console.log('reset tips')
+    if(tips === 0 && payment != true) {
       setActualTips(tips);
       setInputValue('');
     }
   }, [tips])
 
   useEffect(() => {
+    // debugger
     if (inputValue && bool) {
       dispatch(
         tipsDispatch({ bool: bool, inputValue: inputValue, inputTips: true })
       );
-    } else {
-      dispatch(tipsDispatch({ bool, actualTips }));
+    } 
+    else {
+      payment != true && dispatch(tipsDispatch({ bool, actualTips }));
     }
   }, [bool, actualTips, amount]);
   //отображение карточки чаевых

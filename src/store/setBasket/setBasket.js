@@ -5,7 +5,7 @@ import { fetchMenu } from "../menu/menuApi";
 
 const initialState = {
   allAmount: 0,
-  paymentMethod: 'cash',
+  paymentMethod: 1,
   check: 'payAll',
   items: [],
   status: false,
@@ -94,12 +94,14 @@ export const setBasket = createSlice({
           Object.assign(state, initialState);
           state.isPaid = action.payload.isPaid;
         } else {
-          const {id, totalAmount, isPaid, dishes} = action.payload
+          const {id, totalAmount, isPaid, dishes, tips, orderPaymentMethodId} = action.payload
           state.data = action.payload;
           state.responsDish = dishes;
           state.items = dishes;
           state.status = "succeeded";
           state.orderId = id;
+          state.tips = +tips;
+          state.paymentMethod = orderPaymentMethodId;
           state.isPaid = isPaid; // не забыть поменять на isPaid
           state.totalAmount = +totalAmount;
           const sumDeclined = dishes.reduce((acc, obj) => {

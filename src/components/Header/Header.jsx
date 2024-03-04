@@ -142,8 +142,6 @@ export default function Header({params}) {
             </g>
           </svg>
         </Link>
-        {pathName !== `/${venueId}/${tableId}` && (
-
           <svg
             width="24"
             height="24"
@@ -160,7 +158,6 @@ export default function Header({params}) {
               />
             </g>
           </svg>
-        )}
       </div>
       <div
         className={`${s.header__search} ${
