@@ -88,13 +88,15 @@ export default function BasketFooter() {
   if (orderId) {
     return (
       <div className={s.orderFooter}>
-        <Total totalDeclined={totalDeclined} total={totalItems} />
+        <Total tips={tips} totalDeclined={totalDeclined} total={totalItems} />
         <PaymentMethod
           tips={tips}
           tipsDispatch={giveTips}
           dispatchMethod={setPaymentMethod}
           amount={totalAmount}
           form={false}
+          payment={paymentStatus}
+          method={paymentMethod}
         />
         <OrderBtn
           title={`${

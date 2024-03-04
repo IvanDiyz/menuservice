@@ -5,7 +5,7 @@ import s from "./PaymentMethod.module.scss";
 import Tips from "../Tips/Tips";
 import DeliveryForm from "../DeliveryForm/DeliveryForm";
 
-const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch, form}) => {
+const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch, form, payment, method}) => {
   const setHeightPay = useRef(null);
   const setHeightTips = useRef(null);
   const dispatch = useAppDispatch();
@@ -20,7 +20,7 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch, form}) => {
     (state) => state.setBasket
   );
   const [email, setEmail] = useState("");
-  const [activePayment, setActivePayment] = useState(1);
+  const [activePayment, setActivePayment] = useState(method);
   const [heightPay, setHeight] = useState();
 
   let emailClient = (e) => {
@@ -29,33 +29,34 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch, form}) => {
   };
 
   useEffect(() => {
+    payment && setActivePayment(method)
     if (!choiceMethod) {
-      setActivePayment(1);
+      setActivePayment( method || 1);
     } else {
       console.log('current', setHeightPay.current.scrollHeight)
     }
-    if(paymentMethod > 1) {
+    if(method > 1 && !payment) {
       setHeight(67);
     } else {
       setHeight(13); // 31
     }
     // setHeight((setHeightPay.current?.scrollHeight / 3.4));
-  }, [choiceMethod, paymentMethod]);
+  }, [choiceMethod, method]);
 
   useEffect(() => {
-    if (activePayment == 1) {
+    if (activePayment == 1 || payment) {
       setHeight(13); // 31
     } else {
       setHeight(67); // 83.4
     }
-    dispatch(dispatchMethod(activePayment))
-  }, [activePayment]);
+    !payment && dispatch(dispatchMethod(activePayment))
+  }, [activePayment, payment]);
 
-  const handlePaymentClick = (paymentMethod) => {
+  const handlePaymentClick = (method) => {
     if(paymentStatus) {
       return
     }
-    setActivePayment(paymentMethod);
+    setActivePayment(method);
   };
 
   return (
@@ -104,8 +105,10 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch, form}) => {
               ? `${51}vw` // 52
               : "0",
         }}
-      >
-        <Tips tips={tips} tipsDispatch={tipsDispatch} amount={amount}/>
+      > 
+        {!payment && (
+        <Tips payment={payment} tips={tips} tipsDispatch={tipsDispatch} amount={amount}/>
+        )}
       </div>
       {isDelivery && form && <DeliveryForm />}
       {/* <input
