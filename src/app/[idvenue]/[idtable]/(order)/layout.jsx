@@ -8,7 +8,7 @@ import Pageresult from "@/components/Pageresult/Pageresult"
 
 export default function DashboardLayout({ children }) {
   const selector = useAppSelector;
-  const { delivery, status } = selector((store) => store.setOrder);
+  const { delivery, status, items } = selector((store) => store.setOrder);
 
   const objWaiting = {
     loading:  <Loading loading={status}/>,
@@ -27,7 +27,7 @@ export default function DashboardLayout({ children }) {
           <Orderheader />
           {children}
         </div>
-        <OrderFooter />
+        {items.length > 0 && <OrderFooter />}
       </div>
     );
   }

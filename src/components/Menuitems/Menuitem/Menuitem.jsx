@@ -19,7 +19,7 @@ export default function Menuitem({ triger, dish }) {
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
   const { items, item } = selector((state) => state.setOrder);
-  const { stateSeatch } = selector((state) => state.setSearch);
+  const { stateSearch } = selector((state) => state.setSearch);
   const [quantity, setQuantity] = useState(0);
   const [text, setComment] = useState("");
 
@@ -37,14 +37,12 @@ export default function Menuitem({ triger, dish }) {
   const openPopup = (e) => {
     setPopup(true);
     dispatch(popupState(true));
-    // document.body.style.overflowY = "hidden";
   };
   const closePopup = (e) => {
     setComment("");
     setPopup(false);
     dispatch(clearState());
     dispatch(popupState(false));
-    // document.body.style.overflowY = stateSeatch ? "hidden" : "auto";
   };
 
   const changeText = (e) => {

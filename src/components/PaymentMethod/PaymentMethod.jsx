@@ -42,7 +42,7 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch, form, paymen
     }
     // setHeight((setHeightPay.current?.scrollHeight / 3.4));
   }, [choiceMethod, method]);
-
+  
   useEffect(() => {
     if (activePayment == 1 || payment) {
       setHeight(13); // 31
@@ -50,7 +50,7 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch, form, paymen
       setHeight(67); // 83.4
     }
     !payment && dispatch(dispatchMethod(activePayment))
-  }, [activePayment, payment]);
+  }, [activePayment, payment, method]);
 
   const handlePaymentClick = (method) => {
     if(paymentStatus) {
