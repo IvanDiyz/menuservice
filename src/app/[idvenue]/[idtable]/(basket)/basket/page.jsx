@@ -21,7 +21,7 @@ export default function Basket() {
     }
 
     return () => {
-      dispatch(fetchBasket({orderId, tableId}));
+      tableId && dispatch(fetchBasket({orderId, tableId}));
     }
   }, [paymentStatus])
   useEffect(() => {
