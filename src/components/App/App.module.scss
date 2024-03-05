@@ -1,7 +1,12 @@
 .app {
     &__open {
-        overflow: hidden;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        overflow-y: hidden;
+        pointer-events: none;
     }
+
     &__close {
         overflow: auto;
     }
