@@ -35,6 +35,7 @@ export default function BasketFooter() {
     paymentMethod,
     totalDeclined,
   } = selector((state) => state.setBasket);
+  const { tableId } = selector((state) => state.menu);
   const [totalItems, setTotalItems] = useState(totalAmount);
 
   const objMethod = {
@@ -72,10 +73,10 @@ export default function BasketFooter() {
   useEffect(() => {
     setTotalItems(allAmount);
     dispatch(changeChoice("now"));
-    if (typeof orderId === 'number') {
-      dispatch(fetchBasket(orderId));
+    if (typeof orderId === 'number' && tableId) {
+      dispatch(fetchBasket({orderId, tableId}));
     }
-  }, [orderId]);
+  }, [orderId, tableId]);
 
   useEffect(() => {
     let total = 0;

@@ -2,19 +2,26 @@
 import OrderMethods from "@/components/ClientMain/OrderMethods/OrderMethods";
 import BasketItems from "@/components/Basket/BasketItems/BasketItems";
 import s from "./page.module.scss";
-import { useAppSelector } from "@/hooks/redux";
-import { setCheck } from "@/store/setBasket/setBasket";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { resetState, setCheck } from "@/store/setBasket/setBasket";
 import { useEffect, useState } from "react";
 import Loading from "@/components/Loading/Loading";
+import { fetchBasket } from "@/store/setBasket/basketApi";
 
 export default function Basket() {
+  const dispatch = useAppDispatch();
   const selector = useAppSelector;
-  const  { check, paymentStatus } = selector(state => state.setBasket)
+  const { tableId } = selector((state) => state.menu);
+  const  { check, paymentStatus, orderId } = selector(state => state.setBasket)
   const [status, setStatus] = useState(false);
   
   useEffect(() => {
     if(paymentStatus) {
       setStatus(true);
+    }
+
+    return () => {
+      dispatch(fetchBasket({orderId, tableId}));
     }
   }, [paymentStatus])
   useEffect(() => {

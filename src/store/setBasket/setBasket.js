@@ -40,6 +40,13 @@ export const setBasket = createSlice({
     setIsPaid: (state, action) => {
       state.isPaid = action.payload;
     },
+    resetState: (state, action) => {
+      state.items = [];
+      state.responsDish = [];
+    },
+    removeId: (state, action) => {
+      state.orderId = null;
+    },
     setPaymentStatus: (state, action) => {
       state.paymentStatus = action.payload;
       
@@ -90,7 +97,7 @@ export const setBasket = createSlice({
         state.status = "loading";
       })
       .addCase(fetchBasket.fulfilled, (state, action) => {
-        if(action.payload.isPaid) {
+        if(action.payload.isPaid || action.payload.length <= 0) {
           Object.assign(state, initialState);
           state.isPaid = action.payload.isPaid;
         } else {
@@ -139,5 +146,5 @@ const defineItem = (obj1, obj2) => {
 }
 
 
-export const { setIsPaid, getPaymentStatus, setPaymentStatus, giveTips, addItem, removeItem, clearItems, setItems, setPaymentMethod, setCheck, } = setBasket.actions;
+export const { removeId, resetState, setIsPaid, getPaymentStatus, setPaymentStatus, giveTips, addItem, removeItem, clearItems, setItems, setPaymentMethod, setCheck, } = setBasket.actions;
 export default setBasket.reducer;
