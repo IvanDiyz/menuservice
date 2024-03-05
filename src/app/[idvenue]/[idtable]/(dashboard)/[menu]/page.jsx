@@ -13,7 +13,8 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useEffect, useState } from "react";
 import { setMenuId } from "@/store/getSections/getSections";
 import { managerItems } from "@/store/setOrder/setOrder";
-import Search from "@/components/Search/Search";
+import { setSearchMenu } from "@/store/setSearch/setSearch";
+import { clearDishis, setActualSection } from "@/store/getDishis/getDishis";
 
 const menu = ({params}) => {
   const selector = useAppSelector;
@@ -23,16 +24,13 @@ const menu = ({params}) => {
   const { amount, items } = selector((state) => state.setOrder);
   const [search, setSearch] = useState(false);
 
-  const changSearch = () => {
-    !search ? setSearch(true) : setSearch(false);
-  };
-  
 
   useEffect(() => {
     if(menuId == null) {
       const id = localStorage.getItem("menuId");
       const name = localStorage.getItem("menuName");
       dispatch(setMenuId({id, name}))
+      dispatch(setSearchMenu(id));
       return
     }
     //pregnant all sections by api
@@ -42,6 +40,12 @@ const menu = ({params}) => {
       setDataLoaded(true);
     };
     fetchData();
+
+    return () => {
+      dispatch(setSearchMenu(null))
+      dispatch(clearDishis())
+      dispatch(setActualSection(null))
+    }
   }, [menuId]);
 
  
@@ -59,7 +63,6 @@ const menu = ({params}) => {
   } else {
     return (
       <>
-        {/* <Search changState={changSearch} params={params} /> */}
         <Filtres />
         <Menuitems />
         <Totalscore />

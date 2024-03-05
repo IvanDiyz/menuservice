@@ -6,6 +6,7 @@ const initialState = {
   searchValue: '',
   isLoading: false,
   stateSearch: false,
+  idMenu: null,
 };
 
 export const setSearch = createSlice({
@@ -20,6 +21,9 @@ export const setSearch = createSlice({
     },
     clearDishis: (state, action) => {
       state.dishis = [];
+    },
+    setSearchMenu: (state, action) => {
+      state.idMenu = action.payload;
     },
     setOpenedSearch: (state, action) => {
       state.stateSearch = action.payload;
@@ -41,5 +45,5 @@ export const setSearch = createSlice({
       }),
 });
 
-export const { clearDishis, changeValue, setOpenedSearch } = setSearch.actions;
+export const { setSearchMenu, clearDishis, changeValue, setOpenedSearch } = setSearch.actions;
 export default setSearch.reducer;
