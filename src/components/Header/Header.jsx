@@ -159,6 +159,7 @@ export default function Header({params}) {
             </g>
           </svg>
       </div>
+      {search && (
       <div
         className={`${s.header__search} ${
           search ? `${s.header__searchOpen}` : ""
@@ -166,6 +167,7 @@ export default function Header({params}) {
       >
         <Search changState={changSearch} params={params} />
       </div>
+      )}
     </header>
   );
 }
