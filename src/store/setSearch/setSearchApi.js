@@ -29,9 +29,14 @@ const debounce = (func, delay) => {
 };
 
 const debouncedFetchSearch = debounce(async (data) => {
-  const { actualSection, searchValue, venueUId } = data;
+  const { actualSection, searchValue, venueUId, idMenu } = data;
   if(actualSection) {
-    const response = await api.get(`/menu/${venueUId}/dish/search-by-venue?query=${searchValue}&sectionId=${actualSection}`);
+    const sectionId = actualSection ? `sectionId=${actualSection}&` : '';
+    const response = await api.get(`/menu/${venueUId}/dish/search-by-venue?query=${searchValue}&${sectionId}`);
+    return response.data;
+  } else if (idMenu) {
+    const menuId = idMenu ? `menuId=${idMenu}&` : '';
+    const response = await api.get(`/menu/${venueUId}/dish/search-by-venue?query=${searchValue}&${menuId}`);
     return response.data;
   } else {
     const response = await api.get(`/menu/${venueUId}/dish/search-by-venue?query=${searchValue}`);
