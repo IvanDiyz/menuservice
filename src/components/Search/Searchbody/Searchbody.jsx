@@ -1,8 +1,7 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import s from "./Searchbody.module.scss";
-import { createRef, useEffect } from "react";
-import { changeValue } from "@/store/setSearch/setSearch";
+import { useEffect } from "react";
 import { fetchSearch } from "@/store/setSearch/setSearchApi";
 import Menuitem from "@/components/Menuitems/Menuitem/Menuitem";
 

@@ -19,7 +19,6 @@ export default function Menuitem({ triger, dish }) {
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
   const { items, item } = selector((state) => state.setOrder);
-  const { stateSearch } = selector((state) => state.setSearch);
   const [quantity, setQuantity] = useState(0);
   const [text, setComment] = useState("");
 
@@ -306,11 +305,13 @@ export default function Menuitem({ triger, dish }) {
               ></textarea>
             </div>
           </div>
-          <Totaldish
-            closePopup={closePopup}
-            text={text}
-            dispatchMethod={addBasket}
-          />
+          {item?.priceDicount && (
+            <Totaldish
+              closePopup={closePopup}
+              text={text}
+              dispatchMethod={addBasket}
+            />
+          )}
         </div>
       </Popup>
       <div

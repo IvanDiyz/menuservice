@@ -22,6 +22,7 @@ const menu = ({params}) => {
   const [dataLoaded, setDataLoaded] = useState(false);
   const { menuId, error } = selector((state) => state.getSections);
   const { amount, items } = selector((state) => state.setOrder);
+  const { idMenu } = selector((state) => state.setSearch);
   const [search, setSearch] = useState(false);
 
 
@@ -30,7 +31,6 @@ const menu = ({params}) => {
       const id = localStorage.getItem("menuId");
       const name = localStorage.getItem("menuName");
       dispatch(setMenuId({id, name}))
-      dispatch(setSearchMenu(id));
       return
     }
     //pregnant all sections by api
@@ -40,7 +40,7 @@ const menu = ({params}) => {
       setDataLoaded(true);
     };
     fetchData();
-
+    
     return () => {
       dispatch(setSearchMenu(null))
       dispatch(clearDishis())
@@ -48,8 +48,13 @@ const menu = ({params}) => {
     }
   }, [menuId]);
 
- 
-
+  useEffect(() => {
+    const id = localStorage.getItem("menuId");
+    idMenu == null && dispatch(setSearchMenu(id));
+  }, [])
+  
+  
+  
   useEffect(() => {
     const localItems = JSON.parse(localStorage.getItem('items'))
     const localAmount = JSON.parse(localStorage.getItem('amount'))
