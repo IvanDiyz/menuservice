@@ -17,6 +17,7 @@ export default function Order() {
     const localItems = JSON.parse(localStorage.getItem("items"));
     const localAmount = JSON.parse(localStorage.getItem("amount"));
     if (localItems !== null && localAmount !== null) {
+      // debugger
       dispatch(managerItems({ items: localItems, amount: localAmount }));
     }
   }, []);

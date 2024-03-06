@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import s from "./OrderBtn.module.scss";
 
 
-const OrderBtn = ({ title, setData }) => {
+const OrderBtn = ({ title, setData, items }) => {
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
   const {paymentStatus} = selector(state => state.setBasket)
@@ -23,7 +23,7 @@ const OrderBtn = ({ title, setData }) => {
   const observer = () => {
     changeClick(true)
   }
-  if(isDelivery && error) {
+  if(isDelivery && error || items.length <= 0) {
     return (
       <div className={`${s.orderFooter__btn} ${s.orderFooter__btnWaiterWait}`}>
         <button disabled={true}>{title}</button>

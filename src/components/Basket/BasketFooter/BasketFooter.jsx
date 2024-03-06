@@ -104,6 +104,7 @@ export default function BasketFooter() {
             paymentStatus ? "Очікуйте підтвердження оплати" : "Сплатити"
           }`}
           setData={paymnet}
+          items={items}
         />
       </div>
     );

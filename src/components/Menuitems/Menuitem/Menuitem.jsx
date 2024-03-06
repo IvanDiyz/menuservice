@@ -305,13 +305,11 @@ export default function Menuitem({ triger, dish }) {
               ></textarea>
             </div>
           </div>
-          {item?.priceDicount && (
             <Totaldish
               closePopup={closePopup}
               text={text}
               dispatchMethod={addBasket}
             />
-          )}
         </div>
       </Popup>
       <div

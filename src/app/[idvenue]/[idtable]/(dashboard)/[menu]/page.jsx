@@ -48,10 +48,10 @@ const menu = ({params}) => {
     }
   }, [menuId]);
 
-  useEffect(() => {
-    const id = localStorage.getItem("menuId");
-    idMenu == null && dispatch(setSearchMenu(id));
-  }, [])
+  // useEffect(() => {
+  //   const id = localStorage.getItem("menuId");
+  //   idMenu == null && dispatch(setSearchMenu(id));
+  // }, [])
   
   
   
