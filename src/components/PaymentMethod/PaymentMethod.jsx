@@ -32,8 +32,6 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch, form, paymen
     payment && setActivePayment(method)
     if (!choiceMethod) {
       setActivePayment( method || 1);
-    } else {
-      console.log('current', setHeightPay.current.scrollHeight)
     }
     if(method > 1 && !payment) {
       setHeight(67);
