@@ -5,7 +5,7 @@ import { useAppSelector } from "@/hooks/redux";
 import { setStatus } from "@/store/setOrder/setOrder";
 export default function Pageresult({ answer }) {
   const selector = useAppSelector;
-  const {venueId, tableId} = selector(state => state.menu)
+  const {venueId, tableUId} = selector(state => state.menu)
 
   const objResults = {
     mainUrl: {
@@ -64,9 +64,9 @@ export default function Pageresult({ answer }) {
   return (
     <section className={s.section}>
       {objResults[answer].header && (
-      <Resultheader venueId={venueId} tableId={tableId} result={objResults[answer].header} slice={objResults[answer].slice}/>
+      <Resultheader venueId={venueId} tableUId={tableUId} result={objResults[answer].header} slice={objResults[answer].slice}/>
       )}
-      <Resultbody venueId={venueId} tableId={tableId} answer={objResults[answer]}/>
+      <Resultbody venueId={venueId} tableUId={tableUId} answer={objResults[answer]}/>
     </section>
   );
 }
