@@ -18,13 +18,14 @@
         display: flex;
         align-items: center;
         column-gap: 10px;
-    
         span {
             color: #27257A;
             font-size: 6.6vw;
             font-weight: 600;
             line-height: 32px;
             letter-spacing: -1.2px;
+            min-width: 42px;
+            text-align: center;
         }
     
         button {
