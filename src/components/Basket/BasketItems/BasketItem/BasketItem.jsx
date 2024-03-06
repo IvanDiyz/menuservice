@@ -111,7 +111,7 @@ export default function BasketItem({ dish, indexItem, check }) {
       <div className={s.basketItem__price}>
         <span className={s.basketItem__priceItems}>{+dish.amount} ₴</span>
         <span className={s.basketItem__priceItem}>({dish.dish.discount ? +dish.dish.discount : +dish.dish.cost} ₴)</span>
-        {check != "payAll" ? (
+        {check != "payAll" && dish.dishStatusId != 6 ? (
           <div className={s.basketItem__checkBox} onClick={clickCheckbox}>
             <span
               className={`${s.basketItem__checkBox__cheked} ${

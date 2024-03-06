@@ -142,6 +142,7 @@ export default function OrderFooter() {
       <OrderBtn
         setData={postOrder}
         title={choiceMethod ? "Замовити та сплатити" : "Замовити"}
+        items={items}
       />
     </div>
   );
