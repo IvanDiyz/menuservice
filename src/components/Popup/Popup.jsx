@@ -10,8 +10,6 @@ export default function Popup({popup, closePopup, children, order}) {
     const checkHeight = () => {
       const blockHeight = popapBlock.current.getBoundingClientRect().height;
       const windowHeight = window.innerHeight;
-      console.log('blockHeight', blockHeight)
-      console.log('windowHeight', windowHeight)
       if ((blockHeight+150) > windowHeight) {
         setHeight(true)
       }

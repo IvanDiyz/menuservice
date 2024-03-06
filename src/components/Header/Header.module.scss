@@ -11,9 +11,8 @@
     line-height: 0;
   }
   &__logo {
-    border-radius: 12px;
     background-position: center;
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     width: 69px;
     height: 48px;
