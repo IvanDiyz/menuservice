@@ -10,7 +10,7 @@ import { setSearchMenu } from "@/store/setSearch/setSearch";
 const LinkMenu = ({ menu }) => {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
-  const { venueId, tableId } = selector((state) => state.menu);
+  const { venueId, tableId, tableUId } = selector((state) => state.menu);
   const [startTime, setStartTime] = useState(false);
   const [finishTime, setFinishTime] = useState(false);
   const [actualTime, setactualTime] = useState();
@@ -58,7 +58,7 @@ const LinkMenu = ({ menu }) => {
               ? `${s.menuWork}`
               : `${s.menuNoWork}`
           }`}
-          href={`/${venueId}/${tableId}/${menu.name.replace(/\s/g, "")}${
+          href={`/${venueId}/${tableUId}/${menu.name.replace(/\s/g, "")}${
             menu.id
           }`}
           onClick={() => menuId(menu.id, menu.name)}
@@ -100,7 +100,7 @@ const LinkMenu = ({ menu }) => {
       ) : (
         <Link
           className={s.menuWork}
-          href={`/${venueId}/${tableId}/${menu.name.replace(/\s/g, "")}${
+          href={`/${venueId}/${tableUId}/${menu.name.replace(/\s/g, "")}${
             menu.id
           }`}
           onClick={() => menuId(menu.id, menu.name)}

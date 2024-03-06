@@ -12,7 +12,7 @@ export default function Header({params}) {
   const selector = useAppSelector;
   const pathName = usePathname();
   const dispatch = useAppDispatch();
-  const { venueId, tableId, logoUrl } = selector((state) => state.menu);
+  const { venueId, tableUId, logoUrl } = selector((state) => state.menu);
   const { orderId } = selector((state) => state.setBasket);
   const [search, setSearch] = useState(false);
 
@@ -34,8 +34,8 @@ export default function Header({params}) {
   return (
     <header className={s.header}>
       <div className={s.header__burgerBox}>
-        {pathName !== `/${venueId}/${tableId}` ? (
-        <Link className={s.header__homeLink} href={`/${venueId}/${tableId}`}>
+        {pathName !== `/${venueId}/${tableUId}` ? (
+        <Link className={s.header__homeLink} href={`/${venueId}/${tableUId}`}>
           <svg
             width="24"
             height="24"
@@ -70,8 +70,8 @@ export default function Header({params}) {
         </span>
       </div>
       <div className={s.header__wrapper}>
-        <Link href={`/${venueId}/${tableId}`}>
-          {pathName == `/${venueId}/${tableId}` ? (
+        <Link href={`/${venueId}/${tableUId}`}>
+          {pathName == `/${venueId}/${tableUId}` ? (
             <svg
               width="69"
               height="48"
@@ -113,7 +113,7 @@ export default function Header({params}) {
         </Link>
       </div>
       <div className={s.header__wrapper}>
-        <Link href={`/${venueId}/${tableId}/basket`}>
+        <Link href={`/${venueId}/${tableUId}/basket`}>
           <svg
             width="24"
             height="24"

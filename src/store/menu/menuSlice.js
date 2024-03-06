@@ -9,6 +9,7 @@ const initialState = {
   isDelivery: false,
   venueId: null,
   tableId: null,
+  tableUId: null,
   menus: [],
   name: null,
   logoUrl: null,
@@ -42,8 +43,10 @@ export const menuSlice = createSlice({
       } 
     },
     managerVenueId: (state, action) => {
+      console.log('action',action)
       state.venueId = action.payload.venueId;
-      state.tableId = +action.payload.tableId;
+      // state.tableId = +action.payload.tableId;
+      state.tableUId = action.payload.tableId;
     },
     managerOrderId: (state, action) => {
       state.orders = action.payload;
@@ -68,7 +71,7 @@ export const menuSlice = createSlice({
         state.closingTime = closingTime;
         state.types = types;
         state.venueId = action.payload.venueId; //ожидаем что в ответе будет id
-        state.tableId = +action.payload.tableId;
+        state.tableId = desk.id;
         state.facebook = facebook;
         state.instagram = instagram;
         state.website = website;

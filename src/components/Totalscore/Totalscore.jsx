@@ -6,7 +6,7 @@ import { useAppSelector } from "@/hooks/redux";
 export default function Totalscore() {
   const selector = useAppSelector;
   const { amount, items } = selector(state => state.setOrder)
-  const { venueId, tableId } = selector(state => state.menu)
+  const { venueId, tableUId } = selector(state => state.menu)
 
   return (
     <div className={`${s.total} ${items.length > 0 ? `${s.total__active}` : ''}`}>
@@ -15,7 +15,7 @@ export default function Totalscore() {
         <span className={s.total__score}>{amount} ₴</span>
       </div>
       <div className={s.total__boxBtn}>
-        <Link href={`/${venueId}/${tableId}/order`}>
+        <Link href={`/${venueId}/${tableUId}/order`}>
           <span className={s.total__btn}>
           Переглянути замовлення
           </span>
