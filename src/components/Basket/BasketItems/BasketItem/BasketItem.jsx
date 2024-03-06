@@ -60,7 +60,7 @@ export default function BasketItem({ dish, indexItem, check }) {
           <div className={s.basketItem__infoBoxBtn}>
             <span className={s.basketItem__quantity}>{dish.quantity}</span>
           </div>
-          {dish.comment ? (
+          {dish.comment && dish.dishStatusId != 6 ? (
             <div className={s.basketItem__commentBox}>
               <svg
                 width="14"
