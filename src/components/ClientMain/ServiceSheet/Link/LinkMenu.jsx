@@ -5,7 +5,6 @@ import s from "./LinkMenu.module.scss";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setMenuId } from "@/store/getSections/getSections";
 import { useEffect, useState } from "react";
-import { setSearchMenu } from "@/store/setSearch/setSearch";
 
 const LinkMenu = ({ menu }) => {
   const selector = useAppSelector;
@@ -39,7 +38,6 @@ const LinkMenu = ({ menu }) => {
       localStorage.setItem("menuId", id);
       localStorage.setItem("menuName", name);
       dispatch(setMenuId({ id, name }));
-      dispatch(setSearchMenu(id));
       chekedClick(false);
     }
   }, [click]);
