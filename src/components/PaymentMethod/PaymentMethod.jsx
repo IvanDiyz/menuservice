@@ -4,24 +4,22 @@ import { useEffect, useRef, useState } from "react";
 import s from "./PaymentMethod.module.scss";
 import Tips from "../Tips/Tips";
 import DeliveryForm from "../DeliveryForm/DeliveryForm";
+import { changeChoice } from "@/store/setOrder/setOrder";
 
-const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch, form, payment, method}) => {
-  const setHeightPay = useRef(null);
-  const setHeightTips = useRef(null);
+const PaymentMethod = ({tips, choiceMethod, dispatchMethod, amount, tipsDispatch, form, payment, method, basket}) => {
+  const setHeightTips = useRef();
+  const methodHeight = useRef();
+
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
-  const { isDelivery } = selector(
-    (state) => state.menu
-  );
-  const { choiceMethod, paymentMethod } = selector(
-    (state) => state.setOrder
-  );
-  const { paymentStatus } = selector(
-    (state) => state.setBasket
-  );
+
+  const { isDelivery } = selector((state) => state.menu);
+  const { paymentStatus } = selector((state) => state.setBasket);
+
   const [email, setEmail] = useState("");
   const [activePayment, setActivePayment] = useState(method);
   const [heightPay, setHeight] = useState();
+  const [tipsHeight, setTipsHeight] = useState(0);
 
   let emailClient = (e) => {
     if(paymentStatus) return
@@ -29,50 +27,40 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch, form, paymen
   };
 
   useEffect(() => {
+    method != 1 ? setTipsHeight(setHeightTips.current.scrollHeight) : setTipsHeight(0);
+    choiceMethod ? setHeight(methodHeight.current.scrollHeight + 20) : setHeight(0);
+
+    isDelivery && dispatch(changeChoice(true))
+    !choiceMethod && !basket && dispatch(dispatchMethod(1))
     payment && setActivePayment(method)
     if (!choiceMethod) {
       setActivePayment( method || 1);
     }
-    if(method > 1 && !payment) {
-      setHeight(67);
-    } else {
-      setHeight(13); // 31
-    }
-    // setHeight((setHeightPay.current?.scrollHeight / 3.4));
-  }, [choiceMethod, method]);
+    
+  }, [choiceMethod, method, activePayment]);
   
-  useEffect(() => {
-    if (activePayment == 1 || payment) {
-      setHeight(13); // 31
-    } else {
-      setHeight(67); // 83.4
-    }
-    !payment && dispatch(dispatchMethod(activePayment))
-  }, [activePayment, payment, method]);
 
   const handlePaymentClick = (method) => {
     if(paymentStatus) {
       return
     }
     setActivePayment(method);
+    dispatch(dispatchMethod(method))
   };
 
   return (
     <div
-      ref={setHeightPay}
-      style={{
-        height: choiceMethod ? `${heightPay}vw` : "0",
-      }}
       className={`${s.orderFooter__paymentBox} ${
         choiceMethod  ? `${s.orderFooter__paymentBox__active}` : ""
       }`}
     >
-      <div className={`${s.orderFooter__payment} ${paymentStatus ? s.waiterWait : ''}`}>
+      <div style={{height: `${heightPay}px`}}  className={`${s.orderFooter__payment} ${paymentStatus ? s.waiterWait : ''}`}>
         <span
           className={`${s.orderFooter__paymentMethod} ${
             activePayment === 1 ? s.orderFooter__paymentActive : ""
           }`}
           onClick={() => handlePaymentClick(1)}
+          ref={methodHeight}
         >
           Готівка
         </span>
@@ -96,19 +84,11 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch, form, paymen
       <div
         className={s.orderFooter__tips}
         ref={setHeightTips}
-        style={{
-          minHeight:
-            activePayment != 1
-              // ? `${setHeightTips.current?.scrollHeight / 3.8}vw`
-              ? `${51}vw` // 52
-              : "0",
-        }}
+        style={{height: `${tipsHeight}px`}}
       > 
-        {!payment && (
         <Tips payment={payment} tips={tips} tipsDispatch={tipsDispatch} amount={amount}/>
-        )}
       </div>
-      {isDelivery && form && <DeliveryForm />}
+      {isDelivery && form && <div /* ref={formWrapper} */><DeliveryForm /></div>}
       {/* <input
         className={s.orderFooter__emailInput}
         type="email"

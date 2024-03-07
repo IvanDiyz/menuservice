@@ -135,10 +135,11 @@ export default function OrderFooter() {
           dispatchMethod={setPaymentMethod}
           amount={amount}
           form={true}
+          basket={false}
+          method={paymentMethod}
+          choiceMethod={choiceMethod}
         />
       )}
-      
-
       <OrderBtn
         setData={postOrder}
         title={choiceMethod ? "Замовити та сплатити" : "Замовити"}

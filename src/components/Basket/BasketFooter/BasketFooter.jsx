@@ -98,6 +98,8 @@ export default function BasketFooter() {
           form={false}
           payment={paymentStatus}
           method={paymentMethod}
+          basket={true}
+          choiceMethod={true}
         />
         <OrderBtn
           title={`${

@@ -1,10 +1,10 @@
 .orderFooter {
     &__payment {
-        padding-bottom: 4.4vw;
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         column-gap: 2.2vw;
+        transition: all 0.8s;
     }
 
     &__paymentMethod {

@@ -43,7 +43,6 @@ export const menuSlice = createSlice({
       } 
     },
     managerVenueId: (state, action) => {
-      console.log('action',action)
       state.venueId = action.payload.venueId;
       // state.tableId = +action.payload.tableId;
       state.tableUId = action.payload.tableId;
