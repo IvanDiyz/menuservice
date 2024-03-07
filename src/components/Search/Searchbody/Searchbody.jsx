@@ -8,13 +8,13 @@ import Menuitem from "@/components/Menuitems/Menuitem/Menuitem";
 export default function Searchbody({params}) {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
-  const { searchValue, dishis, idMenu } = selector((state) => state.setSearch);
+  const { searchValue, dishis } = selector((state) => state.setSearch);
   const { actualSection } = selector((state) => state.getDishis);
 
   useEffect(() => {
     if (searchValue) {
-      if(actualSection || idMenu) {
-        dispatch(fetchSearch({ idMenu, actualSection, searchValue, venueUId: params.idvenue }));
+      if(actualSection) {
+        dispatch(fetchSearch({ actualSection, searchValue, venueUId: params.idvenue }));
       } else {
         dispatch(fetchSearch({ searchValue, venueUId: params.idvenue  }));
       }
