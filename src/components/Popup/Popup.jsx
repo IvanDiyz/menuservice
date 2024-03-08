@@ -15,7 +15,7 @@ export default function Popup({popup, closePopup, children, order, item}) {
       }
     };
     popup && checkHeight();
-    !popup ?? setHeight(false);
+    !popup && setHeight(false);
 
     window.addEventListener('resize', checkHeight);
 
