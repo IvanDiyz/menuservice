@@ -5,6 +5,7 @@
         align-items: flex-start;
         column-gap: 2.2vw;
         transition: all 0.8s;
+        overflow: hidden;
     }
 
     &__paymentMethod {

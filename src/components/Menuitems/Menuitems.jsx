@@ -19,7 +19,7 @@ export default function Menuitems() {
   const { stateDishis, actualSection, currentPage, isLoading } = selector(
     (state) => state.getDishis
   );
-  const { venueId } = selector((state) => state.menu);
+  const { venueId, titleMethod, licenseType } = selector((state) => state.menu);
   const { amount } = selector((state) => state.setOrder);
   const { filters, stateFilters, filteredDish } = selector(
     (state) => state.setFilter
@@ -91,11 +91,9 @@ export default function Menuitems() {
             amount > 0 ? `${s.menuitems__amount}` : ""}`}
         >
           <div className={`${s.menuitems__boxTitle} ${
-            !setionName ? `${s.menuitems__boxTitleLeft}` : ""}`}>
-            {setionName ? (
-              <h4 className={s.menuitems__title}>{setionName}</h4>
-            ) : (
-              ''
+            !titleMethod ? `${s.menuitems__boxTitleLeft}` : ""}`}>
+            {titleMethod && (
+              <h4 className={s.menuitems__title}>{titleMethod}</h4>
             )}
             <div className={s.menuitems__change}>
               <p>Відображення</p>
@@ -111,11 +109,11 @@ export default function Menuitems() {
           </div>
           {stateFilters ? (
             filteredDish.map((el) => (
-              <Menuitem triger={display} dish={el} key={el.id} />
+              <Menuitem licenseType={licenseType} triger={display} dish={el} key={el.id} />
             ))
           ) : items.length > 0 ? (
             items?.map((el) => (
-              <Menuitem triger={display} dish={el} key={el.id} />
+              <Menuitem licenseType={licenseType} triger={display} dish={el} key={el.id} />
             ))
           ) : (
             <div className={s.menuitems__dishNotFound}>Страви ще не додані</div>

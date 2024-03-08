@@ -11,7 +11,7 @@ export default function Notificate() {
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
   const { notificate } = selector((state) => state.notificate);
-  const { tableId } = selector((state) => state.menu);
+  const { tableId, licenseType } = selector((state) => state.menu);
   const [call, changeCall] = useState(false);
   const [callRole, changeRole] = useState(false);
 
@@ -47,39 +47,39 @@ export default function Notificate() {
     }
   };
 
-  if (call) {
+  if(licenseType?.isBotOn) {
     return (
-      <div
-        className={`${s.notificate} ${
-          notificate > 0 ? `${s.notificate__active}` : ""
-        }`}
-      >
-        <span className={s.notificate__close} onClick={closeNotificate}></span>
-        <svg
-          width="56"
-          height="56"
-          viewBox="0 0 56 56"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+      <>
+        {call ? (
+          <div
+          className={`${s.notificate} ${
+            notificate > 0 ? `${s.notificate__active}` : ""
+          }`}
         >
-          <path
-            d="M46.6665 4.66675H9.33317C6.7665 4.66675 4.6665 6.76675 4.6665 9.33342V51.3334L13.9998 42.0001H46.6665C49.2565 42.0001 51.3332 39.9234 51.3332 37.3334V9.33342C51.3332 6.74341 49.2332 4.66675 46.6665 4.66675ZM24.4298 32.6667L16.3332 24.5001L19.5998 21.2101L24.4298 26.0634L36.3998 14.0001L39.6665 17.2901L24.4298 32.6667Z"
-            fill="#FF5C00"
-          />
-        </svg>
-        <h6 className={s.notificate__title}>Дякуємо</h6>
-        <span className={s.notificate__note}>
-          {`${objRole[callRole]}` === 'Меню' ? `Офіціант підійде до вас за хвилину`
-          : `${objRole[callRole]} підійде до вас за хвилину`}
-        </span>
-        <div className={s.notificate__wrapper}>
-          
+          <span className={s.notificate__close} onClick={closeNotificate}></span>
+          <svg
+            width="56"
+            height="56"
+            viewBox="0 0 56 56"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M46.6665 4.66675H9.33317C6.7665 4.66675 4.6665 6.76675 4.6665 9.33342V51.3334L13.9998 42.0001H46.6665C49.2565 42.0001 51.3332 39.9234 51.3332 37.3334V9.33342C51.3332 6.74341 49.2332 4.66675 46.6665 4.66675ZM24.4298 32.6667L16.3332 24.5001L19.5998 21.2101L24.4298 26.0634L36.3998 14.0001L39.6665 17.2901L24.4298 32.6667Z"
+              fill="#FF5C00"
+            />
+          </svg>
+          <h6 className={s.notificate__title}>Дякуємо</h6>
+          <span className={s.notificate__note}>
+            {`${objRole[callRole]}` === 'Меню' ? `Офіціант підійде до вас за хвилину`
+            : `${objRole[callRole]} підійде до вас за хвилину`}
+          </span>
+          <div className={s.notificate__wrapper}>
+            
+          </div>
         </div>
-      </div>
-    );
-  } else {
-    return (
-      <div
+        ) : (
+          <div
         className={`${s.notificate} ${
           notificate > 0 ? `${s.notificate__active}` : ""
         }`}
@@ -119,6 +119,12 @@ export default function Notificate() {
           />
         </div>
       </div>
-    );
+        )}
+      </>
+    )
+  } else {
+    return (
+      <></>
+    )
   }
 }

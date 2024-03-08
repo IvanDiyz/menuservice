@@ -35,7 +35,7 @@ export default function BasketFooter() {
     paymentMethod,
     totalDeclined,
   } = selector((state) => state.setBasket);
-  const { tableId } = selector((state) => state.menu);
+  const { tableId, licenseType } = selector((state) => state.menu);
   const [totalItems, setTotalItems] = useState(totalAmount);
 
   const objMethod = {
@@ -90,24 +90,31 @@ export default function BasketFooter() {
     return (
       <div className={s.orderFooter}>
         <Total tips={tips} totalDeclined={totalDeclined} total={totalItems} />
-        <PaymentMethod
-          tips={tips}
-          tipsDispatch={giveTips}
-          dispatchMethod={setPaymentMethod}
-          amount={totalAmount}
-          form={false}
-          payment={paymentStatus}
-          method={paymentMethod}
-          basket={true}
-          choiceMethod={true}
-        />
-        <OrderBtn
-          title={`${
-            paymentStatus ? "Очікуйте підтвердження оплати" : "Сплатити"
-          }`}
-          setData={paymnet}
-          items={items}
-        />
+        {licenseType?.isPaymentOn && (
+          <PaymentMethod
+            tips={tips}
+            tipsDispatch={giveTips}
+            dispatchMethod={setPaymentMethod}
+            amount={totalAmount}
+            form={false}
+            payment={paymentStatus}
+            method={paymentMethod}
+            basket={true}
+            choiceMethod={true}
+            cashBtn={licenseType?.isPayByCashOn} 
+            terminalBtn={licenseType?.isPayByTerminalOn} 
+            onlineBtn={licenseType?.isPayOnlineOn} 
+          />
+        )}
+        {licenseType?.isPaymentOn && (
+          <OrderBtn
+            title={`${
+              paymentStatus ? "Очікуйте підтвердження оплати" : "Сплатити"
+            }`}
+            setData={paymnet}
+            items={items}
+          />
+        )}
       </div>
     );
   }

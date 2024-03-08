@@ -26,7 +26,7 @@ export default function OrderFooter() {
     amount,
     paymentMethod,
   } = selector((state) => state.setOrder);
-  const { venueId, tableId, methodOrder, isDelivery } = selector((state) => state.menu);
+  const { venueId, tableId, methodOrder, isDelivery, licenseType } = selector((state) => state.menu);
   const { orderId, isPaid } = selector((state) => state.setBasket);
   const { name, phone, address, address_details, deliveryTime, commentToDelivery} = selector((state) => state.getClientInfo);
 
@@ -121,14 +121,14 @@ export default function OrderFooter() {
   return (
     <div className={s.orderFooter}>
       <Total total={allAmount} />
-      {!orderId && isPaid == null && !isDelivery && (
+      {!orderId && isPaid == null && !isDelivery && licenseType.isPaymentOn ? (
         <ChoiceMethods
           firstmethod={"Cплатити потім"}
           lastmethod={"Сплатити зараз"}
           svg={false}
         />
-      )}
-      {!orderId && isPaid == null && (
+      ) : ''}
+      {!orderId && isPaid == null && licenseType.isPaymentOn ? (
         <PaymentMethod
           tips={tips}
           tipsDispatch={giveTips}
@@ -138,8 +138,11 @@ export default function OrderFooter() {
           basket={false}
           method={paymentMethod}
           choiceMethod={choiceMethod}
+          cashBtn={licenseType?.isPayByCashOn} 
+          terminalBtn={licenseType?.isPayByTerminalOn} 
+          onlineBtn={licenseType?.isPayOnlineOn} 
         />
-      )}
+      ) : ''}
       <OrderBtn
         setData={postOrder}
         title={choiceMethod ? "Замовити та сплатити" : "Замовити"}
