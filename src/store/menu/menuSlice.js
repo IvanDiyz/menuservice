@@ -91,8 +91,10 @@ export const menuSlice = createSlice({
         if(action.payload.response?.orders[0]) {
           state.orders = action.payload.response?.orders[0]?.id;
         }
-        state.orderMethod = checkDeliveryOptions(state, licenseType?.isInPlaceOn, licenseType?.isDeliveryOn, licenseType?.isToGoOn, 'totalOrderMethod', 'activeOrderMethod');
-        state.paidMethod = checkDeliveryOptions(state, licenseType?.isPayByCashOn, licenseType?.isPayByTerminalOn, licenseType?.isPayOnlineOn, 'totalPaidMethod', 'activePaidMethod');
+        let arrOrders = [licenseType?.isInPlaceOn, licenseType?.isDeliveryOn, licenseType?.isToGoOn]
+        let arrPaids = [licenseType?.isPayByCashOn, licenseType?.isPayByTerminalOn, licenseType?.isPayOnlineOn]
+        state.orderMethod = checkDeliveryOptions(state, arrOrders, 'totalOrderMethod', 'activeOrderMethod');
+        state.paidMethod = checkDeliveryOptions(state, arrPaids, 'totalPaidMethod', 'activePaidMethod');
       })
       .addCase(fetchMenu.pending, (state) => {
         state.isLoading = true;
@@ -116,12 +118,12 @@ export const menuSlice = createSlice({
       }),
 });
 
-function checkDeliveryOptions(state, type1, type2, type3, total, active) {
+function checkDeliveryOptions(state, arr, total, active) {
   
-  const enabledCount = [type1, type2, type3].filter(Boolean).length;
+  const enabledCount = arr.filter(Boolean).length;
   state[total] = enabledCount;
-  for (let i = 0; i < [type1, type2, type3].length; i++) {
-    if ([type1, type2, type3][i]) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i]) {
       state[active] = i+1;
       break;
     }
