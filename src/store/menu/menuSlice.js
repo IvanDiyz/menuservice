@@ -147,7 +147,7 @@ const setFirstMethod = (state) => {
       method: true,
     }
   }
-  if(state.activeOrderMethod != 2) {
+  if(state.activeOrderMethod !== 2) {
     state.titleMethod = methodOrder[state.activeOrderMethod].title;
     state.methodOrder = methodOrder[state.activeOrderMethod].method;
   } else {
