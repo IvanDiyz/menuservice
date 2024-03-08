@@ -6,7 +6,7 @@ import Tips from "../Tips/Tips";
 import DeliveryForm from "../DeliveryForm/DeliveryForm";
 import { changeChoice } from "@/store/setOrder/setOrder";
 
-const PaymentMethod = ({tips, choiceMethod, dispatchMethod, amount, tipsDispatch, form, payment, method, basket}) => {
+const PaymentMethod = ({tips, choiceMethod, dispatchMethod, amount, tipsDispatch, form, payment, method, basket, cashBtn, terminalBtn, onlineBtn}) => {
   const setHeightTips = useRef();
   const methodHeight = useRef();
 
@@ -27,8 +27,8 @@ const PaymentMethod = ({tips, choiceMethod, dispatchMethod, amount, tipsDispatch
   };
 
   useEffect(() => {
-    method != 1 ? setTipsHeight(setHeightTips.current.scrollHeight) : setTipsHeight(0);
-    choiceMethod ? setHeight(methodHeight.current.scrollHeight + 20) : setHeight(0);
+    method != 1 ? setTipsHeight(setHeightTips.current?.scrollHeight) : setTipsHeight(0);
+    choiceMethod ? setHeight(methodHeight.current?.scrollHeight) : setHeight(0);
 
     isDelivery && dispatch(changeChoice(true))
     !choiceMethod && !basket && dispatch(dispatchMethod(1))
@@ -54,32 +54,38 @@ const PaymentMethod = ({tips, choiceMethod, dispatchMethod, amount, tipsDispatch
         choiceMethod  ? `${s.orderFooter__paymentBox__active}` : ""
       }`}
     >
-      <div style={{height: `${heightPay}px`}}  className={`${s.orderFooter__payment} ${paymentStatus ? s.waiterWait : ''}`}>
-        <span
-          className={`${s.orderFooter__paymentMethod} ${
-            activePayment === 1 ? s.orderFooter__paymentActive : ""
-          }`}
-          onClick={() => handlePaymentClick(1)}
-          ref={methodHeight}
-        >
-          Готівка
-        </span>
-        <span
-          className={`${s.orderFooter__paymentMethod} ${
-            activePayment === 2 ? s.orderFooter__paymentActive : ""
-          }`}
-          onClick={() => handlePaymentClick(2)}
-        >
-          Термінал
-        </span>
-        <span
-          className={`${s.orderFooter__paymentMethod} ${
-            activePayment === 3 ? s.orderFooter__paymentActive : ""
-          }`}
-          onClick={() => handlePaymentClick(3)}
-        >
-          Онлайн
-        </span>
+      <div ref={methodHeight} style={{height: `${heightPay}px`}}  className={`${s.orderFooter__payment} ${paymentStatus ? s.waiterWait : ''}`}>
+        {cashBtn && (
+          <span
+            className={`${s.orderFooter__paymentMethod} ${
+              activePayment === 1 ? s.orderFooter__paymentActive : ""
+            }`}
+            onClick={() => handlePaymentClick(1)}
+            // ref={methodHeight}
+          >
+            Готівка
+          </span>
+        )}
+        {terminalBtn && (
+          <span
+            className={`${s.orderFooter__paymentMethod} ${
+              activePayment === 2 ? s.orderFooter__paymentActive : ""
+            }`}
+            onClick={() => handlePaymentClick(2)}
+          >
+            Термінал
+          </span>
+        )}
+        {onlineBtn && (
+          <span
+            className={`${s.orderFooter__paymentMethod} ${
+              activePayment === 3 ? s.orderFooter__paymentActive : ""
+            }`}
+            onClick={() => handlePaymentClick(3)}
+          >
+            Онлайн
+          </span>
+        )}
       </div>
       <div
         className={s.orderFooter__tips}

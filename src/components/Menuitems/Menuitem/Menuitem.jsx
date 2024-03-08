@@ -15,7 +15,7 @@ import s from "./Menuitem.module.scss";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { popupState } from "@/store/menu/menuSlice";
 
-export default function Menuitem({ triger, dish }) {
+export default function Menuitem({ triger, dish, licenseType }) {
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
   const { items, item } = selector((state) => state.setOrder);
@@ -59,7 +59,7 @@ export default function Menuitem({ triger, dish }) {
       className={`${s.menuitem} ${triger === 0 ? `${s.menuitem__min}` : ""}`}
       onClick={clikedMinbox}
     >
-      <Popup popup={popup} openPopup={openPopup} closePopup={closePopup}>
+      <Popup popup={popup} openPopup={openPopup} closePopup={closePopup} item={item}>
         <div
           style={
             dish.img
@@ -240,15 +240,17 @@ export default function Menuitem({ triger, dish }) {
                 )}
               </div>
             </div>
-            <div className={s.menuitem__info_btn}>
-              <Buttons
-                costDiscount={dish.discount ? dish.discount : dish.cost}
-                dish={dish}
-                addDish={addDish}
-                changeQuantity={changeQuantity}
-                deleteDish={deleteDish}
-              />
-            </div>
+            {licenseType?.isOrderOn && (
+              <div className={s.menuitem__info_btn}>
+                <Buttons
+                  costDiscount={dish.discount ? dish.discount : dish.cost}
+                  dish={dish}
+                  addDish={addDish}
+                  changeQuantity={changeQuantity}
+                  deleteDish={deleteDish}
+                />
+              </div>
+            )}
           </div>
           {dish.ingredients?.length > 0 ? (
             <div className={s.menuitem__popupWrapper}>
@@ -283,27 +285,31 @@ export default function Menuitem({ triger, dish }) {
                       <p className={s.menuitem__additiveName}>{el.title}</p>
                       <p className={s.menuitem__additivePrice}>{+el.cost} ₴</p>
                     </div>
-                    <div className={s.menuitem__popup_btn}>
-                      <SuppleButton
-                        addonsId={el.id}
-                        addonsCost={el.cost}
-                        addonsName={el.title}
-                      />
-                    </div>
+                    {licenseType?.isOrderOn && (
+                      <div className={s.menuitem__popup_btn}>
+                        <SuppleButton
+                          addonsId={el.id}
+                          addonsCost={el.cost}
+                          addonsName={el.title}
+                        />
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
             ) : (
               ""
             )}
-            <div className={s.menuitem__textareaBox}>
-              <textarea
-                className={s.textarea}
-                placeholder="Коментар до кухні..."
-                value={text}
-                onChange={changeText}
-              ></textarea>
-            </div>
+            {licenseType?.isOrderOn && (
+              <div className={s.menuitem__textareaBox}>
+                <textarea
+                  className={s.textarea}
+                  placeholder="Коментар до кухні..."
+                  value={text}
+                  onChange={changeText}
+                ></textarea>
+              </div>
+            )}
           </div>
             <Totaldish
               closePopup={closePopup}
