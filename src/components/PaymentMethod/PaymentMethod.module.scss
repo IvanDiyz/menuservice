@@ -1,12 +1,16 @@
 .orderFooter {
     &__payment {
-        padding-bottom: 4.4vw;
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
+        column-gap: 2.2vw;
+        transition: all 0.8s;
+        overflow: hidden;
     }
 
     &__paymentMethod {
+        text-align: center;
+        color: #000000;
         font-size: 4.4vw;
         font-weight: 600;
         line-height: 6.6vw;
@@ -14,6 +18,7 @@
         padding: 2.2vw 4.4vw;
         border-radius: 6.6vw;
         border: 2px solid #DDD;
+        flex: 1;
     }
 
     &__paymentBox {

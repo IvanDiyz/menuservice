@@ -5,6 +5,7 @@ const initialState = {
   dishis: [],
   searchValue: '',
   isLoading: false,
+  stateSearch: false,
 };
 
 export const setSearch = createSlice({
@@ -19,6 +20,9 @@ export const setSearch = createSlice({
     },
     clearDishis: (state, action) => {
       state.dishis = [];
+    },
+    setOpenedSearch: (state, action) => {
+      state.stateSearch = action.payload;
     }
   },
   extraReducers: (builder) =>
@@ -37,5 +41,5 @@ export const setSearch = createSlice({
       }),
 });
 
-export const { clearDishis, changeValue } = setSearch.actions;
+export const { clearDishis, changeValue, setOpenedSearch } = setSearch.actions;
 export default setSearch.reducer;

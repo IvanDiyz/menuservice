@@ -2,21 +2,29 @@
 import OrderMethods from "@/components/ClientMain/OrderMethods/OrderMethods";
 import BasketItems from "@/components/Basket/BasketItems/BasketItems";
 import s from "./page.module.scss";
-import { useAppSelector } from "@/hooks/redux";
-import { setCheck } from "@/store/setBasket/setBasket";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { resetState, setCheck } from "@/store/setBasket/setBasket";
 import { useEffect, useState } from "react";
 import Loading from "@/components/Loading/Loading";
+import { fetchBasket } from "@/store/setBasket/basketApi";
 
 export default function Basket() {
+  const dispatch = useAppDispatch();
   const selector = useAppSelector;
-  const  { check, paymentStatus } = selector(state => state.setBasket)
+  const { tableId } = selector((state) => state.menu);
+  const  { check, paymentStatus, orderId } = selector(state => state.setBasket)
   const [status, setStatus] = useState(false);
-  
+
   useEffect(() => {
     if(paymentStatus) {
       setStatus(true);
     }
+
+    return () => {
+      tableId && dispatch(fetchBasket({orderId, tableId}));
+    }
   }, [paymentStatus])
+  
   useEffect(() => {
     if(status) {
       setTimeout(() => {
@@ -43,7 +51,18 @@ export default function Basket() {
   } else {
     return (
       <div className={s.order}>
-       <OrderMethods style={styleMethod} keySlice={check} dispatchMethod={setCheck} firstDescription={'payAll'} lastDescription={'splitPay'} firstmethod={'Сплатити за все'} lastmethod={'Розділити чек'} svg={false}/>
+        <OrderMethods 
+          firstBtn={true} 
+          lastBtn={true} 
+          style={styleMethod} 
+          keySlice={check} 
+          dispatchMethod={setCheck} 
+          firstDescription={'payAll'} 
+          lastDescription={'splitPay'} 
+          firstmethod={'Сплатити за все'} 
+          lastmethod={'Розділити чек'} 
+          svg={false}
+        />
        <h4 className={s.title}>Відвідувач №1</h4>
        <BasketItems />
       </div>

@@ -64,12 +64,11 @@ export const setOrder = createSlice({
       state.choiceMethod = action.payload;
     },
     changeQuantity: (state, action) => {
-      // debugger
       let creatDish = (obj) => {
         obj.quantity = action.payload.quantity;
         if (
           !action.payload.pathName ==
-          `/${action.payload.venueId}/${action.payload.tableId}/order`
+          `/${action.payload.venueId}/${action.payload.tableUId}/order`
         ) {
           obj.addons = action.payload.addons;
         }
@@ -79,7 +78,7 @@ export const setOrder = createSlice({
       };
       if (
         action.payload.pathName ==
-        `/${action.payload.venueId}/${action.payload.tableId}/order` && action.payload.indexItem
+        `/${action.payload.venueId}/${action.payload.tableUId}/order` && action.payload.indexItem
       ) {
         creatDish(state.items[action.payload.indexItem - 1]);
         state.amount = 0;
@@ -101,7 +100,7 @@ export const setOrder = createSlice({
     deleteDish: (state, action) => {
       if (
         action.payload.pathName ==
-        `/${action.payload.venueId}/${action.payload.tableId}/order`
+        `/${action.payload.venueId}/${action.payload.tableUId}/order`
       ) {
         state.items.splice(action.payload.indexItem - 1, 1);
         state.amount = 0;

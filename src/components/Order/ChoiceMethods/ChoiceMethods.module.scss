@@ -1,12 +1,15 @@
 .orderMethods {
-  margin-bottom: 16px;
+  margin-bottom: 6px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-radius: 6.6vw;
   background: #F5F5F5;
   padding: 1.25vw;
-
+  transition: all 0.8s;
+  &__active {
+    margin-bottom: 16px;
+  }
   &__button {
     display: flex;
     align-items: center;
@@ -26,6 +29,7 @@
     }
   }
   &__btn {
+    color: #000;
     background-color: unset;
     font-weight: 600;
     font-size: 4.4vw;

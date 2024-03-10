@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import s from "./Tips.module.scss";
 import { useEffect, useState } from "react";
 
-export default function Tips({ amount, tipsDispatch, tips }) {
+export default function Tips({ amount, tipsDispatch, tips, payment }) {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
   const { paymentStatus } = selector((state) => state.setBasket);
@@ -14,19 +14,21 @@ export default function Tips({ amount, tipsDispatch, tips }) {
   const [actualTips, setActualTips] = useState(0);
 
   useEffect(() => {
-    if(tips == 0) {
+    if(tips === 0 && payment != true) {
       setActualTips(tips);
       setInputValue('');
     }
   }, [tips])
 
   useEffect(() => {
+    // debugger
     if (inputValue && bool) {
       dispatch(
         tipsDispatch({ bool: bool, inputValue: inputValue, inputTips: true })
       );
-    } else {
-      dispatch(tipsDispatch({ bool, actualTips }));
+    } 
+    else {
+      payment != true && dispatch(tipsDispatch({ bool, actualTips }));
     }
   }, [bool, actualTips, amount]);
   //отображение карточки чаевых
@@ -102,8 +104,7 @@ export default function Tips({ amount, tipsDispatch, tips }) {
       <div className={s.tips__items}>
         <span
           className={`${s.tips__item} ${
-            Math.floor((amount * actualTips) / 100) ==
-              Math.floor(amount * 0.05) && amount * 0.05 != 0
+            actualTips === "5" && tips > 0
               ? `${s.tips__activeItem}`
               : ""
           }`}
@@ -115,8 +116,7 @@ export default function Tips({ amount, tipsDispatch, tips }) {
         </span>
         <span
           className={`${s.tips__item} ${
-            Math.floor((amount * actualTips) / 100) ==
-              Math.floor(amount * 0.1) && amount * 0.05 != 0
+            actualTips === "10" && tips > 0
               ? `${s.tips__activeItem}`
               : ""
           }`}
@@ -128,8 +128,7 @@ export default function Tips({ amount, tipsDispatch, tips }) {
         </span>
         <span
           className={`${s.tips__item} ${
-            Math.floor((amount * actualTips) / 100) ==
-              Math.floor(amount * 0.15) && amount * 0.05 != 0
+            actualTips === "15" && tips > 0
               ? `${s.tips__activeItem}`
               : ""
           }`}

@@ -9,7 +9,7 @@ export default function Buttons({ costDiscount, dish, addDish, changeQuantity, d
   const select = useAppSelector;
   const pathName = usePathname();
   const { item, addons, items} = select((state) => state.setOrder);
-  const { venueId, tableId} = select((state) => state.menu);
+  const { venueId, tableId, tableUId} = select((state) => state.menu);
   let [quantityDish, setQuantity] = useState(orderQuantity ? orderQuantity : 0);
 
   const amountSet = () => {
@@ -33,6 +33,7 @@ export default function Buttons({ costDiscount, dish, addDish, changeQuantity, d
             pathName: pathName,
             venueId: venueId,
             tableId: tableId,
+            tableUId: tableUId,
           })
         );
       } else {
@@ -60,6 +61,7 @@ export default function Buttons({ costDiscount, dish, addDish, changeQuantity, d
           pathName: pathName,
           venueId: venueId,
           tableId: tableId,
+          tableUId: tableUId,
         })
       );
     },
@@ -71,6 +73,7 @@ export default function Buttons({ costDiscount, dish, addDish, changeQuantity, d
           indexItem: indexItem,
           venueId: venueId,
           tableId: tableId,
+          tableUId: tableUId,
         })
       );
     },
@@ -80,7 +83,7 @@ export default function Buttons({ costDiscount, dish, addDish, changeQuantity, d
     if(dish.quantity !== quantityDish) {
       setQuantity(orderQuantity)
     }
-    if(!orderQuantity && pathName != `/${venueId}/${tableId}/order`) {
+    if(!orderQuantity && pathName != `/${venueId}/${tableUId}/order`) {
       if (item.quantity) {
         setQuantity(item.quantity);
       } else {
@@ -145,8 +148,8 @@ export default function Buttons({ costDiscount, dish, addDish, changeQuantity, d
       ) : (
         <button onClick={() => plusDish()}>
           <svg
-            width="24"
-            height="24"
+          width="224"
+          height="224"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

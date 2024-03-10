@@ -33,7 +33,9 @@ export default function BasketFooter() {
     tips,
     paymentStatus,
     paymentMethod,
+    totalDeclined,
   } = selector((state) => state.setBasket);
+  const { tableId, licenseType } = selector((state) => state.menu);
   const [totalItems, setTotalItems] = useState(totalAmount);
 
   const objMethod = {
@@ -71,10 +73,10 @@ export default function BasketFooter() {
   useEffect(() => {
     setTotalItems(allAmount);
     dispatch(changeChoice("now"));
-    if (typeof orderId === 'number') {
-      dispatch(fetchBasket(orderId));
+    if (typeof orderId === 'number' && tableId) {
+      dispatch(fetchBasket({orderId, tableId}));
     }
-  }, [orderId]);
+  }, [orderId, tableId]);
 
   useEffect(() => {
     let total = 0;
@@ -87,19 +89,32 @@ export default function BasketFooter() {
   if (orderId) {
     return (
       <div className={s.orderFooter}>
-        <Total total={totalItems} />
-        <PaymentMethod
-          tips={tips}
-          tipsDispatch={giveTips}
-          dispatchMethod={setPaymentMethod}
-          amount={totalAmount}
-        />
-        <OrderBtn
-          title={`${
-            paymentStatus ? "Очікуйте підтвердження оплати" : "Сплатити"
-          }`}
-          setData={paymnet}
-        />
+        <Total tips={tips} totalDeclined={totalDeclined} total={totalItems} />
+        {licenseType?.isPaymentOn && (
+          <PaymentMethod
+            tips={tips}
+            tipsDispatch={giveTips}
+            dispatchMethod={setPaymentMethod}
+            amount={totalAmount}
+            form={false}
+            payment={paymentStatus}
+            method={paymentMethod}
+            basket={true}
+            choiceMethod={true}
+            cashBtn={licenseType?.isPayByCashOn} 
+            terminalBtn={licenseType?.isPayByTerminalOn} 
+            onlineBtn={licenseType?.isPayOnlineOn} 
+          />
+        )}
+        {licenseType?.isPaymentOn && (
+          <OrderBtn
+            title={`${
+              paymentStatus ? "Очікуйте підтвердження оплати" : "Сплатити"
+            }`}
+            setData={paymnet}
+            items={items}
+          />
+        )}
       </div>
     );
   }

@@ -4,24 +4,22 @@ import { useEffect, useRef, useState } from "react";
 import s from "./PaymentMethod.module.scss";
 import Tips from "../Tips/Tips";
 import DeliveryForm from "../DeliveryForm/DeliveryForm";
+import { changeChoice } from "@/store/setOrder/setOrder";
 
-const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch}) => {
-  const setHeightPay = useRef(null);
-  const setHeightTips = useRef(null);
+const PaymentMethod = ({tips, choiceMethod, dispatchMethod, amount, tipsDispatch, form, payment, method, basket, cashBtn, terminalBtn, onlineBtn}) => {
+  const setHeightTips = useRef();
+  const methodHeight = useRef();
+
   const dispatch = useAppDispatch();
   const selector = useAppSelector;
-  const { isDelivery } = selector(
-    (state) => state.menu
-  );
-  const { choiceMethod } = selector(
-    (state) => state.setOrder
-  );
-  const { paymentStatus } = selector(
-    (state) => state.setBasket
-  );
+
+  const { isDelivery } = selector((state) => state.menu);
+  const { paymentStatus } = selector((state) => state.setBasket);
+
   const [email, setEmail] = useState("");
-  const [activePayment, setActivePayment] = useState(1);
+  const [activePayment, setActivePayment] = useState(method);
   const [heightPay, setHeight] = useState();
+  const [tipsHeight, setTipsHeight] = useState(0);
 
   let emailClient = (e) => {
     if(paymentStatus) return
@@ -29,85 +27,81 @@ const PaymentMethod = ({tips, dispatchMethod, amount, tipsDispatch}) => {
   };
 
   useEffect(() => {
-    if (!choiceMethod) {
-      setActivePayment(1);
-    }
-    // setHeight((setHeightPay.current?.scrollHeight / 3.4));
-    setHeight(31);
-  }, [choiceMethod]);
-  useEffect(() => {
-    if (activePayment == 1) {
-      setHeight(31);
-    } else {
-      setHeight(83.4);
-    }
-    dispatch(dispatchMethod(activePayment))
-  }, [activePayment]);
+    method != 1 ? setTipsHeight(setHeightTips.current?.scrollHeight) : setTipsHeight(0);
+    choiceMethod ? setHeight(methodHeight.current?.scrollHeight) : setHeight(0);
 
-  const handlePaymentClick = (paymentMethod) => {
+    isDelivery && dispatch(changeChoice(true))
+    !choiceMethod && !basket && dispatch(dispatchMethod(1))
+    payment && setActivePayment(method)
+    if (!choiceMethod) {
+      setActivePayment( method || 1);
+    }
+    
+  }, [choiceMethod, method, activePayment]);
+  
+
+  const handlePaymentClick = (method) => {
     if(paymentStatus) {
       return
     }
-    setActivePayment(paymentMethod);
+    setActivePayment(method);
+    dispatch(dispatchMethod(method))
   };
 
   return (
     <div
-      ref={setHeightPay}
-      style={{
-        minHeight: choiceMethod ? `${heightPay}vw` : "0",
-      }}
       className={`${s.orderFooter__paymentBox} ${
         choiceMethod  ? `${s.orderFooter__paymentBox__active}` : ""
       }`}
     >
-      <div className={`${s.orderFooter__payment} ${paymentStatus ? s.waiterWait : ''}`}>
-        <span
-          className={`${s.orderFooter__paymentMethod} ${
-            activePayment === 1 ? s.orderFooter__paymentActive : ""
-          }`}
-          onClick={() => handlePaymentClick(1)}
-        >
-          Готівка
-        </span>
-        <span
-          className={`${s.orderFooter__paymentMethod} ${
-            activePayment === 2 ? s.orderFooter__paymentActive : ""
-          }`}
-          onClick={() => handlePaymentClick(2)}
-        >
-          Термінал
-        </span>
-        <span
-          className={`${s.orderFooter__paymentMethod} ${
-            activePayment === 3 ? s.orderFooter__paymentActive : ""
-          }`}
-          onClick={() => handlePaymentClick(3)}
-        >
-          Онлайн
-        </span>
+      <div ref={methodHeight} style={{height: `${heightPay}px`}}  className={`${s.orderFooter__payment} ${paymentStatus ? s.waiterWait : ''}`}>
+        {cashBtn && (
+          <span
+            className={`${s.orderFooter__paymentMethod} ${
+              activePayment === 1 ? s.orderFooter__paymentActive : ""
+            }`}
+            onClick={() => handlePaymentClick(1)}
+            // ref={methodHeight}
+          >
+            Готівка
+          </span>
+        )}
+        {terminalBtn && (
+          <span
+            className={`${s.orderFooter__paymentMethod} ${
+              activePayment === 2 ? s.orderFooter__paymentActive : ""
+            }`}
+            onClick={() => handlePaymentClick(2)}
+          >
+            Термінал
+          </span>
+        )}
+        {onlineBtn && (
+          <span
+            className={`${s.orderFooter__paymentMethod} ${
+              activePayment === 3 ? s.orderFooter__paymentActive : ""
+            }`}
+            onClick={() => handlePaymentClick(3)}
+          >
+            Онлайн
+          </span>
+        )}
       </div>
       <div
         className={s.orderFooter__tips}
         ref={setHeightTips}
-        style={{
-          minHeight:
-            activePayment != 1
-              // ? `${setHeightTips.current?.scrollHeight / 3.8}vw`
-              ? `${52}vw`
-              : "0",
-        }}
-      >
-        <Tips tips={tips} tipsDispatch={tipsDispatch} amount={amount}/>
+        style={{height: `${tipsHeight}px`}}
+      > 
+        <Tips payment={payment} tips={tips} tipsDispatch={tipsDispatch} amount={amount}/>
       </div>
-      {isDelivery && <DeliveryForm />}
-      <input
+      {isDelivery && form && <div /* ref={formWrapper} */><DeliveryForm /></div>}
+      {/* <input
         className={s.orderFooter__emailInput}
         type="email"
         value={email}
         onChange={emailClient}
         placeholder="Введіть свій E-mail... Фіскальний чек"
-      />
+      /> */}
     </div>
   );
 };

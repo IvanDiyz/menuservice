@@ -1,14 +1,19 @@
 'use client'
 import { useEffect } from "react";
 import s from "./DeliveryTimeButtons.module.scss";
+import { setFastPossible } from "@/store/getClientInfo/getClientInfo";
+import { useAppDispatch } from "@/hooks/redux";
 
 const DeliveryTimeButtons = ({
   specifiedDeliveryTime,
   setSpecifiedDeliveryTime,
   setValue,
 }) => {
-  const handleDeliveryTimeChange = () =>
+  const dispatch = useAppDispatch();
+  const handleDeliveryTimeChange = () => {
     setSpecifiedDeliveryTime((prevState) => !prevState);
+    dispatch(setFastPossible(specifiedDeliveryTime));
+  }
 
   useEffect(() => {
     !specifiedDeliveryTime

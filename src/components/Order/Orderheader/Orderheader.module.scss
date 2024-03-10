@@ -3,7 +3,9 @@
   border-bottom: 1px solid #DDD;
   display: flex;
   justify-content: space-between;
-
+  &__stub {
+    width: 24px;
+  }
   &__popupBox {
     border-radius: 12px;
     border: 2px solid #BDBDBD;
@@ -28,6 +30,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    column-gap: 10px;
   }
 
   &__popupBtn {

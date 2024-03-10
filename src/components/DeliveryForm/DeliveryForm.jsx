@@ -19,7 +19,6 @@ const DeliveryForm = () => {
     resolver: yupResolver(deliveryFormSchema),
   });
 
-  const onSubmit = (data) => console.log(data);
 
   return (
     <div className={s.deliveryFormWrapper}>
@@ -51,8 +50,9 @@ const DeliveryForm = () => {
         </svg>
         <h2 className={s.deliveryFormTitle}>Інформація для доставки</h2>
       </div>
-      <form className={s.deliveryForm} onSubmit={handleSubmit(onSubmit)}>
+      <form className={s.deliveryForm}>
         <DeliveryInput
+          deliveryFormSchema={deliveryFormSchema}
           register={register}
           id="name"
           label="Ім’я"
@@ -60,8 +60,9 @@ const DeliveryForm = () => {
           type="text"
           error={errors.name?.message}
           required="required"
-        />
+          />
         <DeliveryInput
+          deliveryFormSchema={deliveryFormSchema}
           register={register}
           id="phone"
           label="Номер телефону"
@@ -69,8 +70,9 @@ const DeliveryForm = () => {
           type="tel"
           error={errors.phone?.message}
           required="required"
-        />
+          />
         <DeliveryInput
+          deliveryFormSchema={deliveryFormSchema}
           register={register}
           id="address"
           label="Адреса доставки"
@@ -78,8 +80,9 @@ const DeliveryForm = () => {
           type="text"
           error={errors.address?.message}
           required="required"
-        />
+          />
         <DeliveryInput
+          deliveryFormSchema={deliveryFormSchema}
           register={register}
           id="address_details"
           label="Номер квартири, поверх, офіс"
@@ -87,8 +90,9 @@ const DeliveryForm = () => {
           type="text"
           error={errors.address_details?.message}
           required="required"
-        />
+          />
         <DeliveryInput
+          deliveryFormSchema={deliveryFormSchema}
           setValue={setValue}
           specifiedDeliveryTime={specifiedDeliveryTime}
           setSpecifiedDeliveryTime={setSpecifiedDeliveryTime}
@@ -99,15 +103,15 @@ const DeliveryForm = () => {
           type={!specifiedDeliveryTime ? "text" : "time"}
           error={errors.deliveryTime?.message}
           required="required"
-        />
+          />
         <DeliveryInput
+          deliveryFormSchema={deliveryFormSchema}
           register={register}
           id="commentToDelivery"
           label="Коментар для кур’єра"
           name="commentToDelivery"
           type="text"
-        />
-        <button type="submit">Send</button>
+          />
       </form>
     </div>
   );

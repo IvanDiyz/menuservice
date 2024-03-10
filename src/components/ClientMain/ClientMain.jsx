@@ -20,7 +20,7 @@ const ClientMain = ({params}) => {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
   const [dataLoaded, setDataLoaded] = useState(false);
-  const {photoUrl, venueId, menus, address, extraPhone, phone, website, instagram, facebook, name, openingTime, closingTime, types, logoUrl, methodOrder} = selector((state)=> state.menu);
+  const {photoUrl, venueId, menus, address, extraPhone, phone, website, instagram, facebook, name, openingTime, closingTime, types, logoUrl, methodOrder, isDelivery, licenseType, orderMethod, totalOrderMethod} = selector((state)=> state.menu);
 
   useEffect(() => {
     dispatch(setCurrentPage(1))
@@ -35,15 +35,25 @@ const ClientMain = ({params}) => {
 
   const styleMethod = {
     active : {
-      paddingLeft: '29.5px',
-      paddingRight: '29.5px',
+      paddingLeft: '8vw',
+      paddingRight: '8vw',
       columnGap: '8px',
     },
-    disable : {
-      paddingLeft: '6vw',
-      paddingRight: '6vw',
-    }
+    disable : totalOrderMethod >= 3 ? 
+      {
+        paddingLeft: '6vw',
+        paddingRight: '6vw',
+      } : 
+      {
+        paddingLeft: '8vw',
+        paddingRight: '8vw',
+      }
   }
+
+  useEffect(() => {
+    localStorage.setItem("methodOrder", methodOrder);
+    localStorage.setItem("isDelivery", isDelivery);
+  }, [methodOrder])
 
   if (!dataLoaded) {
     return <Loading text={' '}></Loading>;
@@ -51,7 +61,24 @@ const ClientMain = ({params}) => {
     return (
       <Container>
         <ClientInfo photoUrl={photoUrl} name={name} logoUrl={logoUrl} openingTime={openingTime} closingTime={closingTime} types={types}/>
-        <OrderMethods style={styleMethod} deliveryProp={true} hide={true} keySlice={methodOrder} deliveryDescription={'delivery'} firstDescription={false} lastDescription={true} dispatchMethod={setMethodOrder} deliveryMethod={'Доставка'} firstmethod={'В закладі'} lastmethod={'Із собою'} svg={true}/>
+        {orderMethod && (
+          <OrderMethods 
+            style={styleMethod} 
+            firstBtn={licenseType?.isInPlaceOn} 
+            lastBtn={licenseType?.isToGoOn} 
+            deliveryProp={licenseType?.isDeliveryOn} 
+            hide={totalOrderMethod >= 3 ? true : false } 
+            keySlice={methodOrder} 
+            deliveryDescription={'delivery'} 
+            firstDescription={false} 
+            lastDescription={true} 
+            dispatchMethod={setMethodOrder} 
+            deliveryMethod={'Доставка'} 
+            firstmethod={'В закладі'} 
+            lastmethod={'Із собою'} 
+            svg={true} 
+          />
+        )}
         <ServiceSheet menus={menus}/>
         <Openedcontact address={address} extraPhone={extraPhone} phone={phone} website={website} instagram={instagram} facebook={facebook}/>
       </Container>

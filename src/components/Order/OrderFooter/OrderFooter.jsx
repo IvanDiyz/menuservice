@@ -26,9 +26,9 @@ export default function OrderFooter() {
     amount,
     paymentMethod,
   } = selector((state) => state.setOrder);
-  const { venueId, tableId, methodOrder, isDelivery } = selector((state) => state.menu);
+  const { venueId, tableId, methodOrder, isDelivery, licenseType } = selector((state) => state.menu);
   const { orderId, isPaid } = selector((state) => state.setBasket);
-  const clientInfo = selector((state) => state.getClientInfo);
+  const { name, phone, address, address_details, deliveryTime, commentToDelivery} = selector((state) => state.getClientInfo);
 
   useEffect(() => {
     if(!isDelivery) {
@@ -38,6 +38,8 @@ export default function OrderFooter() {
       dispatch(giveTips({ inputTips: false, actualTips: 0 }));
     }
   }, [amount]);
+
+  
 
   const creatData = () => {
     let dishList = [];
@@ -86,16 +88,19 @@ export default function OrderFooter() {
 
   const postOrder = () => {
     const data = creatData();
+    !choiceMethod && delete data.paymentMethodId;
     if(isDelivery) {
-      for (const key in clientInfo) {
-        if (clientInfo.hasOwnProperty(key)) {
-          data[key] = clientInfo[key];
+      let dataClient = {name, phone, address, address_details, deliveryTime, commentToDelivery}
+      for (const key in dataClient) {
+        if (dataClient.hasOwnProperty(key)) {
+          data[key] = dataClient[key];
         }
       }
     }
     if (items.length > 0) {
       dispatch(
         fetchOrder({
+          choiceMethod: choiceMethod,
           orderId: orderId,
           venueId: venueId,
           tableId: tableId,
@@ -116,30 +121,32 @@ export default function OrderFooter() {
   return (
     <div className={s.orderFooter}>
       <Total total={allAmount} />
-      {!orderId && isPaid == null && !isDelivery ? (
+      {!orderId && isPaid == null && !isDelivery && licenseType.isPaymentOn ? (
         <ChoiceMethods
           firstmethod={"Cплатити потім"}
-          lastmethod={"Сплтатити зараз"}
+          lastmethod={"Сплатити зараз"}
           svg={false}
         />
-      ) : (
-        ""
-      )}
-      {!orderId && isPaid == null ? (
+      ) : ''}
+      {!orderId && isPaid == null && licenseType.isPaymentOn ? (
         <PaymentMethod
           tips={tips}
           tipsDispatch={giveTips}
           dispatchMethod={setPaymentMethod}
           amount={amount}
+          form={true}
+          basket={false}
+          method={paymentMethod}
+          choiceMethod={choiceMethod}
+          cashBtn={licenseType?.isPayByCashOn} 
+          terminalBtn={licenseType?.isPayByTerminalOn} 
+          onlineBtn={licenseType?.isPayOnlineOn} 
         />
-      ) : (
-        ""
-      )}
-      
-
+      ) : ''}
       <OrderBtn
         setData={postOrder}
         title={choiceMethod ? "Замовити та сплатити" : "Замовити"}
+        items={items}
       />
     </div>
   );

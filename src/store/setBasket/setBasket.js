@@ -5,7 +5,7 @@ import { fetchMenu } from "../menu/menuApi";
 
 const initialState = {
   allAmount: 0,
-  paymentMethod: 'cash',
+  paymentMethod: 1,
   check: 'payAll',
   items: [],
   status: false,
@@ -15,6 +15,7 @@ const initialState = {
   totalAmount: 0,
   responsDish: [],
   paymentStatus: false,
+  totalDeclined: false,
 };
 
 export const setBasket = createSlice({
@@ -38,6 +39,13 @@ export const setBasket = createSlice({
     },
     setIsPaid: (state, action) => {
       state.isPaid = action.payload;
+    },
+    resetState: (state, action) => {
+      state.items = [];
+      state.responsDish = [];
+    },
+    removeId: (state, action) => {
+      state.orderId = null;
     },
     setPaymentStatus: (state, action) => {
       state.paymentStatus = action.payload;
@@ -89,18 +97,28 @@ export const setBasket = createSlice({
         state.status = "loading";
       })
       .addCase(fetchBasket.fulfilled, (state, action) => {
-        if(action.payload.isPaid) {
+        if(action.payload.isPaid || action.payload.length <= 0) {
           Object.assign(state, initialState);
           state.isPaid = action.payload.isPaid;
         } else {
-          const {id, totalAmount, isPaid, dishes} = action.payload
+          const {id, totalAmount, isPaid, dishes, tips, orderPaymentMethodId} = action.payload
           state.data = action.payload;
           state.responsDish = dishes;
           state.items = dishes;
           state.status = "succeeded";
           state.orderId = id;
+          state.tips = +tips;
+          state.paymentMethod = orderPaymentMethodId;
           state.isPaid = isPaid; // не забыть поменять на isPaid
           state.totalAmount = +totalAmount;
+          const sumDeclined = dishes.reduce((acc, obj) => {
+            if (obj.dishStatusId === 6) {
+              acc += +obj.amount;
+            }
+            return acc;
+          }, 0);
+          
+          state.totalDeclined = sumDeclined;
         }
       })
       .addCase(fetchBasket.rejected, (state, action) => {
@@ -128,5 +146,5 @@ const defineItem = (obj1, obj2) => {
 }
 
 
-export const { setIsPaid, getPaymentStatus, setPaymentStatus, giveTips, addItem, removeItem, clearItems, setItems, setPaymentMethod, setCheck, } = setBasket.actions;
+export const { removeId, resetState, setIsPaid, getPaymentStatus, setPaymentStatus, giveTips, addItem, removeItem, clearItems, setItems, setPaymentMethod, setCheck, } = setBasket.actions;
 export default setBasket.reducer;

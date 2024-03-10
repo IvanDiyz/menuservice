@@ -13,14 +13,16 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useEffect, useState } from "react";
 import { setMenuId } from "@/store/getSections/getSections";
 import { managerItems } from "@/store/setOrder/setOrder";
+import { clearDishis, setActualSection } from "@/store/getDishis/getDishis";
 
-const menu = () => {
+const menu = ({params}) => {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
   const [dataLoaded, setDataLoaded] = useState(false);
   const { menuId, error } = selector((state) => state.getSections);
   const { amount, items } = selector((state) => state.setOrder);
-  
+  const [search, setSearch] = useState(false);
+
 
   useEffect(() => {
     if(menuId == null) {
@@ -36,10 +38,14 @@ const menu = () => {
       setDataLoaded(true);
     };
     fetchData();
+    
+    return () => {
+      dispatch(clearDishis())
+      dispatch(setActualSection(null))
+    }
   }, [menuId]);
 
- 
-
+  
   useEffect(() => {
     const localItems = JSON.parse(localStorage.getItem('items'))
     const localAmount = JSON.parse(localStorage.getItem('amount'))

@@ -9,7 +9,7 @@ import { Suspense, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useParams, useRouter } from "next/navigation";
 import { setIsPaid, setPaymentStatus } from "@/store/setBasket/setBasket";
-import { managerOrderId, managerVenueId } from "@/store/menu/menuSlice";
+import { managerOrderId, managerVenueId, setMethodOrder } from "@/store/menu/menuSlice";
 import { fetchMenu } from "@/store/menu/menuApi";
 
 export default function App({ children }) {
@@ -21,7 +21,8 @@ export default function App({ children }) {
   const { paymentStatus, isPaid, orderId } = selector(
     (state) => state.setBasket
   );
-  const { tableId, venueId, orders } = selector((state) => state.menu);
+  const { tableId, venueId, orders, methodOrder, popup } = selector((state) => state.menu);
+  const { stateSearch } = selector((state) => state.setSearch);
 
   useEffect(() => {
     if (venueId == null || tableId == null) {
@@ -104,9 +105,17 @@ export default function App({ children }) {
     }
   }, [isPaid, paymentStatus, orders, redirectStatus]);
 
+  useEffect(() => {
+    const methodOrderLocal = localStorage.getItem("methodOrder");
+    if(methodOrderLocal !== methodOrder && methodOrderLocal != null) {
+      dispatch(setMethodOrder(methodOrderLocal === 'delivery' ? methodOrderLocal: JSON.parse(methodOrderLocal)))
+    }
+  }, [])
+
+
   return (
     <html lang="en">
-      <body>
+      <body  className={`${s.app} ${stateSearch || popup ? s.app__open : s.app__close}`}>
         <ToastContainer position="top-center" autoClose={3000} pauseOnHover />
         {children}
         <Suspense fallback={null}>
