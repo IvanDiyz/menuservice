@@ -17,9 +17,11 @@
     .buttons__info_btn_active {
         display: flex;
         align-items: center;
-        column-gap: 10px;
+        column-gap: 5px;
     
         span {
+            text-align: center;
+            min-width: 40px;
             color: #27257A;
             font-size: 6.6vw;
             font-weight: 600;

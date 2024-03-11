@@ -123,6 +123,7 @@
     &__additivePrice {
         font-size: 4.4vw;
         line-height: 6.6vw;
+        max-width: 47.2vw;
     }
 
     &__additives {
@@ -242,6 +243,7 @@
         font-weight: 600;
         line-height: 7.7vw;
         letter-spacing: -1px;
+        max-width: 52vw;
     }
 
     &__price {
@@ -415,6 +417,11 @@
             font-size: 3.8vw;
             border-radius: 0;
             background: transparent;
+        }
+        &__info_quantity {
+            position: absolute;
+            bottom: 0;
+            right: 0;
         }
     }
 
