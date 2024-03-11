@@ -12,7 +12,6 @@
 	margin-bottom: 20px;
 	flex-wrap: wrap;
 	column-gap: 8px;
-
 	label {
 		text-wrap: nowrap;
 		color: #000;
@@ -73,6 +72,7 @@
 	}
 
 	&__Select {
+		background: #fff;
 		border-radius: 0 0 5px 5px;
 		font-size: 14px;
 		width: inherit;
@@ -82,7 +82,9 @@
 		height: max-content;
 		border: 1px solid #747484;
 
-		option {
+		span {
+			display: block;
+			min-height: 40px;
 			padding: 8px;
 
 			&:hover {
