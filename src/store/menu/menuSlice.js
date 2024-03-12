@@ -14,8 +14,6 @@ const initialState = {
   name: null,
   logoUrl: null,
   photoUrl: null,
-  openingTime: null,
-  closingTime: null,
   types: [],
   isLoading: 'nune',
   facebook: null,
@@ -69,14 +67,12 @@ export const menuSlice = createSlice({
         state.status = "success";
         state.isLoading = false;
         state.error = "";
-        const { desk, orders, licenseType, menus, name, logoUrl, photoUrl, openingTime, closingTime, types, facebook, instagram, website, phone, extraPhone, description, address } = action.payload.response;
+        const { desk, orders, licenseType, menus, name, logoUrl, photoUrl, types, facebook, instagram, website, phone, extraPhone, description, address } = action.payload.response;
         state.menus = menus;
         state.titleTable = desk.title;
         state.name = name;
         state.logoUrl = logoUrl;
         state.photoUrl = photoUrl;
-        state.openingTime = openingTime;
-        state.closingTime = closingTime;
         state.types = types;
         state.licenseType = licenseType;
         state.venueId = action.payload.venueId; //ожидаем что в ответе будет id
@@ -119,7 +115,7 @@ export const menuSlice = createSlice({
 });
 
 function checkDeliveryOptions(state, arr, total, active) {
-  
+
   const enabledCount = arr.filter(Boolean).length;
   state[total] = enabledCount;
   for (let i = 0; i < arr.length; i++) {
@@ -155,7 +151,7 @@ const setFirstMethod = (state) => {
     state.methodOrder = false;
     state.isDelivery = methodOrder[state.activeOrderMethod].method;
   }
-  
+
 }
 
 export const { popupState, managerOrderId, managerVenueId, setMethodOrder } = menuSlice.actions;

@@ -20,14 +20,14 @@ const ClientMain = ({params}) => {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
   const [dataLoaded, setDataLoaded] = useState(false);
-  const {photoUrl, venueId, menus, address, extraPhone, phone, website, instagram, facebook, name, openingTime, closingTime, types, logoUrl, methodOrder, isDelivery, licenseType, orderMethod, totalOrderMethod} = selector((state)=> state.menu);
+  const {photoUrl, venueId, menus, address, extraPhone, phone, website, instagram, facebook, name, types, logoUrl, methodOrder, isDelivery, licenseType, orderMethod, totalOrderMethod} = selector((state)=> state.menu);
 
   useEffect(() => {
     dispatch(setCurrentPage(1))
     dispatch(clearDishis())
   }, [])
 
-  useEffect(() => {   
+  useEffect(() => {
     if(venueId !== null) {
       setDataLoaded(true)
     }
@@ -39,11 +39,11 @@ const ClientMain = ({params}) => {
       paddingRight: '8vw',
       columnGap: '8px',
     },
-    disable : totalOrderMethod >= 3 ? 
+    disable : totalOrderMethod >= 3 ?
       {
         paddingLeft: '6vw',
         paddingRight: '6vw',
-      } : 
+      } :
       {
         paddingLeft: '8vw',
         paddingRight: '8vw',
@@ -60,23 +60,23 @@ const ClientMain = ({params}) => {
   }else {
     return (
       <Container>
-        <ClientInfo photoUrl={photoUrl} name={name} logoUrl={logoUrl} openingTime={openingTime} closingTime={closingTime} types={types}/>
+        <ClientInfo photoUrl={photoUrl} name={name} logoUrl={logoUrl} types={types}/>
         {orderMethod && (
-          <OrderMethods 
-            style={styleMethod} 
-            firstBtn={licenseType?.isInPlaceOn} 
-            lastBtn={licenseType?.isToGoOn} 
-            deliveryProp={licenseType?.isDeliveryOn} 
-            hide={totalOrderMethod >= 3 ? true : false } 
-            keySlice={methodOrder} 
-            deliveryDescription={'delivery'} 
-            firstDescription={false} 
-            lastDescription={true} 
-            dispatchMethod={setMethodOrder} 
-            deliveryMethod={'Доставка'} 
-            firstmethod={'В закладі'} 
-            lastmethod={'Із собою'} 
-            svg={true} 
+          <OrderMethods
+            style={styleMethod}
+            firstBtn={licenseType?.isInPlaceOn}
+            lastBtn={licenseType?.isToGoOn}
+            deliveryProp={licenseType?.isDeliveryOn}
+            hide={totalOrderMethod >= 3 ? true : false }
+            keySlice={methodOrder}
+            deliveryDescription={'delivery'}
+            firstDescription={false}
+            lastDescription={true}
+            dispatchMethod={setMethodOrder}
+            deliveryMethod={'Доставка'}
+            firstmethod={'В закладі'}
+            lastmethod={'Із собою'}
+            svg={true}
           />
         )}
         <ServiceSheet menus={menus}/>
