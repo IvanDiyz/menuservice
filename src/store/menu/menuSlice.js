@@ -33,6 +33,8 @@ const initialState = {
   paidMethod: false,
   totalPaidMethod: null,
   activePaidMethod: 1,
+  openingTime: null,
+  closingTime: null,
 };
 
 export const menuSlice = createSlice({
@@ -67,7 +69,7 @@ export const menuSlice = createSlice({
         state.status = "success";
         state.isLoading = false;
         state.error = "";
-        const { desk, orders, licenseType, menus, name, logoUrl, photoUrl, types, facebook, instagram, website, phone, extraPhone, description, address } = action.payload.response;
+        const { workingDays, desk, orders, licenseType, menus, name, logoUrl, photoUrl, types, facebook, instagram, website, phone, extraPhone, description, address } = action.payload.response;
         state.menus = menus;
         state.titleTable = desk.title;
         state.name = name;
@@ -91,6 +93,7 @@ export const menuSlice = createSlice({
         let arrPaids = [licenseType?.isPayByCashOn, licenseType?.isPayByTerminalOn, licenseType?.isPayOnlineOn]
         state.orderMethod = checkDeliveryOptions(state, arrOrders, 'totalOrderMethod', 'activeOrderMethod');
         state.paidMethod = checkDeliveryOptions(state, arrPaids, 'totalPaidMethod', 'activePaidMethod');
+        scheduleАnalysis(workingDays, state)
       })
       .addCase(fetchMenu.pending, (state) => {
         state.isLoading = true;
@@ -151,7 +154,47 @@ const setFirstMethod = (state) => {
     state.methodOrder = false;
     state.isDelivery = methodOrder[state.activeOrderMethod].method;
   }
+}
 
+const scheduleАnalysis = (workingDays, state) => {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const currentTime = `${hours}:${minutes}`;
+  const openingHours = JSON.parse(workingDays);
+  const daysOfWeek = Object.keys(openingHours);
+  const today = new Date().toLocaleString('en', { weekday: 'short' }).toLowerCase();
+  
+  let prevDayToday = false; 
+  let openingHoursArray = [];
+
+  daysOfWeek.forEach((day, index) => {
+    const openingTime = openingHours[day].openingTime;
+    let closingTime = openingHours[day].closingTime;
+    
+    if (index > 0 && day === today && closingTime && currentTime < openingHours[daysOfWeek[index - 1]].closingTime && currentTime < openingTime) {
+      openingHoursArray[index - 1].today = true;
+      prevDayToday = true;
+    }
+
+    let todayFlag = !prevDayToday && day === today;
+
+
+    openingHoursArray.push({
+      dayOfWeek: day,
+      openingTime: openingTime,
+      closingTime: closingTime,
+      today: todayFlag
+    });
+
+    prevDayToday = prevDayToday && !todayFlag;
+  });
+
+  const todayOpeningHours = openingHoursArray.find(day => day.dayOfWeek === today);
+
+  state.daysWeek = openingHoursArray;
+  state.openingTime = todayOpeningHours ? todayOpeningHours.openingTime : null;
+  state.closingTime = todayOpeningHours ? todayOpeningHours.closingTime : null;
 }
 
 export const { popupState, managerOrderId, managerVenueId, setMethodOrder } = menuSlice.actions;

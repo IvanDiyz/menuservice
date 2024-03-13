@@ -20,7 +20,7 @@ const ClientMain = ({params}) => {
   const selector = useAppSelector;
   const dispatch = useAppDispatch();
   const [dataLoaded, setDataLoaded] = useState(false);
-  const {photoUrl, venueId, menus, address, extraPhone, phone, website, instagram, facebook, name, types, logoUrl, methodOrder, isDelivery, licenseType, orderMethod, totalOrderMethod} = selector((state)=> state.menu);
+  const {photoUrl, closingTime, openingTime, venueId, menus, address, extraPhone, phone, website, instagram, facebook, name, types, logoUrl, methodOrder, isDelivery, licenseType, orderMethod, totalOrderMethod, daysWeek} = selector((state)=> state.menu);
 
   useEffect(() => {
     dispatch(setCurrentPage(1))
@@ -60,7 +60,7 @@ const ClientMain = ({params}) => {
   }else {
     return (
       <Container>
-        <ClientInfo photoUrl={photoUrl} name={name} logoUrl={logoUrl} types={types}/>
+        <ClientInfo closingTime={closingTime} openingTime={openingTime} photoUrl={photoUrl} name={name} logoUrl={logoUrl} types={types}/>
         {orderMethod && (
           <OrderMethods
             style={styleMethod}
@@ -80,7 +80,7 @@ const ClientMain = ({params}) => {
           />
         )}
         <ServiceSheet menus={menus}/>
-        <Openedcontact address={address} extraPhone={extraPhone} phone={phone} website={website} instagram={instagram} facebook={facebook}/>
+        <Openedcontact daysWeek={daysWeek} address={address} extraPhone={extraPhone} phone={phone} website={website} instagram={instagram} facebook={facebook}/>
       </Container>
     );
   }

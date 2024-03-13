@@ -1,7 +1,16 @@
 import Link from "next/link";
 import s from "./Openedcontact.module.scss";
 
-const Openedcontact = ({address, extraPhone, phone, website, instagram, facebook}) => {
+const Openedcontact = ({address, extraPhone, phone, website, instagram, facebook, daysWeek}) => {
+  const daysWeekTitle = {
+    mon: "ПН",
+    tue: "ВТ",
+    wed: "СР",
+    thu: "ЧТ",
+    fri: "ПТ",
+    sat: "СБ",
+    sun: "НД",
+  }
   return (
     <div className={s.contact}>
       <div className={s.contact__box}>
@@ -60,8 +69,23 @@ const Openedcontact = ({address, extraPhone, phone, website, instagram, facebook
           <Link href={`${website}`} className={s.contact__boxText}>{website}</Link>
         ) : ''}
       </div>
+      <div className={s.contact__workDays}>
+        <h5 className={s.contact__workTitle}>Робочий час</h5>
+        {daysWeek && daysWeek.map((day, index) => (
+          (day.openingTime && day.closingTime) && (
+            <div key={index} className={`${s.contact__workDay} ${day.today && (s.contact__workDayActive)}`}>
+              <span className={s.contact__workDayWeek}>{daysWeekTitle[day.dayOfWeek]}</span>
+              <span className={s.contact__workTime}>{day.openingTime}</span>
+              <span className={s.contact__workPoint}>-</span>
+              <span className={s.contact__workTime}>{day.closingTime}</span>
+            </div>
+          )
+        ))}
+      </div>
     </div>
   );
 };
 
 export default Openedcontact;
+
+
