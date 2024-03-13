@@ -20,6 +20,28 @@
         column-gap: 16px;
         padding-top: 10px;
     }
+    &__workTitle {
+        text-align: left;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 24px;
+        padding-bottom: 10px;
+    }
+    &__workDay {
+        font-weight: 400;
+        line-height: 24px;
+        font-size: 16px;
+        color: #696969;
+    }
+    &__workDayActive {
+        font-weight: 600;
+    }
+    &__workDayWeek {
+        padding-right: 25px;
+    }
+    &__workPoint {
+        padding: 0 5px;
+    }
 }
 
 .contact::before {
