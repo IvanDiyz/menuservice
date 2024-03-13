@@ -52,6 +52,7 @@ const Multiselect = ({ id, label, paramsClient }) => {
 
   return (
     <div className={s.editVenueFormSelectWrapper}>
+      <span className={s.editVenueFormSelectWrapper__label} htmlFor={label}>{label}</span>
       <div ref={selectContainer} className={s.Drop}>
         <div className={s.Drop__Input}>
           <div className={s.Drop__Data}>
