@@ -64,13 +64,12 @@ const Openedcontact = ({address, extraPhone, phone, website, instagram, facebook
           
         </div>
       </div>
-      <div className={s.contact__box}>
+      <div className={s.contact__boxWeb}>
         {website ? (
-          <Link href={`${website}`} className={s.contact__boxText}>{website}</Link>
+          <Link href={`${website}`} className={s.contact__web}>{website}</Link>
         ) : ''}
       </div>
       <div className={s.contact__workDays}>
-        <h5 className={s.contact__workTitle}>Робочий час</h5>
         {daysWeek && daysWeek.map((day, index) => (
           (day.openingTime && day.closingTime) && (
             <div key={index} className={`${s.contact__workDay} ${day.today && (s.contact__workDayActive)}`}>
