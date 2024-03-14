@@ -1,13 +1,14 @@
-.app {
-    &__open {
-        height: 100%;
-        width: 100%;
-        position: fixed;
-        overflow-y: hidden;
-        pointer-events: none;
-    }
-
-    &__close {
-        overflow: auto;
-    }
-}
+// remove scroll issue and white block on the bottom for iphone (partial render of content)
+//.app {
+//    &__open {
+//        height: 100%;
+//        width: 100%;
+//        position: fixed;
+//        overflow-y: hidden;
+//        pointer-events: none;
+//    }
+//
+//    &__close {
+//        overflow: auto;
+//    }
+//}

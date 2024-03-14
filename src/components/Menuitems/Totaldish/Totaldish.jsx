@@ -34,19 +34,21 @@ export default function Totaldish({ text, closePopup, title, dispatchMethod, ind
     changeClick(true)
   }
 
-  return (
-    <div className={`${s.total} ${item.amount ? `${s.total__active}` : ''}`}>
-      <div className={s.total__chek}>
-        <span className={s.total__title}>Разом</span>
-        <span className={s.total__score}>{amountDish} ₴</span>
-      </div>
-      <div className={s.total__boxBtn}>
-        
-          <span className={s.total__btn} onClick={clickBtn}>
-            {title ? title : 'Додати до замовлення'}
-          </span>
-        
-      </div>
-    </div>
-  );
+  if(item.amount > 0) {
+    return (
+        <div className={`${s.total} ${item.amount ? `${s.total__active}` : ''}`}>
+          <div className={s.total__chek}>
+            <span className={s.total__title}>Разом</span>
+            <span className={s.total__score}>{amountDish} ₴</span>
+          </div>
+          <div className={s.total__boxBtn}>
+
+            <span className={s.total__btn} onClick={clickBtn}>
+              {title ? title : 'Додати до замовлення'}
+            </span>
+
+          </div>
+        </div>
+    );
+  }
 }
