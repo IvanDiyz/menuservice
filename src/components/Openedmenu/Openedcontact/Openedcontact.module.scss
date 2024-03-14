@@ -6,26 +6,21 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-
-    &__boxText {
+    &__boxWeb {
+        padding-bottom: 16px;
+    }
+    &__boxTextб
+    &__web {
         color: #696969;
         font-size: 16px;
         font-weight: 600;
         line-height: 24px;
         letter-spacing: -0.8px;
     }
-
     &__social {
         display: flex;
         column-gap: 16px;
         padding-top: 10px;
-    }
-    &__workTitle {
-        text-align: left;
-        font-size: 16px;
-        font-weight: 600;
-        line-height: 24px;
-        padding-bottom: 10px;
     }
     &__workDay {
         font-weight: 400;
