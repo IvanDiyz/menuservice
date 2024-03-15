@@ -6,36 +6,79 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+
     &__boxWeb {
         padding-bottom: 16px;
     }
-    &__boxTextб
-    &__web {
+
+    &__boxTextб &__web {
         color: #696969;
         font-size: 16px;
         font-weight: 600;
         line-height: 24px;
         letter-spacing: -0.8px;
     }
+
     &__social {
         display: flex;
         column-gap: 16px;
         padding-top: 10px;
     }
+
+    &__workDays {
+        padding-bottom: 16px;
+        position: relative;
+        width: 100%;
+    }
+
+    &__workDays::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+        background: #DDD;
+        height: 2px;
+        width: 90%;
+    }
+
     &__workDay {
+        letter-spacing: -0.05em;
         font-weight: 400;
         line-height: 24px;
         font-size: 16px;
         color: #696969;
     }
+
     &__workDayActive {
         font-weight: 600;
     }
+
     &__workDayWeek {
         padding-right: 25px;
     }
+
     &__workPoint {
         padding: 0 5px;
+    }
+
+    &__politics {
+        padding: 16px 0 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__politicLink {
+        color: #696969;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: -0.05em;
+    }
+    &__logo {
+        padding-bottom: 16px;
     }
 }
 
